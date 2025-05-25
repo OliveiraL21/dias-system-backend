@@ -14,11 +14,12 @@ namespace Domain.Services.Tarefas
     {
         Task<TarefaDtoCreateResult> InsertAsync(TarefaDtoCreate tarefa);
         Task<TarefaDto> SelectAsync(Guid id);
-        Task<TarefaDtoUpdateResult> UpdateResult(Guid id, TarefaDtoUpdate tarefa);
+        Task<TarefaDtoUpdateResult> UpdateAsync(Guid id, TarefaDtoUpdate tarefa);
         Task<bool> DeleteAsync(Guid id);
         Task<IEnumerable<TarefaDto>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId);
         Task<string> calcularHorasTotaisAsync(DateTime data);
-        Task<IEnumerable<TarefaEntity>> ListaAsync();
+        Task<IEnumerable<TarefaDto>> ListaAsync();
         Task<DashboardDtoResult> ListaByProjetoAsync(Guid projeto);
+        Task<object>calcularDuracao(string horarioInicio, string horarioFim);
     }
 }

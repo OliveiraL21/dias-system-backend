@@ -1,5 +1,4 @@
-﻿using Application.DTO.StatusDTO;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Dtos.cliente;
 using Domain.Dtos.projeto;
 using Domain.Dtos.status;
@@ -114,6 +113,8 @@ namespace CrossCutting.Mapping
 
             CreateMap<UsuarioEntity, UserDtoUpdateResult>()
                .ReverseMap();
+
+            
         }
     }
 }

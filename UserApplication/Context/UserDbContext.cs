@@ -6,9 +6,9 @@ using System;
 
 namespace UserApplication.Context
 {
-    public class UserDbContext : IdentityDbContext<CustomIdentityUser, IdentityRole<int>, int>
+    public class UserDbContext : IdentityDbContext<CustomIdentityUser, IdentityRole<Guid>, Guid>
     {
-        DbSet<Usuario> usuarios { get; set; }
+        DbSet<UsuarioEntity> usuarios { get; set; }
 
         public UserDbContext(DbContextOptions<UserDbContext>options) : base (options) 
         {
@@ -20,7 +20,7 @@ namespace UserApplication.Context
             base.OnModelCreating(builder);
             CustomIdentityUser  admin = new CustomIdentityUser()
             {
-                Id = 99999,
+                Id = Guid.NewGuid(),
                 UserName = "admin",
                 NormalizedUserName = "admin",
                 Email = "admin",

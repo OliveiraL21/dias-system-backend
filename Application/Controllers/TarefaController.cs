@@ -1,14 +1,13 @@
-﻿using Application.DTO.Tarefas.Create;
-using Application.DTO.Tarefas.Listagem;
-using Application.DTO.Tarefas.Update;
-using AutoMapper;
-using Domain.Entidades;
+﻿using Domain.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
 using System;
 using Domain.Services.Tarefas;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
+using System.Linq;
+using Domain.Dtos.tarefas;
 
 namespace Application.Controllers
 {
@@ -18,17 +17,15 @@ namespace Application.Controllers
     public class TarefaController : ControllerBase
     {
         private readonly ITarefaService _tarefaService;
-        private IMapper _mapper;
 
-        public TarefaController(ITarefaService tarefaService, IMapper _mapper)
+        public TarefaController(ITarefaService tarefaService)
         {
             _tarefaService = tarefaService;
-            this._mapper = _mapper;
         }
 
         [HttpGet]
-        [Route("filtrar/{descricao}/{dataInicio}/{dataFim}/{projetoId}")]
-        public IActionResult Filtrar(string? descricao, string? dataInicio, string? dataFim, int? projetoId)
+        [Route("filtrar")]
+        public async Task<IActionResult> Filtrar([FromQuery] string? descricao, [FromQuery] string? dataInicio, [FromQuery] string? dataFim, [FromQuery] Guid? projetoId)
         {
             try
             {
@@ -37,14 +34,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var tarefas = _tarefaService.filtrarTarefas(descricao, dataInicio, dataFim, projetoId);
-                var result = new List<TarefaListagemDTO>();
-
-                foreach (var tarefa in tarefas)
-                {
-                    var tarefaDTO = _mapper.Map<TarefaListagemDTO>(tarefa);
-                    result.Add(tarefaDTO);
-                }
+                var result = await _tarefaService.FiltrarAsync(descricao, dataInicio, dataFim, projetoId);
 
                 if (result == null)
                 {
@@ -61,7 +51,7 @@ namespace Application.Controllers
 
         [HttpGet]
        
-        public IActionResult listarTarefas()
+        public async Task<IActionResult> listarTarefas()
         {
             try
             {
@@ -70,19 +60,9 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var tarefas = _tarefaService.listaTarefas();
-                var result = new List<TarefaListagemDTO>();
+                var result = await _tarefaService.ListaAsync();
 
-                foreach (var tarefa in tarefas)
-                {
-                    tarefa.HorarioInicio = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Convert.ToDateTime(tarefa.HorarioInicio), "E. South America Standard Time");
-                    tarefa.HorarioFim = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Convert.ToDateTime(tarefa.HorarioFim), "E. South America Standard Time");
-                    var tarefaDTO = _mapper.Map<TarefaListagemDTO>(tarefa);
-                    result.Add(tarefaDTO);
-                }
-
-
-                if (result.Count == 0 && result == null)
+                if (result.Count() == 0 && result == null)
                 {
                     return BadRequest();
                 }
@@ -98,7 +78,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("duracao/{horarioInicio}/{horarioFim}")]
-        public IActionResult calcularDuracao(string horarioInicio, string horarioFim)
+        public async Task<IActionResult> calcularDuracao(string horarioInicio, string horarioFim)
         {
             try
             {
@@ -107,17 +87,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var periodoInicio = horarioInicio.Split(":");
-                var periodoFinal = horarioFim.Split(":");
-
-                var periodoInicial = new TimeSpan((int)long.Parse(periodoInicio[0]), (int)long.Parse(periodoInicio[1]), 0);
-                var periodoFim = new TimeSpan((int)long.Parse(periodoFinal[0]), (int)long.Parse(periodoFinal[1]), 0);
-
-                var duracao = periodoFim.Add(-periodoInicial);
-                var result = new
-                {
-                    Duracao = duracao.ToString(),
-                };
+                var result = await _tarefaService.calcularDuracao(horarioInicio, horarioFim);
 
                 return Ok(result);
             }
@@ -129,7 +99,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("horasTotais/{data}")]
-        public IActionResult calcularTotaisHoras(DateTime data)
+        public async Task<IActionResult> calcularTotaisHoras(DateTime data)
         {
             try
             {
@@ -138,7 +108,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var total = _tarefaService.calcularHorasTotais(data);
+                var total = await _tarefaService.calcularHorasTotaisAsync(data);
 
                 var result = new
                 {
@@ -159,7 +129,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("detalhes_tarefas/{id}")]
-        public IActionResult details(int id)
+        public IActionResult details(Guid id)
         {
             try
             {
@@ -168,7 +138,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _tarefaService.select(id);
+                var result = _tarefaService.SelectAsync(id);
 
                 if (result == null)
                 {
@@ -184,7 +154,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult createTarefa([FromBody] CreateTarefaDTO tarefaDto)
+        public IActionResult createTarefa([FromBody] TarefaDtoCreate tarefaDto)
         {
             try
             {
@@ -193,9 +163,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-              
-                var tarefa = _mapper.Map<TarefaEntity>(tarefaDto);
-                var result = this._tarefaService.insert(tarefa);
+                var result = this._tarefaService.InsertAsync(tarefaDto);
 
                 if (result == null)
                 {
@@ -212,7 +180,7 @@ namespace Application.Controllers
 
         [HttpPut]
         [Route("update_tarefas/{id}")]
-        public IActionResult updateTarefa(int id, [FromBody] UpdateTarefaDTO tarefaDto)
+        public IActionResult updateTarefa(Guid id, [FromBody] TarefaDtoUpdate tarefaDto)
         {
             try
             {
@@ -221,11 +189,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                tarefaDto.Id = id;
-            
-
-                var tarefa = _mapper.Map<TarefaEntity>(tarefaDto);
-                var result = _tarefaService.update(tarefa);
+                var result = _tarefaService.UpdateAsync(id, tarefaDto);
 
                 if (result == null)
                 {
@@ -242,7 +206,7 @@ namespace Application.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult ExcluirTarefa(int id)
+        public async Task<IActionResult> ExcluirTarefa(Guid id)
         {
             try
             {
@@ -251,7 +215,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _tarefaService.delete(id);
+                var result = await _tarefaService.DeleteAsync(id);
 
                 if (!result)
                 {
@@ -269,7 +233,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("lista/projeto/{projeto}")]
-        public IActionResult ListaTarefasByProjeto(int projeto)
+        public async Task<IActionResult> ListaTarefasByProjeto(Guid projeto)
         {
             try
             {
@@ -278,7 +242,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _tarefaService.ListaTarefaByProjeto(projeto);
+                var result = await _tarefaService.ListaByProjetoAsync(projeto);
 
                 if(result == null)
                 {

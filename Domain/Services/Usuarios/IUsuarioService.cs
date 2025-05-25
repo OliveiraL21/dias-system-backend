@@ -14,9 +14,9 @@ namespace Domain.Services.Usuarios
         Result ativaUsuario(AtivaRequest request);
         Result solicitarResetSenha(SolicitaRedefinicaoRequest solicitaRedefinicaoRequest);
         Result EfetuarResetSenha(ResetaSenhaRequest request);
-        Result createUsuario(Usuario usuario);
+        Result createUsuario(UserDtoCreate usuario);
         Result update(UserDtoUpdate usuario);
-        Usuario detaillsUsuario(int id);
+        UserDto detaillsUsuario(Guid id);
         Result updateProfileImage(string imageUrl, int id);
     }
 }

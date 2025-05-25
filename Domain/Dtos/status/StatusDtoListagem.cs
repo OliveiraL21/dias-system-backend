@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.DTO.StatusDTO
+namespace Domain.Dtos.status
 {
     public class StatusDtoListagem
     {

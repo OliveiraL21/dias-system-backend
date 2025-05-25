@@ -1,4 +1,5 @@
-﻿using Domain.Entidades;
+﻿using Domain.Dtos.dashboard;
+using Domain.Entidades;
 using Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Domain.Repositories
         Task<string> calcularHorasTotaisAsync(DateTime data);
         Task<IEnumerable<TarefaEntity>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId);
         Task<IEnumerable<TarefaEntity>> GetAllAsync();
+        Task<DashboardDtoResult>ListByProjetoAsync(Guid? projeto);
 
     }
 }

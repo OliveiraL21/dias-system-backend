@@ -2,10 +2,10 @@
 using Services.StatusService;
 using System.Net;
 using System;
-using Domain.Entidades;
-using Application.DTO.StatusDTO;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Domain.Dtos.status;
+using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
@@ -25,7 +25,7 @@ namespace Application.Controllers
         [HttpGet]
         [Route("listaStatus")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult listaTodos()
+        public async Task<IActionResult> listaTodos()
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _statusService.listaStatus();
+                var result = await _statusService.ListaAsync();
 
                 if (result == null)
                 {
@@ -53,7 +53,7 @@ namespace Application.Controllers
         [HttpPost]
         [Route("createStatus")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult create([FromBody] CreateStatusDto statusDTO)
+        public async Task<IActionResult> create([FromBody] StatusDtoCreate statusDTO)
         {
             try
             {
@@ -62,8 +62,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var status = _mapper.Map<StatusEntity>(statusDTO);
-                var result = _statusService.insert(status);
+                var result = await _statusService.InsertAsync(statusDTO);
                 if(result == null)
                 {
                     return BadRequest();
@@ -78,9 +77,9 @@ namespace Application.Controllers
         }
 
         [HttpPut]
-        [Route("updateStatus")]
+        [Route("updateStatus/{id}")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult update([FromBody] StatusEntity status)
+        public async Task<IActionResult> update(Guid id, [FromBody] StatusDtoUpdate status)
         {
             try
             {
@@ -89,7 +88,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _statusService.update(status);
+                var result = await _statusService.UpdateAsync(id, status);
                 if(result == null)
                 {
                     return BadRequest();
@@ -106,7 +105,7 @@ namespace Application.Controllers
         [HttpGet]
         [Route("detalhes_status/{id}")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult details(int id)
+        public async Task<IActionResult> details(Guid id)
         {
             try
             {
@@ -115,7 +114,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _statusService.select(id);
+                var result = await _statusService.SelectAsync(id);
 
                 if(result == null)
                 {
@@ -133,7 +132,7 @@ namespace Application.Controllers
         [HttpDelete]
         [Route("delete_status/{id}")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult delete(int id)
+        public async Task<IActionResult> delete(Guid id)
         {
             try
             {
@@ -142,7 +141,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _statusService.delete(id);
+                var result = await _statusService.DeleteAsync(id);
                 
                 if(result == false)
                 {

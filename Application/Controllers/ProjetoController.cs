@@ -1,7 +1,5 @@
-﻿using Domain.Entidades;
-using Domain.Services.Projetos;
+﻿using Domain.Services.Projetos;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Net;
 using System;
 using AutoMapper;

@@ -27,6 +27,8 @@ namespace CrossCutting.Mapping
 
             CreateMap<UserModel, UsuarioEntity>()
                 .ReverseMap();
+            CreateMap<UserModel, CustomIdentityUser>()
+                .ReverseMap();
         }
     }
 }

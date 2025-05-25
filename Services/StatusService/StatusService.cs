@@ -1,6 +1,11 @@
-﻿using Data.Context;
+﻿using AutoMapper;
+using Data.Context;
+using Domain.Dtos.status;
 using Domain.Entidades;
+using Domain.Models;
+using Domain.Repositories;
 using Domain.Repository;
+using Domain.Services.Status;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,42 +15,44 @@ using System.Threading.Tasks;
 
 namespace Services.StatusService
 {
-    public class StatusService : IRepository<StatusEntity>
+    public class StatusService : IStatusService
     {
-        private readonly IRepository<StatusEntity> _repository;
-        private readonly MyContext _context;
+        private readonly IStatusRepository _repository;
+        private readonly IMapper _mapper;
 
-        public StatusService(IRepository<StatusEntity> repository, MyContext context)
+        public StatusService(IStatusRepository repository, IMapper mapper)
         {
            _repository= repository;
-            _context= context;
+            _mapper= mapper;
         }
 
-        public StatusEntity insert(StatusEntity status)
+        public async Task<StatusDtoCreateResult> InsertAsync(StatusDtoCreate status)
         {
-            var result = _repository.insert(status);
-            return result;
+            var model = _mapper.Map<StatusModel>(status);
+            var entity = _mapper.Map<StatusEntity>(model);
+            return _mapper.Map<StatusDtoCreateResult>( await _repository.InsertAsync(entity));
+           
         }
 
-        public bool delete(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _repository.delete(id);
-            return result;
+            return await _repository.DeleteAsync(id);        }
+
+        public async Task<StatusDto> SelectAsync(Guid id)
+        {
+            return _mapper.Map<StatusDto>(await _repository.SelectAsync(id));
         }
 
-        public StatusEntity select(int id)
+        public async Task<IEnumerable<StatusDtoListagem>> ListaAsync()
         {
-           return _repository.select(id);
+            return _mapper.Map<IEnumerable<StatusDtoListagem>>(await _repository.GetAllAsync());
         }
 
-        public IEnumerable<StatusEntity> listaStatus()
+        public async Task<StatusDtoUpdateResult> UpdateAsync(Guid id, StatusDtoUpdate status)
         {
-            return _context.Status.ToList();
-        }
-
-        public StatusEntity update(StatusEntity status)
-        {
-           return _repository.update(status);
+            var model = _mapper.Map<StatusModel>(status);
+            var entity = _mapper.Map<StatusEntity>(model);
+           return _mapper.Map<StatusDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
     }
 }

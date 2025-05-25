@@ -24,7 +24,7 @@ namespace UserApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult create([FromBody] Usuario usuario)
+        public IActionResult create([FromBody] UserDtoCreate usuario)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace UserApplication.Controllers
 
         [HttpGet]
         [Route("detalhes/{id}")]
-        public IActionResult detalhesUsuario (int id)
+        public IActionResult detalhesUsuario (Guid id)
         {
             try
             {

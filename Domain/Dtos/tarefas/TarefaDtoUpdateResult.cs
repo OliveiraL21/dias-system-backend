@@ -1,4 +1,4 @@
-﻿using Application.DTO.Projetos;
+﻿using Domain.Dtos.projeto;
 using Domain.Dtos.status;
 using System;
 using System.Collections.Generic;

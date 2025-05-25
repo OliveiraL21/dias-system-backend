@@ -72,7 +72,7 @@ namespace Services.Usuarios
             return _userManager.Users.Any(u => u.UserName == username);
         }
 
-        public  Result createUsuario(Usuario usuario)
+        public  Result createUsuario(UserDtoCreate usuario)
         {
             CustomIdentityUser user = _mapper.Map<CustomIdentityUser>(usuario);
 
@@ -97,7 +97,7 @@ namespace Services.Usuarios
 
                 var destinatario = new List<Destinatario>
                 {
-                    new Destinatario { Nome = usuario.Username, Email = usuario.Email }
+                    new Destinatario { Nome = usuario.username, Email = usuario.Email }
                 };
 
                 var encodeCode = HttpUtility.UrlEncode(code);
@@ -110,18 +110,18 @@ namespace Services.Usuarios
             return Result.Fail($"Erro ao tentar cadastrar o usuário");
         }
 
-        public Usuario detaillsUsuario(int id)
+        public UserDto detaillsUsuario(Guid id)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
 
-            var result = _mapper.Map<Usuario>(user);
+            var result = _mapper.Map<UsuarioEntity>(user);
 
             return result;
         }
 
         public Result update(UserDtoUpdate usuario)
         {
-            var entity = _mapper.Map<Usuario>(usuario);
+            var entity = _mapper.Map<UsuarioEntity>(usuario);
             var user = _userManager.Users.FirstOrDefault(u => u.Id == usuario.Id);
              
 
@@ -141,7 +141,7 @@ namespace Services.Usuarios
             return Result.Fail("Erro ao tentar atualizar o usuário");
         }
 
-        public Result updateProfileImage(string imageUrl, int id)
+        public Result updateProfileImage(string imageUrl, Guid id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
             user.ProfileImageUrl = imageUrl;

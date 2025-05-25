@@ -1,11 +1,7 @@
-﻿using Domain.Entidades;
-using Domain.Services.Clientes;
+﻿using Domain.Services.Clientes;
 using Microsoft.AspNetCore.Mvc;
-using Services.Clientes;
 using System.Net;
 using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Domain.Dtos.cliente;
