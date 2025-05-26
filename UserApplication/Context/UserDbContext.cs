@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 
 namespace UserApplication.Context
 {
@@ -15,12 +16,13 @@ namespace UserApplication.Context
 
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected async override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            var admId = Guid.NewGuid();
             CustomIdentityUser  admin = new CustomIdentityUser()
             {
-                Id = Guid.NewGuid(),
+                Id = admId,
                 UserName = "admin",
                 NormalizedUserName = "admin",
                 Email = "admin",
@@ -40,26 +42,27 @@ namespace UserApplication.Context
 
             builder.Entity<CustomIdentityUser>().HasData(admin);
 
-            builder.Entity<IdentityRole<int>>().HasData(
-                    new IdentityRole<int>
+            var roleAdmId = Guid.NewGuid();
+            builder.Entity<IdentityRole<Guid>>().HasData(
+                    new IdentityRole<Guid>
                     {
-                        Id = 99999,
+                        Id =roleAdmId,
                         Name = "admin",
                         NormalizedName = "ADMIN",
                     }
                 );
 
-            builder.Entity<IdentityRole<int>>().HasData(
-              new IdentityRole<int>
+            builder.Entity<IdentityRole<Guid>>().HasData(
+              new IdentityRole<Guid>
               {
-                  Id = 99997,
+                  Id = Guid.NewGuid(),
                   Name = "regular",
                   NormalizedName = "REGULAR",
               }
           );
 
-            builder.Entity<IdentityUserRole<int>>().HasData(
-                    new IdentityUserRole<int> { RoleId = 99999, UserId = 99999 }
+            builder.Entity<IdentityUserRole<Guid>>().HasData(
+                    new IdentityUserRole<Guid> { RoleId = roleAdmId, UserId = admId }
                 );
         }
     }

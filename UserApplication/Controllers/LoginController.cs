@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Any;
 using Services.ResetSenha;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace UserApplication.Controllers
 {
@@ -23,7 +24,7 @@ namespace UserApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logar (LoginRequest login)
+        public async Task<IActionResult> LogarAsync (LoginRequest login)
         {
             try
             {
@@ -32,17 +33,17 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var existe = _loginService.UsuarioExiste(login.Username);
+                var existe = await _loginService.UsuarioExiste(login.Username);
                 if (existe)
                 {
-                    var isCorrectPassword = _loginService.VerificaSenha(login.Username, login.Password);
+                    var isCorrectPassword = await _loginService.VerificaSenha(login.Username, login.Password);
 
                     if(isCorrectPassword == false)
                     {
                         return StatusCode((int) HttpStatusCode.InternalServerError, new ErrorHandle { Error = "Senha incorreta"});
                     }
 
-                    var result = _loginService.Login(login);
+                    var result = await _loginService.Login(login);
 
                     if (result.IsFail == false)
                     {
@@ -68,7 +69,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("solicita-reset")]
-        public IActionResult SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest)
+        public async Task<IActionResult> SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest)
         {
             try
             {
@@ -77,7 +78,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                Result result = _resetaSenha.SolicitaResetSenha(redefinicaoRequest);
+                Result result = await _resetaSenha.SolicitaResetSenha(redefinicaoRequest);
 
                 if (result.IsFailed)
                 {
@@ -93,7 +94,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("efetuar-reset")]
-        public IActionResult ResetarSenha(ResetaSenhaRequest resetSenha)
+        public async Task<IActionResult> ResetarSenha(ResetaSenhaRequest resetSenha)
         {
             try
             {
@@ -102,7 +103,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _resetaSenha.EfetuarResetSenhaUsuario(resetSenha);
+                var result = await _resetaSenha.EfetuarResetSenhaUsuario(resetSenha);
 
                 if (result.IsSuccess)
                 {

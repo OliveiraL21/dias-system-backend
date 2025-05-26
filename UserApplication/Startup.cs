@@ -57,7 +57,7 @@ namespace UserApplication
                 }
                 ));
            
-            services.AddIdentity<CustomIdentityUser, IdentityRole<int>>(opt =>
+            services.AddIdentity<CustomIdentityUser, IdentityRole<Guid>>(opt =>
             {
                 opt.SignIn.RequireConfirmedEmail = true;
                 opt.User.RequireUniqueEmail = true;

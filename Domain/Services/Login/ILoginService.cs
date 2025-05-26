@@ -10,8 +10,8 @@ namespace Domain.Services.Login
 {
     public interface ILoginService
     {
-        public ResultToken Login(LoginRequest login);
-        public bool VerificaSenha(string username, string password);
-        public bool UsuarioExiste(string username);
+        public Task<ResultToken> Login(LoginRequest login);
+        public Task<bool> VerificaSenha(string username, string password);
+        public Task<bool> UsuarioExiste(string username);
     }
 }

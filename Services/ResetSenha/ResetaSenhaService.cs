@@ -3,6 +3,7 @@ using Domain.Services.Email;
 using Domain.Services.ResetaSenha;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,14 @@ namespace Services.ResetSenha
 
         }
 
-        private CustomIdentityUser RecuperaUsuarioEmail (string email)
+        private async Task<CustomIdentityUser> RecuperaUsuarioEmail (string email)
         {
-            return _signInManager.UserManager.Users.FirstOrDefault(u => u.NormalizedEmail == email.ToUpper());
+            return await _signInManager.UserManager.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper());
         }
 
-        public Result SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest)
+        public async Task<Result> SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest)
         {
-            CustomIdentityUser identityUser = RecuperaUsuarioEmail(redefinicaoRequest.Email);
+            CustomIdentityUser identityUser = await RecuperaUsuarioEmail(redefinicaoRequest.Email);
 
             var codigo = _signInManager.UserManager.GeneratePasswordResetTokenAsync(identityUser).Result;
 
@@ -50,11 +51,11 @@ namespace Services.ResetSenha
             return Result.Fail("Erro ao gerar o token de redefinição, verifique novamente mais tarde");
         }
 
-        public Result EfetuarResetSenhaUsuario(ResetaSenhaRequest resetSenha)
+        public async Task<Result> EfetuarResetSenhaUsuario(ResetaSenhaRequest resetSenha)
         {
-            CustomIdentityUser identityUser = RecuperaUsuarioEmail(resetSenha.Email);
+            CustomIdentityUser identityUser = await RecuperaUsuarioEmail(resetSenha.Email);
 
-            var result = _signInManager.UserManager.ResetPasswordAsync(identityUser, resetSenha.Token, resetSenha.Password).Result;
+            var result = await _signInManager.UserManager.ResetPasswordAsync(identityUser, resetSenha.Token, resetSenha.Password);
 
             if(result != null)
             {

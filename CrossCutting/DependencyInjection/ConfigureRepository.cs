@@ -19,6 +19,9 @@ namespace CrossCutting.DependencyInjection
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped(typeof(IClienteRepository), typeof(ClienteImplementation));
+            serviceCollection.AddScoped(typeof(IProjetoRepository), typeof(ProjetoImplementation));
+            serviceCollection.AddScoped(typeof(IStatusRepository), typeof(StatusImplementation));
+            serviceCollection.AddScoped(typeof(ITarefaRepository), typeof(TarefaImplementation));
             serviceCollection.AddDbContext<MyContext>(options => options.UseMySql("Server=localhost;Port=3306;DataBase=GerenciadorTarefasDev;Uid=root;Pwd=Lucas98971@;SSL Mode=None", new MySqlServerVersion(new Version(8, 0, 38)),
                 mySqlOptionsAction: sqlOptions =>
                 {

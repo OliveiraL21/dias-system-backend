@@ -11,7 +11,7 @@ namespace Domain.Services.ResetaSenha
 {
     public interface IResetaSenha
     {
-        Result SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest);
-        Result EfetuarResetSenhaUsuario(ResetaSenhaRequest resetSenha);
+        Task<Result> SolicitaResetSenha(SolicitaRedefinicaoRequest redefinicaoRequest);
+        Task<Result> EfetuarResetSenhaUsuario(ResetaSenhaRequest resetSenha);
     }
 }

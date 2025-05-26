@@ -54,14 +54,14 @@ namespace Services.Usuarios
             return Result.Fail($"Erro ao tentar ativar a conta do usuário -  {identityResult.Errors.First().Description}");
         }
 
-        public Result solicitarResetSenha(SolicitaRedefinicaoRequest solicitaRedefinicaoRequest)
+        public async Task<Result> solicitarResetSenha(SolicitaRedefinicaoRequest solicitaRedefinicaoRequest)
         {
-           return _resetSenhaService.SolicitaResetSenha(solicitaRedefinicaoRequest);
+           return await _resetSenhaService.SolicitaResetSenha(solicitaRedefinicaoRequest);
         }
 
-        public Result EfetuarResetSenha(ResetaSenhaRequest request)
+        public async Task<Result> EfetuarResetSenha(ResetaSenhaRequest request)
         {
-            return _resetSenhaService.EfetuarResetSenhaUsuario(request);
+            return await _resetSenhaService.EfetuarResetSenhaUsuario(request);
         }
 
         private async Task<bool> ExisteUsuarioByEmail(string email)

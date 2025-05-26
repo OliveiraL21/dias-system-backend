@@ -182,7 +182,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("/solicitarSenha")]
-        public IActionResult SolicitarNovaSenha([FromBody] SolicitaRedefinicaoRequest solicitaRedefinicaoRequest)
+        public async Task<IActionResult> SolicitarNovaSenha([FromBody] SolicitaRedefinicaoRequest solicitaRedefinicaoRequest)
         {
             try
             {
@@ -190,7 +190,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _usuarioService.solicitarResetSenha(solicitaRedefinicaoRequest);
+                var result = await _usuarioService.solicitarResetSenha(solicitaRedefinicaoRequest);
 
                 if (result.IsFailed)
                 {
@@ -207,7 +207,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("/efetuarResetSenha")]
-        public IActionResult EfetuaResetSenha([FromBody] ResetaSenhaRequest request) 
+        public async Task<IActionResult> EfetuaResetSenha([FromBody] ResetaSenhaRequest request) 
         {
             try
             {
@@ -216,7 +216,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _usuarioService.EfetuarResetSenha(request);
+                var result = await _usuarioService.EfetuarResetSenha(request);
 
                 if (result.IsFailed)
                 {

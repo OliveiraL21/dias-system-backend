@@ -4,6 +4,7 @@ using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,25 +23,25 @@ namespace Services.Login
             _tokenService = tokenService;
         }
 
-        public bool UsuarioExiste(string username)
+        public async Task<bool> UsuarioExiste(string username)
         {
-            bool exist = _signManager.UserManager.Users.Any(x => x.UserName == username);
+            bool exist = await _signManager.UserManager.Users.AnyAsync(x => x.UserName == username);
 
             return exist ? exist : false;
         }
 
-        private CustomIdentityUser RecuperaUsuario(string username)
+        private async Task<CustomIdentityUser> RecuperaUsuario(string username)
         {
-            var user = _signManager.UserManager.Users.SingleOrDefault(x => x.UserName == username);
+            var user = await _signManager.UserManager.Users.SingleOrDefaultAsync(x => x.UserName == username);
 
             return user;
         }
 
-        public bool VerificaSenha(string username, string senha)
+        public async Task<bool> VerificaSenha(string username, string senha)
         {
             if(username != "" && senha != "")
             {
-                var user = RecuperaUsuario(username);
+                var user = await RecuperaUsuario(username);
 
                 if(user != null)
                 {
@@ -52,13 +53,13 @@ namespace Services.Login
             return false;
         }
 
-        public ResultToken  Login(LoginRequest login)
+        public async Task<ResultToken>  Login(LoginRequest login)
         {
             if(login != null)
             {
                 
-                var result = _signManager.PasswordSignInAsync(login.Username, login.Password, false, false);
-                if (result.Result.Succeeded)
+                var result = await _signManager.PasswordSignInAsync(login.Username, login.Password, false, false);
+                if (result.Succeeded)
                 {
                     var identityUser = _signManager.UserManager.Users.FirstOrDefault(user => user.NormalizedUserName == login.Username.ToUpper());
                     var role = _signManager.UserManager.GetRolesAsync(identityUser).Result.FirstOrDefault();
@@ -79,7 +80,7 @@ namespace Services.Login
                 {
                     UsuarioId = Guid.NewGuid(),
                     Token = "",
-                    Message = result.Result.IsNotAllowed ? "Usuário não autorizado, por favor ative o seu usuário pelo link enviado ao e-mail de cadastro" : "Usuário não encontrado",
+                    Message = result.IsNotAllowed ? "Usuário não autorizado, por favor ative o seu usuário pelo link enviado ao e-mail de cadastro" : "Usuário não encontrado",
                     IsFail = true,
                     Authenticated = false
                 };
