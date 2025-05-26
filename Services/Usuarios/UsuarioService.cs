@@ -2,6 +2,7 @@
 using Data.Context;
 using Domain.Dtos.User;
 using Domain.Entidades;
+using Domain.Models;
 using Domain.Services.Email;
 using Domain.Services.ResetaSenha;
 using Domain.Services.Usuarios;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,10 +38,10 @@ namespace Services.Usuarios
             _resetSenhaService = resetSenhaService;
         }
 
-        public Result ativaUsuario(AtivaRequest request)
+        public async Task<Result> ativaUsuario(AtivaRequest request)
         {
             // RECUPERAR O USUARIO PARA A ATIVAÇÃO
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == request.UsuarioId);
+            var user =  await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.UsuarioId);
 
             //ATIVANDO O USUÁRIO
             var identityResult = _userManager.ConfirmEmailAsync(user, request.CodigoAtivacao).Result;
@@ -62,26 +64,28 @@ namespace Services.Usuarios
             return _resetSenhaService.EfetuarResetSenhaUsuario(request);
         }
 
-        private bool ExisteUsuarioByEmail(string email)
+        private async Task<bool> ExisteUsuarioByEmail(string email)
         {
-            return _userManager.Users.Any(u => u.Email == email);
+            return await _userManager.Users.AnyAsync(u => u.Email == email);
         }
 
-        private bool ExisteUsuarioByUsername(string username)
+        private async Task<bool> ExisteUsuarioByUsername(string username)
         {
-            return _userManager.Users.Any(u => u.UserName == username);
+            return await _userManager.Users.AnyAsync(u => u.UserName == username);
         }
 
-        public  Result createUsuario(UserDtoCreate usuario)
+        public  async Task<Result> createUsuarioAsync(UserDtoCreate usuario)
         {
-            CustomIdentityUser user = _mapper.Map<CustomIdentityUser>(usuario);
+            var model = _mapper.Map<UserModel>(usuario);
+            var entity = _mapper.Map<UsuarioEntity>(model);
+            CustomIdentityUser user = _mapper.Map<CustomIdentityUser>(entity);
 
-            if (ExisteUsuarioByEmail(user.Email))
+            if (await ExisteUsuarioByEmail(user.Email))
             {
                 return Result.Fail("O e-mail escolhido já esta em uso por outro usuário");
             }
 
-            if (ExisteUsuarioByUsername(user.UserName)) 
+            if (await ExisteUsuarioByUsername(user.UserName))
             {
                 return Result.Fail("O nome de usuário já esta em uso por outro usuário do sistema");
             }
@@ -110,19 +114,17 @@ namespace Services.Usuarios
             return Result.Fail($"Erro ao tentar cadastrar o usuário");
         }
 
-        public UserDto detaillsUsuario(Guid id)
+        public async Task<UserDto> detaillsUsuario(Guid id)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
-
-            var result = _mapper.Map<UsuarioEntity>(user);
-
-            return result;
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return _mapper.Map<UserDto>(user);
         }
 
-        public Result update(UserDtoUpdate usuario)
+        public async Task<Result> update(Guid id, UserDtoUpdate usuario)
         {
-            var entity = _mapper.Map<UsuarioEntity>(usuario);
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == usuario.Id);
+            var model = _mapper.Map<UserModel>(usuario);
+            var entity = _mapper.Map<UsuarioEntity>(model);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
              
 
             user.PhoneNumber = !string.IsNullOrEmpty(entity.PhoneNumber) ? entity.PhoneNumber : user.PhoneNumber;
@@ -130,10 +132,10 @@ namespace Services.Usuarios
             user.UserName = user.UserName;
             user.ProfileImageUrl = !string.IsNullOrEmpty(entity.ProfileImageUrl) ? entity.ProfileImageUrl : user.ProfileImageUrl;
 
-            var result = _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
 
 
-            if (result.Result.Succeeded)
+            if (result.Succeeded)
             {
                 return Result.Ok();
             }
@@ -141,13 +143,13 @@ namespace Services.Usuarios
             return Result.Fail("Erro ao tentar atualizar o usuário");
         }
 
-        public Result updateProfileImage(string imageUrl, Guid id)
+        public async Task<Result> updateProfileImage(string imageUrl, Guid id)
         {
-            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
             user.ProfileImageUrl = imageUrl;
-            var result = _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
 
-            if (result.Result.Succeeded)
+            if (result.Succeeded)
             {
                 return Result.Ok();
             }

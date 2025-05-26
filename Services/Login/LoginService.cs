@@ -77,7 +77,7 @@ namespace Services.Login
 
                 ResultToken resultReturn = new ResultToken()
                 {
-                    UsuarioId = 0,
+                    UsuarioId = Guid.NewGuid(),
                     Token = "",
                     Message = result.Result.IsNotAllowed ? "Usuário não autorizado, por favor ative o seu usuário pelo link enviado ao e-mail de cadastro" : "Usuário não encontrado",
                     IsFail = true,

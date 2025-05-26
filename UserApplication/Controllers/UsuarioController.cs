@@ -24,7 +24,7 @@ namespace UserApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult create([FromBody] UserDtoCreate usuario)
+        public async Task<IActionResult> create([FromBody] UserDtoCreate usuario)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _usuarioService.createUsuario(usuario);
+                var result = await _usuarioService.createUsuarioAsync(usuario);
 
                 if(result.IsFailed)
                 {
@@ -48,8 +48,8 @@ namespace UserApplication.Controllers
             }
         }
         [HttpPut]
-        [Route("update")]
-        public IActionResult updateUsuario([FromBody] UserDtoUpdate usuario)
+        [Route("update/{id}")]
+        public async Task<IActionResult> updateUsuario(Guid id, [FromBody] UserDtoUpdate usuario)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace UserApplication.Controllers
 
 
 
-                Result result = _usuarioService.update(usuario);
+                Result result = await _usuarioService.update(id, usuario);
 
                 if (result.IsFailed)
                 {
@@ -102,7 +102,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("UpdateProfileImage/{id}")]
-        public IActionResult UpdateProfileImage(int id)
+        public async Task<IActionResult> UpdateProfileImage(Guid id)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace UserApplication.Controllers
                      file.CopyToAsync(stream);
                 }
 
-                var result = _usuarioService.updateProfileImage(filePath, id);
+                var result = await _usuarioService.updateProfileImage(filePath, id);
 
                 if (result.IsSuccess)
                 {
@@ -155,7 +155,7 @@ namespace UserApplication.Controllers
 
         [HttpGet]
         [Route("/ativa")]
-        public IActionResult ativa([FromQuery] AtivaRequest request)
+        public async Task<IActionResult> ativa([FromQuery] AtivaRequest request)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                Result result = _usuarioService.ativaUsuario(request);
+                Result result = await _usuarioService.ativaUsuario(request);
 
 
                 if (result.IsFailed)

@@ -11,12 +11,12 @@ namespace Domain.Services.Usuarios
 {
     public interface IUsuarioService
     {
-        Result ativaUsuario(AtivaRequest request);
+        Task<Result> ativaUsuario(AtivaRequest request);
         Result solicitarResetSenha(SolicitaRedefinicaoRequest solicitaRedefinicaoRequest);
         Result EfetuarResetSenha(ResetaSenhaRequest request);
-        Result createUsuario(UserDtoCreate usuario);
-        Result update(UserDtoUpdate usuario);
-        UserDto detaillsUsuario(Guid id);
-        Result updateProfileImage(string imageUrl, int id);
+        Task<Result> createUsuarioAsync(UserDtoCreate usuario);
+        Task<Result> update(Guid id, UserDtoUpdate usuario);
+        Task<UserDto> detaillsUsuario(Guid id);
+        Task<Result> updateProfileImage(string imageUrl, Guid id);
     }
 }

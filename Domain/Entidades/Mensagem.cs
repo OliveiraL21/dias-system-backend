@@ -22,7 +22,7 @@ namespace Domain.Entidades
 
         public string PageTitle { get; set; }
 
-        public Mensagem(IEnumerable<Destinatario> destinatarios, string assunto, int usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
+        public Mensagem(IEnumerable<Destinatario> destinatarios, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
         {
             Destinatario = new List<MailboxAddress>();
             Destinatario.AddRange(destinatarios.Select(d => new MailboxAddress(d.Nome, d.Email)));
