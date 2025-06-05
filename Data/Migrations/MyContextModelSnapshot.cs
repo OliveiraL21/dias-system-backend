@@ -22,27 +22,22 @@ namespace Data.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entidades.Cliente", b =>
+            modelBuilder.Entity("Domain.Entidades.ClienteEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Celular")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Cnpj")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTimeOffset?>("CreateAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("RazaoSocial")
@@ -50,27 +45,27 @@ namespace Data.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset?>("UpdateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Clientes", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Projeto", b =>
+            modelBuilder.Entity("Domain.Entidades.ProjetoEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("char(36)");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
+                    b.Property<DateTimeOffset?>("CreateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataFim")
                         .HasColumnType("datetime(6)");
@@ -83,8 +78,11 @@ namespace Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTimeOffset?>("UpdateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -95,20 +93,21 @@ namespace Data.Migrations
                     b.ToTable("Projetos", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Status", b =>
+            modelBuilder.Entity("Domain.Entidades.StatusEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("char(36)");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTimeOffset?>("CreateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset?>("UpdateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -117,46 +116,44 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("695bfff8-21ee-4c47-8d02-1daae105f4f7"),
                             Descricao = "Ativo"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("abef4a27-b645-4fbc-8d2c-278ff3086d85"),
                             Descricao = "Inatívo"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("0644a8cd-d5fe-48c4-bfd3-bf0c5649e61a"),
                             Descricao = "Em pausa"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("6f0b8395-12f2-463f-83b5-30511237cc9c"),
                             Descricao = "Excluído"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = new Guid("f3460170-7499-49ab-a34d-1e4945153a4e"),
                             Descricao = "Finalizado"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = new Guid("03576817-d9b7-44e1-8412-ac78c681e5ec"),
                             Descricao = "Bloqueado"
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Tarefa", b =>
+            modelBuilder.Entity("Domain.Entidades.TarefaEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("char(36)");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTimeOffset?>("CreateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
@@ -177,11 +174,14 @@ namespace Data.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("ProjetoId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProjetoId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTimeOffset?>("UpdateAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -192,16 +192,11 @@ namespace Data.Migrations
                     b.ToTable("Tarefas");
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Usuario", b =>
+            modelBuilder.Entity("Domain.Entidades.UsuarioEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -228,15 +223,15 @@ namespace Data.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Projeto", b =>
+            modelBuilder.Entity("Domain.Entidades.ProjetoEntity", b =>
                 {
-                    b.HasOne("Domain.Entidades.Cliente", "Cliente")
+                    b.HasOne("Domain.Entidades.ClienteEntity", "Cliente")
                         .WithMany("Projetos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entidades.Status", "Status")
+                    b.HasOne("Domain.Entidades.StatusEntity", "Status")
                         .WithMany("Projetos")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -247,15 +242,15 @@ namespace Data.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Tarefa", b =>
+            modelBuilder.Entity("Domain.Entidades.TarefaEntity", b =>
                 {
-                    b.HasOne("Domain.Entidades.Projeto", "Projeto")
+                    b.HasOne("Domain.Entidades.ProjetoEntity", "Projeto")
                         .WithMany("Tarefas")
                         .HasForeignKey("ProjetoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entidades.Status", "Status")
+                    b.HasOne("Domain.Entidades.StatusEntity", "Status")
                         .WithMany("Tarefas")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -266,17 +261,17 @@ namespace Data.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Cliente", b =>
+            modelBuilder.Entity("Domain.Entidades.ClienteEntity", b =>
                 {
                     b.Navigation("Projetos");
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Projeto", b =>
+            modelBuilder.Entity("Domain.Entidades.ProjetoEntity", b =>
                 {
                     b.Navigation("Tarefas");
                 });
 
-            modelBuilder.Entity("Domain.Entidades.Status", b =>
+            modelBuilder.Entity("Domain.Entidades.StatusEntity", b =>
                 {
                     b.Navigation("Projetos");
 

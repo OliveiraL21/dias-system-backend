@@ -114,6 +114,9 @@ namespace CrossCutting.Mapping
             CreateMap<UsuarioEntity, UserDtoUpdateResult>()
                .ReverseMap();
 
+            CreateMap<CustomIdentityUser, UsuarioEntity>()
+                .ReverseMap();
+
             CreateMap<CustomIdentityUser, UserDto>()
                 .ReverseMap();
 

@@ -1,3 +1,4 @@
+using CrossCutting.DependencyInjection;
 using Data.Context;
 using Domain.Entidades;
 using Domain.Services.Email;
@@ -65,13 +66,9 @@ namespace UserApplication
             }).AddEntityFrameworkStores<UserDbContext>()
             .AddDefaultTokenProviders();
 
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddTransient<IUsuarioService, UsuarioService>();
-            services.AddTransient<ILoginService, LoginService>();
-            services.AddTransient<ITokenService, TokenService>();
-            services.AddTransient<ILogoutService, LogoutService>();
-            services.AddTransient<IEmailService, EmailService>();
-            services.AddTransient<IResetaSenha, ResetaSenhaService>();
+            ConfigureService.ConfigureServicesUserAplication(services);
 
             services.AddCors(options =>
             {

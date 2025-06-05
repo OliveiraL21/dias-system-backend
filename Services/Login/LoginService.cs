@@ -23,25 +23,25 @@ namespace Services.Login
             _tokenService = tokenService;
         }
 
-        public async Task<bool> UsuarioExiste(string username)
+        public bool UsuarioExiste(string username)
         {
-            bool exist = await _signManager.UserManager.Users.AnyAsync(x => x.UserName == username);
+            bool exist =  _signManager.UserManager.Users.Any(x => x.UserName == username);
 
             return exist ? exist : false;
         }
 
-        private async Task<CustomIdentityUser> RecuperaUsuario(string username)
+        private CustomIdentityUser RecuperaUsuario(string username)
         {
-            var user = await _signManager.UserManager.Users.SingleOrDefaultAsync(x => x.UserName == username);
+            var user =  _signManager.UserManager.Users.SingleOrDefault(x => x.UserName == username);
 
             return user;
         }
 
-        public async Task<bool> VerificaSenha(string username, string senha)
+        public bool VerificaSenha(string username, string senha)
         {
             if(username != "" && senha != "")
             {
-                var user = await RecuperaUsuario(username);
+                var user =  RecuperaUsuario(username);
 
                 if(user != null)
                 {

@@ -33,10 +33,10 @@ namespace UserApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var existe = await _loginService.UsuarioExiste(login.Username);
+                var existe = _loginService.UsuarioExiste(login.Username);
                 if (existe)
                 {
-                    var isCorrectPassword = await _loginService.VerificaSenha(login.Username, login.Password);
+                    var isCorrectPassword = _loginService.VerificaSenha(login.Username, login.Password);
 
                     if(isCorrectPassword == false)
                     {

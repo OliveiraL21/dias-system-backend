@@ -41,7 +41,7 @@ namespace Services.Usuarios
         public async Task<Result> ativaUsuario(AtivaRequest request)
         {
             // RECUPERAR O USUARIO PARA A ATIVAÇÃO
-            var user =  await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.UsuarioId);
+            var user =  _userManager.Users.FirstOrDefault(u => u.Id == request.UsuarioId);
 
             //ATIVANDO O USUÁRIO
             var identityResult = _userManager.ConfirmEmailAsync(user, request.CodigoAtivacao).Result;
@@ -64,14 +64,14 @@ namespace Services.Usuarios
             return await _resetSenhaService.EfetuarResetSenhaUsuario(request);
         }
 
-        private async Task<bool> ExisteUsuarioByEmail(string email)
+        private bool ExisteUsuarioByEmail(string email)
         {
-            return await _userManager.Users.AnyAsync(u => u.Email == email);
+            return  _userManager.Users.Any(u => u.Email == email);
         }
 
-        private async Task<bool> ExisteUsuarioByUsername(string username)
+        private  bool ExisteUsuarioByUsername(string username)
         {
-            return await _userManager.Users.AnyAsync(u => u.UserName == username);
+            return  _userManager.Users.Any(u => u.UserName == username);
         }
 
         public  async Task<Result> createUsuarioAsync(UserDtoCreate usuario)
@@ -80,12 +80,12 @@ namespace Services.Usuarios
             var entity = _mapper.Map<UsuarioEntity>(model);
             CustomIdentityUser user = _mapper.Map<CustomIdentityUser>(entity);
 
-            if (await ExisteUsuarioByEmail(user.Email))
+            if (ExisteUsuarioByEmail(user.Email))
             {
                 return Result.Fail("O e-mail escolhido já esta em uso por outro usuário");
             }
 
-            if (await ExisteUsuarioByUsername(user.UserName))
+            if (ExisteUsuarioByUsername(user.UserName))
             {
                 return Result.Fail("O nome de usuário já esta em uso por outro usuário do sistema");
             }

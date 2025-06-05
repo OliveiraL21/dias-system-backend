@@ -33,5 +33,10 @@ namespace CrossCutting.DependencyInjection
                 }
                 ));
         }
+
+        public static void ConfigureDependenciesRepositoryUserApplication(IServiceCollection serviceCollection) 
+        {
+
+        }
     }
 }
