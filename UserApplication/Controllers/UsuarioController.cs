@@ -17,7 +17,7 @@ namespace UserApplication.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
-    
+
         public UsuarioController(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
@@ -28,16 +28,16 @@ namespace UserApplication.Controllers
         {
             try
             {
-                if(!ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
 
                 var result = await _usuarioService.createUsuarioAsync(usuario);
 
-                if(result.IsFailed)
+                if (result.IsFailed)
                 {
-                    return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle() {Error = result.Errors.First().Message } );
+                    return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle() { Error = result.Errors.First().Message });
                 }
 
                 return Ok(result);
@@ -49,7 +49,7 @@ namespace UserApplication.Controllers
         }
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> updateUsuario(Guid id, [FromBody] UserDtoUpdate usuario)
+        public IActionResult updateUsuario(Guid id, [FromBody] UserDtoUpdate usuario)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace UserApplication.Controllers
 
 
 
-                Result result = await _usuarioService.update(id, usuario);
+                Result result = _usuarioService.update(id, usuario);
 
                 if (result.IsFailed)
                 {
@@ -77,7 +77,7 @@ namespace UserApplication.Controllers
 
         [HttpGet]
         [Route("detalhes/{id}")]
-        public IActionResult detalhesUsuario (Guid id)
+        public IActionResult detalhesUsuario(Guid id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace UserApplication.Controllers
 
                 return Ok(result);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle { Error = ex.Message });
             }
@@ -116,7 +116,7 @@ namespace UserApplication.Controllers
                 var filePath = Path.Combine(@"C:\\Projetos\\Gerenciador_Tarefas\\backend\\Gerenciador_Tarefas_Backend\\UserApplication\\Imagens\\Usuarios", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                     file.CopyToAsync(stream);
+                    file.CopyToAsync(stream);
                 }
 
                 var result = await _usuarioService.updateProfileImage(filePath, id);
@@ -129,11 +129,12 @@ namespace UserApplication.Controllers
                 {
                     return BadRequest(result.Errors);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle { Error = ex.Message });
             }
-            
+
         }
 
         [HttpGet("profilepicture/{fileName}")]
@@ -149,7 +150,7 @@ namespace UserApplication.Controllers
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
             var base64String = Convert.ToBase64String(fileBytes);
 
-            return Ok( new { image = base64String });
+            return Ok(new { image = base64String });
         }
 
 
@@ -174,7 +175,7 @@ namespace UserApplication.Controllers
 
                 return Ok(result.Successes.Count > 0 ? result.Successes.First().Message : "Conta ativada com sucesso!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle { Error = ex.Message });
             }
@@ -186,7 +187,8 @@ namespace UserApplication.Controllers
         {
             try
             {
-                if(!ModelState.IsValid){
+                if (!ModelState.IsValid)
+                {
                     return BadRequest(ModelState);
                 }
 
@@ -194,12 +196,13 @@ namespace UserApplication.Controllers
 
                 if (result.IsFailed)
                 {
-                    return StatusCode((int) HttpStatusCode.InternalServerError, result.Errors.FirstOrDefault().Message);
+                    return StatusCode((int)HttpStatusCode.InternalServerError, result.Errors.FirstOrDefault().Message);
                 }
 
                 return Ok(result.Successes.FirstOrDefault().Message);
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorHandle { Error = ex.Message });
             }
@@ -207,7 +210,7 @@ namespace UserApplication.Controllers
 
         [HttpPost]
         [Route("/efetuarResetSenha")]
-        public async Task<IActionResult> EfetuaResetSenha([FromBody] ResetaSenhaRequest request) 
+        public async Task<IActionResult> EfetuaResetSenha([FromBody] ResetaSenhaRequest request)
         {
             try
             {
@@ -223,7 +226,7 @@ namespace UserApplication.Controllers
                     return StatusCode((int)HttpStatusCode.InternalServerError, result.Errors.FirstOrDefault().Message);
                 }
 
-                return Ok(new { message = result.Successes.First().Message});
+                return Ok(new { message = result.Successes.First().Message });
             }
             catch (Exception ex)
             {

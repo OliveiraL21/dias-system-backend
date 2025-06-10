@@ -15,8 +15,8 @@ namespace Domain.Services.Usuarios
         Task<Result> solicitarResetSenha(SolicitaRedefinicaoRequest solicitaRedefinicaoRequest);
         Task<Result> EfetuarResetSenha(ResetaSenhaRequest request);
         Task<Result> createUsuarioAsync(UserDtoCreate usuario);
-        Task<Result> update(Guid id, UserDtoUpdate usuario);
-        Task<UserDto> detaillsUsuario(Guid id);
+        Result update(Guid id, UserDtoUpdate usuario);
+        UserDto detaillsUsuario(Guid id);
         Task<Result> updateProfileImage(string imageUrl, Guid id);
     }
 }
