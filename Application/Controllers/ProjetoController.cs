@@ -194,7 +194,7 @@ namespace Application.Controllers
 
                 var result = await _service.DeleteAsync(id);
 
-                if (result == null)
+                if (result == false)
                 {
                     return BadRequest(result);
                 }
