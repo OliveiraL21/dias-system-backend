@@ -1,4 +1,6 @@
+using AutoMapper;
 using CrossCutting.DependencyInjection;
+using CrossCutting.Mapping;
 using Data.Context;
 using Data.Repository;
 using Domain.Repository;
@@ -47,9 +49,17 @@ namespace Application
         {
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
             services.AddControllers();
-           
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DtoToModelProfile());
+                cfg.AddProfile(new EntityToDtoProfile());
+                cfg.AddProfile(new ModelToEntityProfile());
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
@@ -90,7 +100,7 @@ namespace Application
                 };
             });
 
-            
+
 
             services.AddSwaggerGen(c =>
             {

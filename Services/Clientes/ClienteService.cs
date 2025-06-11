@@ -19,14 +19,14 @@ namespace Services.Clientes
     {
         private readonly IClienteRepository _repository;
         private readonly IMapper _mapper;
-        public ClienteService(IClienteRepository clienteRepository, MyContext context,  IMapper mapper)
+        public ClienteService(IClienteRepository clienteRepository, MyContext context, IMapper mapper)
         {
             _repository = clienteRepository;
             _mapper = mapper;
         }
         public async Task<bool> DeleteAsync(Guid id)
         {
-            if (id != null)
+            if (id != Guid.Empty)
             {
                 var result = await _repository.DeleteAsync(id);
                 return result;
@@ -34,9 +34,9 @@ namespace Services.Clientes
             return false;
         }
 
-        public async Task<IEnumerable<ClienteDto>> FiltrarAsync(string? razaoSocial, string? cnpj)
+        public async Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj)
         {
-           return _mapper.Map<IEnumerable<ClienteDto>>(await _repository.filtrarClientes(razaoSocial, cnpj));
+            return _mapper.Map<IEnumerable<ClienteDto>>(await _repository.filtrarClientes(razaoSocial, cnpj));
         }
 
         public async Task<ClienteDtoCreateResult> InsertAsync(ClienteDtoCreate cliente)
@@ -53,7 +53,7 @@ namespace Services.Clientes
 
         public async Task<IEnumerable<ClienteDto>> ListarAsync()
         {
-            return  _mapper.Map<IEnumerable<ClienteDto>>(await _repository.GetAll());
+            return _mapper.Map<IEnumerable<ClienteDto>>(await _repository.GetAll());
         }
 
         public async Task<IEnumerable<ClienteDtoSimple>> ListaSimplesAsync()
@@ -76,7 +76,7 @@ namespace Services.Clientes
         {
             if (id != Guid.Empty && cliente != null)
             {
-                cliente.Id = id; 
+                cliente.Id = id;
                 var model = _mapper.Map<ClienteModel>(cliente);
                 var entity = _mapper.Map<ClienteEntity>(model);
                 var result = await _repository.UpdateAsync(id, entity);

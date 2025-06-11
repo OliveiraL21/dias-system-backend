@@ -13,9 +13,9 @@ namespace Domain.Dtos.projeto
 
         public StatusDto status { get; set; }
 
-        public string DataInicio { get; set; }
+        public DateTime DataInicio { get; set; }
 
-        public string DataFim { get; set; }
+        public DateTime DataFim { get; set; }
 
         public ClienteDto Cliente { get; set; }
     }

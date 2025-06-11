@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repository
 {
-    public interface IRepository <T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
         Task<T> InsertAsync(T entity);
 
@@ -18,6 +18,6 @@ namespace Domain.Repository
         Task<bool> DeleteAsync(Guid id);
         Task<bool> ExistAsync(Guid id);
 
-       
+
     }
 }

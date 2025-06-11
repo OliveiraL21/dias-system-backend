@@ -8,7 +8,7 @@ namespace Domain.Dtos.cliente
 {
     public class ClienteDtoSimple
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string RazaoSocial { get; set; }
     }

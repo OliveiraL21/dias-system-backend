@@ -17,12 +17,12 @@ namespace Application.Controllers
         {
             _clienteService = clienteService;
         }
-     
+
 
         [HttpGet]
         [Route("/filtrar")]
         [Authorize(Roles = "admin, regular")]
-        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery]string cnpj)
+        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery] string cnpj)
         {
             try
             {
@@ -60,14 +60,14 @@ namespace Application.Controllers
 
                 var result = await _clienteService.ListaSimplesAsync();
 
-                if(result == null)
+                if (result == null)
                 {
 
                 }
 
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
@@ -173,7 +173,7 @@ namespace Application.Controllers
         {
             try
             {
-                var result =  await _clienteService.DeleteAsync(id);
+                var result = await _clienteService.DeleteAsync(id);
 
                 if (result == false)
                 {

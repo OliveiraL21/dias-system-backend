@@ -5,7 +5,6 @@ using Domain.Dtos.status;
 using Domain.Dtos.tarefas;
 using Domain.Dtos.User;
 using Domain.Entidades;
-using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

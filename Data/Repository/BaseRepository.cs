@@ -40,7 +40,7 @@ namespace Data.Repository
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -59,13 +59,13 @@ namespace Data.Repository
                 _dbSet.Add(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }
-                       
+
             return entity;
-            
+
         }
 
         public Task<T> SelectAsync(Guid id)
@@ -84,7 +84,7 @@ namespace Data.Repository
             }
         }
 
-        public async Task<IList<T>> SelectAllAsync()
+        public async Task<IEnumerable<T>> SelectAllAsync()
         {
             try
             {

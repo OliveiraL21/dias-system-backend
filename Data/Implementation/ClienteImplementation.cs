@@ -52,10 +52,11 @@ namespace Data.Implementation
         {
             try
             {
-                return (await _dataSet.Include(x => x.Projetos).ToListAsync()).OrderBy(x => x.RazaoSocial);
-            } catch 
-            { 
-                throw; 
+                return await _dataSet.Include(x => x.Projetos).ToListAsync();
+            }
+            catch
+            {
+                throw;
             }
         }
 
