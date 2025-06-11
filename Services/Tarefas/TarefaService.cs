@@ -20,7 +20,6 @@ namespace Services.Tarefas
     public class TarefaService : ITarefaService
     {
         private readonly ITarefaRepository _repository;
-        private readonly IRepository<TarefaEntity> _tarefaRepository;
         private readonly IMapper _mapper;
         public TarefaService(ITarefaRepository repository,IMapper mapper)
         {
@@ -36,7 +35,7 @@ namespace Services.Tarefas
         {
             if (id != Guid.Empty)
             {
-                return await _tarefaRepository.DeleteAsync(id);
+                return await _repository.DeleteAsync(id);
             }
             return false;
         }
@@ -53,7 +52,7 @@ namespace Services.Tarefas
             {
                 var model = _mapper.Map<TarefaModel>(tarefa);
                 var entity = _mapper.Map<TarefaEntity>(model);
-                return _mapper.Map<TarefaDtoCreateResult>(await _tarefaRepository.InsertAsync(entity));
+                return _mapper.Map<TarefaDtoCreateResult>(await _repository.InsertAsync(entity));
             }
             return null;
         }
@@ -73,7 +72,7 @@ namespace Services.Tarefas
             tarefa.Id = tarefa.Id == Guid.Empty ? id : tarefa.Id;
             var model = _mapper.Map<TarefaModel>(tarefa);
             var entity = _mapper.Map<TarefaEntity>(model);
-            return _mapper.Map<TarefaDtoUpdateResult>(await _tarefaRepository.UpdateAsync(id, entity));
+            return _mapper.Map<TarefaDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
 
       

@@ -154,7 +154,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult createTarefa([FromBody] TarefaDtoCreate tarefaDto)
+        public async Task<IActionResult> createTarefaAsync([FromBody] TarefaDtoCreate tarefaDto)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = this._tarefaService.InsertAsync(tarefaDto);
+                var result = await _tarefaService.InsertAsync(tarefaDto);
 
                 if (result == null)
                 {
@@ -180,7 +180,7 @@ namespace Application.Controllers
 
         [HttpPut]
         [Route("update_tarefas/{id}")]
-        public IActionResult updateTarefa(Guid id, [FromBody] TarefaDtoUpdate tarefaDto)
+        public async Task<IActionResult> updateTarefa(Guid id, [FromBody] TarefaDtoUpdate tarefaDto)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _tarefaService.UpdateAsync(id, tarefaDto);
+                var result = await _tarefaService.UpdateAsync(id, tarefaDto);
 
                 if (result == null)
                 {
