@@ -48,7 +48,7 @@ namespace Services.Projetos
         {
             var model = _mapper.Map<ProjetoModel>(projeto);
             var entity = _mapper.Map<ProjetoEntity>(model);
-            return _mapper.Map<ProjetoDtoCreateResult>(await  _repository.InsertAsync(entity));
+            return _mapper.Map<ProjetoDtoCreateResult>(await _repository.InsertAsync(entity));
         }
 
         public async Task<IEnumerable<ProjetoDtoSimple>> ListaSimplesAsync()
@@ -59,14 +59,15 @@ namespace Services.Projetos
 
         public async Task<ProjetoDto> SelectAsync(Guid id)
         {
-            return _mapper.Map<ProjetoDto>(await _repository.SelectAsync(id));
+            return _mapper.Map<ProjetoDto>(await _repository.SelectProjectWithRealationShipsAsync(id));
         }
 
         public async Task<ProjetoDtoUpdateResult> UpdateAsync(Guid id, ProjetoDtoUpdate projeto)
         {
+            projeto.Id = id;
             var model = _mapper.Map<ProjetoModel>(projeto);
             var entity = _mapper.Map<ProjetoEntity>(model);
-            return  _mapper.Map<ProjetoDtoUpdateResult>(await _repository.UpdateAsync(id,entity));
+            return _mapper.Map<ProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
     }
 }

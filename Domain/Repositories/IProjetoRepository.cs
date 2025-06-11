@@ -1,4 +1,5 @@
-﻿using Domain.Dtos.projeto;
+﻿using Domain.Dtos.cliente;
+using Domain.Dtos.projeto;
 using Domain.Entidades;
 using Domain.Repository;
 using System;
@@ -9,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IProjetoRepository :IRepository<ProjetoEntity>
+    public interface IProjetoRepository : IRepository<ProjetoEntity>
     {
+        Task<ProjetoEntity> SelectProjectWithRealationShipsAsync(Guid id);
         Task<IEnumerable<ProjetoEntity>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId);
         Task<IEnumerable<ProjetoEntity>> GetAll();
     }

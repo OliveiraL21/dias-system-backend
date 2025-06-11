@@ -1,5 +1,6 @@
 ﻿using Data.Context;
 using Data.Repository;
+using Domain.Dtos.cliente;
 using Domain.Entidades;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,29 +20,35 @@ namespace Data.Implementation
             _dataSet = context.Set<ProjetoEntity>();
         }
 
+        public async Task<ProjetoEntity> SelectProjectWithRealationShipsAsync(Guid id)
+        {
+            try
+            {
+                return await _dataSet.Include(p => p.Status).Include(p => p.Cliente).FirstOrDefaultAsync(p => p.Id == id);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         async Task<IEnumerable<ProjetoEntity>> IProjetoRepository.FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId)
         {
             try
             {
                 var result = _dataSet.Include(p => p.Cliente).Include(p => p.Status).AsQueryable();
 
-                if (projeto != Guid.Empty)
+                if ((!projeto.HasValue || projeto == Guid.Empty) && (!clienteId.HasValue || clienteId == Guid.Empty) &&
+                (!statusId.HasValue || statusId == Guid.Empty))
                 {
-                    result = result.Where(p => p.Id == projeto);
+                    return await result.ToListAsync();
                 }
 
-                if (clienteId != Guid.Empty)
-                {
-                    result = result.Where(p => p.ClienteId == clienteId);
-                }
-
-                if (statusId != Guid.Empty)
-                {
-                    result = result.Where(p => p.StatusId == statusId);
-                }
+                result = result.Where(p => p.Id == projeto || p.ClienteId == clienteId || p.StatusId == statusId);
 
                 return await result.ToListAsync();
-            } catch
+            }
+            catch
             {
                 throw;
             }
