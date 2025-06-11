@@ -25,7 +25,7 @@ namespace Data.Implementation
         {
             try
             {
-                var tarefas = _dataSet.Where(x => x.Data == data).ToList();
+                var tarefas = await _dataSet.Where(x => x.Data == data).ToListAsync();
                 if (tarefas.Any())
                 {
                     var duracao = new TimeSpan();
@@ -49,34 +49,28 @@ namespace Data.Implementation
         {
             try
             {
-                var dataInicial = dataInicio == "null" ? null : dataInicio;
-                var dataFinal = dataFim == "null" ? null : dataFim;
-                var Descricao = descricao == "null" ? null : descricao;
+                dataInicio = dataInicio == "null" ? null : dataInicio;
+                dataFim = dataFim == "null" ? null : dataFim;
+                descricao = descricao == "null" ? null : descricao;
 
                 var result = _dataSet.Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
 
-                if (!string.IsNullOrEmpty(descricao))
+                if ((string.IsNullOrEmpty(descricao) || descricao.Equals("null")) && (string.IsNullOrEmpty(dataInicio) || dataInicio.Equals("null")) && (string.IsNullOrEmpty(dataFim) || dataFim.Equals("null")) && projetoId == Guid.Empty && !projetoId.HasValue)
                 {
-                    result = result.Where(t => t.Descricao.Equals(descricao));
+                    return await result.ToListAsync();
                 }
 
-                if (dataInicial != null && dataFim != null)
-                {
-                    result = result.Where(t => t.Data >= Convert.ToDateTime(dataInicial) && t.Data <= Convert.ToDateTime(dataFinal));
-                }
-
-                if (projetoId != Guid.Empty)
-                {
-                    result = result.Where(t => t.ProjetoId == projetoId);
-                }
+                result = result.Where(x => EF.Functions.Like(x.Descricao, $"%{descricao}%") || x.Data >=
+                Convert.ToDateTime(dataInicio) && x.Data <= Convert.ToDateTime(dataFim) || x.ProjetoId == projetoId);
 
                 return await result.ToListAsync();
+
             }
             catch
             {
                 throw;
             }
-           
+
         }
 
         public async Task<IEnumerable<TarefaEntity>> GetAllAsync()
@@ -90,7 +84,8 @@ namespace Data.Implementation
                     tarefa.HorarioFim = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Convert.ToDateTime(tarefa.HorarioFim), "E. South America Standard Time");
                 }
                 return result;
-            } catch
+            }
+            catch
             {
                 throw;
             }

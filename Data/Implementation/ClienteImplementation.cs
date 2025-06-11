@@ -28,17 +28,15 @@ namespace Data.Implementation
                 {
                     cnpj = cnpj.Substring(0, 10) + '/' + cnpj.Substring(11);
                 }
+
                 var result = _dataSet.Include(c => c.Projetos).AsQueryable();
 
-                if (!string.IsNullOrEmpty(razaoSocial))
+                if (string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cnpj))
                 {
-                    result = result.Where(x => EF.Functions.Like(x.RazaoSocial, $"%{razaoSocial}%"));
+                    return await result.ToListAsync();
                 }
 
-                if (!string.IsNullOrEmpty(cnpj))
-                {
-                    result = result.Where(x => EF.Functions.Like(x.Cnpj, $"%{cnpj}%"));
-                }
+                result = result.Where(x => EF.Functions.Like(x.RazaoSocial, $"%{razaoSocial}%") || EF.Functions.Like(x.Cnpj, $"%{cnpj}%"));
 
                 return await result.ToListAsync();
             }
