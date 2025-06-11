@@ -179,7 +179,7 @@ namespace Application.Controllers
         [HttpDelete]
         [Route("/projeto/delete/{id}")]
         [Authorize(Roles = "admin, regular")]
-        public IActionResult delete(Guid id)
+        public async Task<IActionResult> delete(Guid id)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace Application.Controllers
                     return BadRequest();
                 }
 
-                var result = _service.DeleteAsync(id);
+                var result = await _service.DeleteAsync(id);
 
                 if (result == null)
                 {

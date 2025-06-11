@@ -29,9 +29,9 @@ namespace Services.Projetos
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return _repository.DeleteAsync(id);
+            return await _repository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<ProjetoDtoListagem>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId)
