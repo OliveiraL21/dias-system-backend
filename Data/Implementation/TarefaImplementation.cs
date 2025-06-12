@@ -55,7 +55,7 @@ namespace Data.Implementation
 
                 var result = _dataSet.Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
 
-                if ((string.IsNullOrEmpty(descricao) || descricao.Equals("null")) && (string.IsNullOrEmpty(dataInicio) || dataInicio.Equals("null")) && (string.IsNullOrEmpty(dataFim) || dataFim.Equals("null")) && projetoId == Guid.Empty && !projetoId.HasValue)
+                if (string.IsNullOrEmpty(descricao) && string.IsNullOrEmpty(dataInicio) && string.IsNullOrEmpty(dataFim) && !projetoId.HasValue)
                 {
                     return await result.ToListAsync();
                 }
