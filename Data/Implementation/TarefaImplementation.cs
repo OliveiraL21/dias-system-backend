@@ -60,8 +60,13 @@ namespace Data.Implementation
                     return await result.ToListAsync();
                 }
 
-                result = result.Where(x => EF.Functions.Like(x.Descricao, $"%{descricao}%") || x.Data >=
-                Convert.ToDateTime(dataInicio) && x.Data <= Convert.ToDateTime(dataFim) || x.ProjetoId == projetoId);
+                result = result.Where(x =>
+                            (!string.IsNullOrWhiteSpace(descricao) && EF.Functions.Like(x.Descricao, $"%{descricao}%")) ||
+                            (!string.IsNullOrWhiteSpace(dataInicio) && !string.IsNullOrWhiteSpace(dataFim) &&
+                            x.Data >= Convert.ToDateTime(dataInicio).Date &&
+                            x.Data < Convert.ToDateTime(dataFim).Date.AddDays(1)) ||
+                            (x.ProjetoId == projetoId)
+ );
 
                 return await result.ToListAsync();
 
