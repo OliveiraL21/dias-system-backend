@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20250616214308_adicionando novos dados em cliente")]
+    partial class adicionandonovosdadosemcliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +47,7 @@ namespace Data.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Cnpj")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Cpf")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("CreateAt")
@@ -145,32 +146,32 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b81ddf36-7d40-46f4-a5a1-10e8f7f0fc5a"),
+                            Id = new Guid("f96f41f6-e9a1-43c9-9b5f-2247d33bc867"),
                             Descricao = "Ativo"
                         },
                         new
                         {
-                            Id = new Guid("cdacb5b0-3444-49ec-8f0e-b4ca583805db"),
+                            Id = new Guid("5a71341a-0208-4bb7-8ef3-3fcb64672fed"),
                             Descricao = "Inatívo"
                         },
                         new
                         {
-                            Id = new Guid("8428188a-a5b0-4939-bb23-918650a67175"),
+                            Id = new Guid("02977c04-a679-45d4-a131-1f43ed81a81f"),
                             Descricao = "Em pausa"
                         },
                         new
                         {
-                            Id = new Guid("1c52c1c8-a2e5-49b1-8ef1-59fe73ffaef9"),
+                            Id = new Guid("5c5e91b4-304c-467a-bcd0-bdb7e6252244"),
                             Descricao = "Excluído"
                         },
                         new
                         {
-                            Id = new Guid("1a1be59a-9122-42db-b42c-1c4ca1a88ba7"),
+                            Id = new Guid("6cf10bf1-430a-4ecd-a4b9-0553feb52d29"),
                             Descricao = "Finalizado"
                         },
                         new
                         {
-                            Id = new Guid("802b722b-6da6-4743-9581-5b09fba2f9a1"),
+                            Id = new Guid("afbded44-566e-4290-ac32-2713a7d0fb53"),
                             Descricao = "Bloqueado"
                         });
                 });

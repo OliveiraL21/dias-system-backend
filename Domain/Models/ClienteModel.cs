@@ -17,6 +17,15 @@ namespace Domain.Models
 			set { _razaoSocial = value; }
 		}
 
+		private string? _tipo;
+
+		public string? Tipo
+		{
+			get { return _tipo; }
+			set { _tipo = value; }
+		}
+
+
 		private string? _cnpj;
 
 		public string? Cnpj
@@ -25,9 +34,18 @@ namespace Domain.Models
 			set { _cnpj = value; }
 		}
 
-		private string? _telefone;
+		private string? _cpf;
 
-		public string? Telefone
+		public string? Cpf
+		{
+			get { return _cpf; }
+			set { _cpf = value; }
+		}
+
+
+		private string _telefone;
+
+		public string Telefone
 		{
 			get { return _telefone; }
 			set { _telefone = value; }
@@ -41,12 +59,52 @@ namespace Domain.Models
 			set { _celular = value; }
 		}
 
-		private string? _email;
+		private string _email;
 
-		public string? Email
+		public string Email
 		{
 			get { return _email; }
 			set { _email = value; }
+		}
+
+		private string _logradouro;
+
+		public string Logradouro
+		{
+			get { return _logradouro; }
+			set { _logradouro = value; }
+		}
+
+		private string _numero;
+
+		public string Numero
+		{
+			get { return _numero; }
+			set { _numero = value; }
+		}
+
+		private string _bairro;
+
+		public string Bairro
+		{
+			get { return _bairro; }
+			set { _bairro = value; }
+		}
+
+		private string? _cep;
+
+		public string? Cep
+		{
+			get { return _cep; }
+			set { _cep = value; }
+		}
+
+		private string _cidade;
+
+		public string Cidade
+		{
+			get { return _cidade; }
+			set { _cidade = value; }
 		}
 
 		private IEnumerable<ProjetoEntity>? _projetos;
