@@ -19,10 +19,10 @@ namespace Data.Mapping
             builder.Property(c => c.Id);
 
             builder.Property(c => c.RazaoSocial).IsRequired();
-            builder.Property(c => c.Cnpj);
-            builder.Property(c => c.Telefone);
+            builder.Property(c => c.Cnpj).IsRequired();
+            builder.Property(c => c.Telefone).IsRequired();
             builder.Property(c => c.Celular);
-            builder.Property(c => c.Email);
+            builder.Property(c => c.Email).IsRequired();
 
             builder.HasMany(c => c.Projetos).WithOne(c => c.Cliente);   
         }
