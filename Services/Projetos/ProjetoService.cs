@@ -53,7 +53,8 @@ namespace Services.Projetos
 
         public async Task<IEnumerable<ProjetoDtoSimple>> ListaSimplesAsync()
         {
-            var result = await _repository.GetAll();
+            var result = (await _repository.GetAll()).Where(p => p.Status.Descricao != "Excluído" && p.Status.Descricao != "Bloqueado")
+            .ToList();
             return _mapper.Map<IEnumerable<ProjetoDtoSimple>>(result);
         }
 
