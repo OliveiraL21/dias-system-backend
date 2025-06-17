@@ -1,5 +1,6 @@
 ﻿using Domain.Dtos.cliente;
 using Domain.Dtos.status;
+using Domain.Dtos.tarefas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,6 @@ namespace Domain.Dtos.projeto
         public StatusDto Status { get; set; }
 
         public ClienteDto Cliente { get; set; }
+        public IEnumerable<TarefaDto> Tarefas { get; set; }
     }
 }

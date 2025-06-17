@@ -24,7 +24,7 @@ namespace Data.Implementation
         {
             try
             {
-                return await _dataSet.Include(p => p.Status).Include(p => p.Cliente).FirstOrDefaultAsync(p => p.Id == id);
+                return await _dataSet.Include(p => p.Status).Include(p => p.Cliente).Include(p => p.Tarefas).FirstOrDefaultAsync(p => p.Id == id);
             }
             catch
             {

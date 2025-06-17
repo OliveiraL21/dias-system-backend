@@ -21,7 +21,7 @@ namespace Data.Implementation
         {
             try
             {
-                razaoSocial = razaoSocial == "null" ? null : razaoSocial;
+                razaoSocial = razaoSocial == "null" ? null : $"%{razaoSocial}%";
                 cnpj = cnpj == "null" ? null : cnpj;
 
                 if (!string.IsNullOrEmpty(cnpj))
@@ -36,7 +36,7 @@ namespace Data.Implementation
                     return await result.ToListAsync();
                 }
 
-                result = result.Where(x => EF.Functions.Like(x.RazaoSocial, $"%{razaoSocial}%") || EF.Functions.Like(x.Cnpj, $"%{cnpj}%"));
+                result = result.Where(x => EF.Functions.Like(x.RazaoSocial, razaoSocial) || x.Cnpj == cnpj);
 
                 return await result.ToListAsync();
             }
