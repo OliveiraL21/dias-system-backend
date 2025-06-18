@@ -28,10 +28,10 @@ namespace Data.Mapping
             builder.Property(c => c.Logradouro).IsRequired();
             builder.Property(c => c.Numero).IsRequired();
             builder.Property(c => c.Bairro).IsRequired();
-            builder.Property(c => c.Cep).IsRequired();
+            builder.Property(c => c.Cep);
             builder.Property(c => c.Cidade).IsRequired();
 
-            builder.HasMany(c => c.Projetos).WithOne(c => c.Cliente);   
+            builder.HasMany(c => c.Projetos).WithOne(c => c.Cliente);
         }
     }
 }

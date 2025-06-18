@@ -50,7 +50,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-       
+
         public async Task<IActionResult> listarTarefas()
         {
             try
@@ -129,7 +129,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("detalhes_tarefas/{id}")]
-        public IActionResult details(Guid id)
+        public async Task<IActionResult> detailsAsync(Guid id)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = _tarefaService.SelectAsync(id);
+                var result = await _tarefaService.SelectAsync(id);
 
                 if (result == null)
                 {
@@ -244,7 +244,7 @@ namespace Application.Controllers
 
                 var result = await _tarefaService.ListaByProjetoAsync(projeto);
 
-                if(result == null)
+                if (result == null)
                 {
                     return BadRequest(new ErrorHandle { Error = "Nenhuma tarefa encontrada" });
                 }
