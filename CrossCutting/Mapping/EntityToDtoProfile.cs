@@ -73,6 +73,9 @@ namespace CrossCutting.Mapping
             CreateMap<TarefaEntity, TarefaDtoUpdateResult>()
                 .ReverseMap();
 
+            CreateMap<TarefaEntity, TarefaProjetoDtoListagem>()
+                .ReverseMap();
+
             CreateMap<ProjetoEntity, ProjetoDto>()
             .ReverseMap();
 

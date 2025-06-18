@@ -242,7 +242,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _tarefaService.ListaByProjetoAsync(projeto);
+                var result = await _tarefaService.ListaByProjetoDashboardAsync(projeto);
 
                 if (result == null)
                 {
@@ -253,6 +253,32 @@ namespace Application.Controllers
 
             }
             catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("{projeto}")]
+        public async Task<IActionResult> ListaTarefasByProjeto([FromQuery] int pageNumber, [FromQuery] int pageSize, Guid projeto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _tarefaService.GetAllByProject(pageNumber, pageSize, projeto);
+
+                if(result == null)
+                {
+                    return NotFound("Nenhuma tarefa encontrada");
+                }
+
+                return Ok(result);
+
+            } catch(Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }

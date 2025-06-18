@@ -77,9 +77,9 @@ namespace Services.Tarefas
 
       
 
-        public async Task<DashboardDtoResult> ListaByProjetoAsync(Guid projeto)
+        public async Task<DashboardDtoResult> ListaByProjetoDashboardAsync(Guid projeto)
         {
-            return await _repository.ListByProjetoAsync(projeto);
+            return await _repository.ListByProjetoDashboardAsync(projeto);
         }
 
         public async Task<object> calcularDuracao(string horarioInicio, string horarioFim)
@@ -96,6 +96,26 @@ namespace Services.Tarefas
                 Duracao = duracao.ToString(),
             };
             return result;
+        }
+
+        public async Task<TarefaProjetoDtoListagem> GetAllByProject(int pageNumber, int pageSize, Guid projeto)
+        {
+            try
+            {
+                var tarefas = _mapper.Map<IEnumerable<TarefaDto>>(await _repository.GetAllByProjectAsync(projeto))
+                    .Skip((pageNumber - 1) * pageSize).Take(pageSize);
+                var result = new TarefaProjetoDtoListagem()
+                {
+                    Total = await _repository.GetTotalTarefasByProjectAsync(),
+                    Data = tarefas,
+                };
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

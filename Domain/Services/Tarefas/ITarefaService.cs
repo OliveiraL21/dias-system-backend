@@ -19,7 +19,8 @@ namespace Domain.Services.Tarefas
         Task<IEnumerable<TarefaDto>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId);
         Task<string> calcularHorasTotaisAsync(DateTime data);
         Task<IEnumerable<TarefaDto>> ListaAsync();
-        Task<DashboardDtoResult> ListaByProjetoAsync(Guid projeto);
+        Task<DashboardDtoResult> ListaByProjetoDashboardAsync(Guid projeto);
+        Task<TarefaProjetoDtoListagem> GetAllByProject(int pageNumber, int pageSize, Guid projeto);
         Task<object>calcularDuracao(string horarioInicio, string horarioFim);
     }
 }

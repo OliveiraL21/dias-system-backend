@@ -25,7 +25,7 @@ namespace Data.Implementation
         {
             try
             {
-                var tarefas = await _dataSet.Where(x => x.Data == data).ToListAsync();
+                var tarefas = await _dataSet.AsNoTracking().Where(x => x.Data == data).ToListAsync();
                 if (tarefas.Any())
                 {
                     var duracao = new TimeSpan();
@@ -53,7 +53,7 @@ namespace Data.Implementation
                 dataFim = dataFim == "null" ? null : dataFim;
                 descricao = descricao == "null" ? null : descricao;
 
-                var result = _dataSet.Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
+                var result = _dataSet.AsNoTracking().Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
 
                 if (string.IsNullOrEmpty(descricao) && string.IsNullOrEmpty(dataInicio) && string.IsNullOrEmpty(dataFim) && !projetoId.HasValue)
                 {
@@ -82,7 +82,7 @@ namespace Data.Implementation
         {
             try
             {
-                var result = await _dataSet.Include(x => x.Projeto).Include(x => x.Status).ToListAsync();
+                var result = await _dataSet.AsNoTracking().Include(x => x.Projeto).Include(x => x.Status).ToListAsync();
                 foreach (var tarefa in result)
                 {
                     tarefa.HorarioInicio = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Convert.ToDateTime(tarefa.HorarioInicio), "E. South America Standard Time");
@@ -109,7 +109,7 @@ namespace Data.Implementation
             return total;
         }
 
-        public async Task<DashboardDtoResult> ListByProjetoAsync(Guid? projeto)
+        public async Task<DashboardDtoResult> ListByProjetoDashboardAsync(Guid? projeto)
         {
             var today = DateTime.Now;
 
@@ -124,7 +124,7 @@ namespace Data.Implementation
                 case DayOfWeek.Monday:
                     var tempData = today.AddDays(6);
                     var dataFim = new DateTime(tempData.Year, tempData.Month, tempData.Day, 0, 0, 0);
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= new DateTime(today.Year, today.Month, today.Day, 0, 0, 0) && tarefa.Data <= dataFim).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= new DateTime(today.Year, today.Month, today.Day, 0, 0, 0) && tarefa.Data <= dataFim).ToList();
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(1)).Sum(x => x.Duracao.Hour);
                     result.Quarta = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(2)).Sum(x => x.Duracao.Hour);
@@ -141,7 +141,7 @@ namespace Data.Implementation
                     var tempDataTerca = today.AddDays(6);
                     var dataFimTerca = new DateTime(tempDataTerca.Year, tempDataTerca.Month, tempDataTerca.Day, 0, 0, 0);
 
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicialTerca && tarefa.Data <= dataFimTerca).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicialTerca && tarefa.Data <= dataFimTerca).ToList();
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-1)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0)).Sum(x => x.Duracao.Hour);
                     result.Quarta = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(1)).Sum(x => x.Duracao.Hour);
@@ -157,7 +157,7 @@ namespace Data.Implementation
                     var dataInicialQuarta = new DateTime(tempIniQuarta.Year, tempIniQuarta.Month, tempIniQuarta.Day, 0, 0, 0);
                     var tempDataQuarta = today.AddDays(4);
                     var dataFimQuarta = new DateTime(tempDataQuarta.Year, tempDataQuarta.Month, tempDataQuarta.Day, 0, 0, 0);
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicialQuarta && tarefa.Data <= dataFimQuarta).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicialQuarta && tarefa.Data <= dataFimQuarta).ToList();
 
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-2)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-1)).Sum(x => x.Duracao.Hour);
@@ -176,7 +176,7 @@ namespace Data.Implementation
                     var tempDataQuinta = today.AddDays(3);
                     var dataFimQuinta = new DateTime(tempDataQuinta.Year, tempDataQuinta.Month, tempDataQuinta.Day, 0, 0, 0);
 
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioQuinta && tarefa.Data <= dataFimQuinta).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioQuinta && tarefa.Data <= dataFimQuinta).ToList();
 
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-3)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-2)).Sum(x => x.Duracao.Hour);
@@ -196,7 +196,7 @@ namespace Data.Implementation
                     var tempDataSexta = today.AddDays(2);
                     var dataFimSexta = new DateTime(tempDataSexta.Year, tempDataSexta.Month, tempDataSexta.Day, 0, 0, 0);
 
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioSexta && tarefa.Data <= dataFimSexta).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioSexta && tarefa.Data <= dataFimSexta).ToList();
 
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-4)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-3)).Sum(x => x.Duracao.Hour);
@@ -216,7 +216,7 @@ namespace Data.Implementation
                     var tempDataSabado = today.AddDays(1);
                     var dataFimSabado = new DateTime(tempDataSabado.Year, tempDataSabado.Month, tempDataSabado.Day, 0, 0, 0);
 
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioSabado && tarefa.Data <= dataFimSabado).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioSabado && tarefa.Data <= dataFimSabado).ToList();
 
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-5)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-4)).Sum(x => x.Duracao.Hour);
@@ -236,7 +236,7 @@ namespace Data.Implementation
                     var tempDataDomingo = today;
                     var dataFimDomingo = new DateTime(tempDataDomingo.Year, tempDataDomingo.Month, tempDataDomingo.Day, 0, 0, 0);
 
-                    tarefas = _dataSet.Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioDomingo && tarefa.Data <= dataFimDomingo).ToList();
+                    tarefas = _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicioDomingo && tarefa.Data <= dataFimDomingo).ToList();
 
                     result.Segunda = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-6)).Sum(x => x.Duracao.Hour);
                     result.Terca = tarefas.Where(r => r.Data == new DateTime(today.Year, today.Month, today.Day, 0, 0, 0).AddDays(-5)).Sum(x => x.Duracao.Hour);
@@ -250,6 +250,31 @@ namespace Data.Implementation
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<TarefaEntity>> GetAllByProjectAsync(Guid projeto)
+        {
+            try
+            {
+                var result = await _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto).ToListAsync();
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<int> GetTotalTarefasByProjectAsync()
+        {
+            try
+            {
+                return await _dataSet.AsNoTracking().CountAsync();
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
