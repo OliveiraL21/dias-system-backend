@@ -24,7 +24,7 @@ namespace Data.Implementation
         {
             try
             {
-                return await _dataSet.Include(p => p.Status).Include(p => p.Cliente).Include(p => p.Tarefas).FirstOrDefaultAsync(p => p.Id == id);
+                return await _dataSet.AsNoTracking().Include(p => p.Status).Include(p => p.Cliente).FirstOrDefaultAsync(p => p.Id == id);
             }
             catch
             {
@@ -36,7 +36,7 @@ namespace Data.Implementation
         {
             try
             {
-                var result = _dataSet.Include(p => p.Cliente).Include(p => p.Status).AsQueryable();
+                var result = _dataSet.AsNoTracking().Include(p => p.Cliente).Include(p => p.Status).AsQueryable();
 
                 if ((!projeto.HasValue || projeto == Guid.Empty) && (!clienteId.HasValue || clienteId == Guid.Empty) &&
                 (!statusId.HasValue || statusId == Guid.Empty))
@@ -58,7 +58,7 @@ namespace Data.Implementation
         {
             try
             {
-                return await _dataSet.Include(p => p.Status).Include(p => p.Cliente).ToListAsync();
+                return await _dataSet.AsNoTracking().Include(p => p.Status).Include(p => p.Cliente).ToListAsync();
             }
             catch
             {

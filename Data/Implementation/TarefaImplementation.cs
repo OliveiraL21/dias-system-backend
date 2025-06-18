@@ -256,7 +256,7 @@ namespace Data.Implementation
         {
             try
             {
-                var result = await _dataSet.AsNoTracking().Where(tarefa => tarefa.ProjetoId == projeto).ToListAsync();
+                var result = await _dataSet.AsNoTracking().Include(t => t.Projeto).Include(tarefa => tarefa.Status).Where(tarefa => tarefa.ProjetoId == projeto).ToListAsync();
                 return result;
             }
             catch

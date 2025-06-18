@@ -259,8 +259,8 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-        [Route("{projeto}")]
-        public async Task<IActionResult> ListaTarefasByProjeto([FromQuery] int pageNumber, [FromQuery] int pageSize, Guid projeto)
+        [Route("projeto/{projetoId}", Name ="getTarefaByProjeto")]
+        public async Task<IActionResult> GetTarefasByProjeto([FromQuery] int pageNumber, [FromQuery] int pageSize, Guid projetoId)
         {
             try
             {
@@ -269,7 +269,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _tarefaService.GetAllByProject(pageNumber, pageSize, projeto);
+                var result = await _tarefaService.GetAllByProject(pageNumber, pageSize, projetoId);
 
                 if(result == null)
                 {
