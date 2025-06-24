@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="06/24/2025 11:50:09" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Dictionary>
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwcJskkl12R3mGkk6YWpQE39">
+      <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
+        <Column Name="Id" DataType="System.Guid"/>
+        <Column Name="Descricao" DataType="System.String"/>
+        <Column Name="DataInicio" DataType="System.DateTime"/>
+        <Column Name="DataFim" DataType="System.DateTime"/>
+        <Column Name="StatusId" DataType="System.Guid"/>
+        <Column Name="ClienteId" DataType="System.Guid"/>
+        <Column Name="CreateAt" DataType="System.DateTime"/>
+        <Column Name="UpdateAt" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="tarefas" DataType="System.Int32" Enabled="true" TableName="tarefas">
+        <Column Name="Id" DataType="System.Guid"/>
+        <Column Name="HorarioInicio" DataType="System.DateTime"/>
+        <Column Name="HorarioFim" DataType="System.DateTime"/>
+        <Column Name="Duracao" DataType="System.DateTime"/>
+        <Column Name="Data" DataType="System.DateTime"/>
+        <Column Name="Observacao" DataType="System.String"/>
+        <Column Name="Descricao" DataType="System.String"/>
+        <Column Name="ProjetoId" DataType="System.Guid"/>
+        <Column Name="StatusId" DataType="System.Guid"/>
+        <Column Name="CreateAt" DataType="System.DateTime"/>
+        <Column Name="UpdateAt" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
+        <Column Name="Id" DataType="System.Guid"/>
+        <Column Name="RazaoSocial" DataType="System.String"/>
+        <Column Name="Cnpj" DataType="System.String"/>
+        <Column Name="Telefone" DataType="System.String"/>
+        <Column Name="Celular" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="CreateAt" DataType="System.DateTime"/>
+        <Column Name="UpdateAt" DataType="System.DateTime"/>
+        <Column Name="Bairro" DataType="System.String"/>
+        <Column Name="Cep" DataType="System.String"/>
+        <Column Name="Cidade" DataType="System.String"/>
+        <Column Name="Logradouro" DataType="System.String"/>
+        <Column Name="Numero" DataType="System.String"/>
+        <Column Name="Tipo" DataType="System.String"/>
+        <Column Name="Cpf" DataType="System.String"/>
+      </TableDataSource>
+    </MySqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="85.05">
+      <TextObject Name="titulo" Left="-1.45" Width="718.2" Height="56.7" Text="Serviços Prestados" HorzAlign="Center" VertAlign="Center" Font="Calibri, 24pt, style=Bold"/>
+      <TextObject Name="Text26" Left="-4" Top="56.7" Width="122.85" Height="28.35" Text="Projeto: " HorzAlign="Center" VertAlign="Center" Font="Calibri, 16pt, style=Bold"/>
+      <TextObject Name="Text27" Left="113.4" Top="56.7" Width="604.8" Height="28.35" Text="[projetos.Descricao]" VertAlign="Center" Font="Calibri, 14pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="89.05" Width="718.2" Height="311.85" Border.Lines="All">
+      <TextObject Name="Text2" Top="47.25" Width="349.65" Height="28.35" Border.Lines="Left, Right, Top" Text="Nome" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text1" Width="718.2" Height="47.25" Border.Lines="All" Fill.Color="WhiteSmoke" CanBreak="false" Text="Empresa prestadora" VertAlign="Center" Font="Calibri, 18pt, style=Bold"/>
+      <TextObject Name="Text3" Top="75.6" Width="349.65" Height="18.9" Border.Lines="Right, Bottom" Text="Lucas José Dias de Oliveira" Font="Arial, 11pt"/>
+      <TextObject Name="Text4" Left="349.65" Top="47.25" Width="368.55" Height="28.35" Border.Lines="Left, Right, Top" Text="Telefone" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text5" Left="349.65" Top="75.6" Width="368.55" Height="18.9" Border.Lines="Left, Right, Bottom" Text="(19) 996693155" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text6" Top="94.5" Width="349.65" Height="28.35" Border.Lines="Left, Right, Top" Text="CPF&#13;&#10;" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text7" Top="122.85" Width="349.65" Height="28.35" Border.Lines="Left, Right, Bottom" Text="476.593.238-90" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text8" Left="349.65" Top="94.5" Width="368.55" Height="18.9" Border.Lines="Left, Right" Text="Endereço" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
+      <TextObject Name="Text9" Left="349.65" Top="113.4" Width="368.55" Height="37.8" Border.Lines="Left, Right, Bottom" Text="Av. São Carlos, 791, Vila São Carlos - Mogi Guaçu - SP" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text10" Top="151.2" Width="718.2" Height="37.8" Border.Lines="Left, Right, Bottom" Fill.Color="WhiteSmoke" Text="Cliente&#13;&#10;" VertAlign="Center" Font="Calibri, 18pt, style=Bold"/>
+      <TextObject Name="Text11" Top="189" Width="349.65" Height="28.35" Border.Lines="Left, Right" Text="Nome" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text12" Top="217.35" Width="349.65" Height="28.35" Border.Lines="Left, Right, Bottom" Text="[clientes.RazaoSocial]" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text13" Top="245.7" Width="349.65" Height="28.35" Border.Lines="Left, Right" Text="CNPJ/CPF" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text14" Top="274.05" Width="349.65" Height="37.8" Border.Lines="Left, Right, Bottom" Text="[clientes.Cnpj]" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text15" Left="349.65" Top="189" Width="368.55" Height="28.35" Border.Lines="Left, Right" Text="Telefone" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text16" Left="349.65" Top="217.35" Width="368.55" Height="28.35" Border.Lines="Left, Right, Bottom" Text="[clientes.Telefone]" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text17" Left="349.65" Top="245.7" Width="368.55" Height="28.35" Border.Lines="Left, Right" Text="Endereço&#13;&#10;" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
+      <TextObject Name="Text18" Left="349.65" Top="274.05" Width="368.55" Height="37.8" Border.Lines="Left, Right, Bottom" Text="[clientes.Logradouro],[clientes.Numero],[clientes.Bairro] - [clientes.Cidade]" VertAlign="Center" Font="Arial, 11pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="404.9" Width="718.2" Height="151.2" DataSource="tarefas">
+      <TableObject Name="dados" Left="9.45" Top="18.9" Width="689.85" Height="122.85">
+        <TableColumn Name="Column1" Width="105.84"/>
+        <TableColumn Name="Column2" Width="115.29"/>
+        <TableColumn Name="Column3" Width="39.69"/>
+        <TableColumn Name="Column4" Width="39.69"/>
+        <TableColumn Name="Column5" Width="389.34"/>
+        <TableRow Name="Row1">
+          <TableCell Name="Cell1" Fill.Color="WhiteSmoke" Text="Data" Font="Calibri, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Fill.Color="WhiteSmoke" Text="Duração" Font="Calibri, 10pt, style=Bold"/>
+          <TableCell Name="Cell3" Fill.Color="WhiteSmoke" Text="Serviço&#13;&#10;" HorzAlign="Center" Font="Calibri, 10pt, style=Bold" ColSpan="3"/>
+          <TableCell Name="Cell4" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell5" Font="Arial, 10pt" ColSpan="3"/>
+        </TableRow>
+        <TableRow Name="Row2">
+          <TableCell Name="Cell6" Text="[tarefas.Data]" Font="Arial, 10pt"/>
+          <TableCell Name="Cell7" Text="[Hour([tarefas.Duracao])]:[Minute([tarefas.Duracao])]" Font="Arial, 10pt"/>
+          <TableCell Name="Cell8" Text="[tarefas.Descricao]" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell9" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell10" Font="Arial, 10pt" ColSpan="3"/>
+        </TableRow>
+        <TableRow Name="Row3">
+          <TableCell Name="Cell11" Font="Arial, 10pt"/>
+          <TableCell Name="Cell12" Font="Arial, 10pt"/>
+          <TableCell Name="Cell13" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell14" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell15" Font="Arial, 10pt" ColSpan="3"/>
+        </TableRow>
+        <TableRow Name="Row4">
+          <TableCell Name="Cell16" Font="Arial, 10pt"/>
+          <TableCell Name="Cell17" Font="Arial, 10pt"/>
+          <TableCell Name="Cell18" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell19" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell20" Font="Arial, 10pt" ColSpan="3"/>
+        </TableRow>
+        <TableRow Name="Row5" Height="47.25">
+          <TableCell Name="Cell21" Font="Arial, 10pt"/>
+          <TableCell Name="Cell22" Font="Arial, 10pt"/>
+          <TableCell Name="Cell23" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell24" Font="Arial, 10pt" ColSpan="3"/>
+          <TableCell Name="Cell25" Font="Arial, 10pt" ColSpan="3"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="560.1" Width="718.2" Height="37.8">
+      <TextObject Name="Text25" Left="1.55" Top="6" Width="198.45" Height="28.35" Text="Página: [Page]/[TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Calibri, 11pt, style=Bold, Italic"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
