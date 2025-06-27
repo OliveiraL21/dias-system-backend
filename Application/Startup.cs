@@ -8,6 +8,8 @@ using Domain.Services.Clientes;
 using Domain.Services.Dashboard;
 using Domain.Services.Projetos;
 using Domain.Services.Tarefas;
+using FastReport.Data;
+using FastReport.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,6 +64,9 @@ namespace Application
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
+            //FastReport.Utils.RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
+            RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
+            //importar o MySqlDataConnection da lib FastReport.Data
 
             services.AddCors(options =>
             {
@@ -162,6 +167,9 @@ namespace Application
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseFastReport();
+            app.UseStaticFiles();
 
             app.UseCors(MyAllowSpecificOrigins);
 

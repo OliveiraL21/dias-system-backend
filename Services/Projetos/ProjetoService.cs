@@ -63,6 +63,7 @@ namespace Services.Projetos
             return _mapper.Map<ProjetoDto>(await _repository.SelectProjectWithRealationShipsAsync(id));
         }
 
+
         public async Task<ProjetoDtoUpdateResult> UpdateAsync(Guid id, ProjetoDtoUpdate projeto)
         {
             projeto.Id = id;
@@ -70,5 +71,7 @@ namespace Services.Projetos
             var entity = _mapper.Map<ProjetoEntity>(model);
             return _mapper.Map<ProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
+
+        
     }
 }
