@@ -20,7 +20,7 @@ namespace Services.reports
             _projetoRepository = projetoRepository;
         }
 
-        public async Task<Stream> ServicosPrestados(Guid projetoId)
+        public async Task<byte[]> ServicosPrestados(Guid projetoId)
         {
             try
             {
@@ -42,12 +42,14 @@ namespace Services.reports
                 webReport.Report.RegisterData(dataTable, "Projeto");
                 webReport.Report.Prepare();
 
-                MemoryStream ms = new MemoryStream();
-             
-                var pdfExport = new PDFSimpleExport();
-                pdfExport.Export(webReport.Report, ms);
-                ms.Flush();
-                return ms;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                   var pdfExport = new PDFSimpleExport();
+                   pdfExport.Export(webReport.Report, ms);
+                   ms.Flush();
+                   return ms.ToArray();
+                }
+
                 
 
           
