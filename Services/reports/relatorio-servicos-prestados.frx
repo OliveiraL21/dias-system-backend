@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/02/2025 12:11:56" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/02/2025 12:16:35" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwdwQVsPFpQ55iHSDJplh928">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwdAaMgBz8EfqTOp2RvliI7M">
       <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="Descricao" DataType="System.String"/>
@@ -53,7 +53,7 @@
       <TextObject Name="Text1" Top="28.35" Width="718.2" Height="47.25" Border.Lines="All" Fill.Color="WhiteSmoke" CanBreak="false" Text="Empresa prestadora" VertAlign="Center" Font="Calibri, 18pt, style=Bold"/>
       <TextObject Name="Text3" Top="103.95" Width="349.65" Height="18.9" Border.Lines="Left, Right, Bottom" Text="Lucas José Dias de Oliveira" Font="Arial, 11pt"/>
       <TextObject Name="Text4" Left="349.65" Top="75.6" Width="368.55" Height="28.35" Border.Lines="Left, Right, Top" Text="Telefone" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
-      <TextObject Name="Text5" Left="349.65" Top="103.95" Width="368.55" Height="18.9" Border.Lines="Left, Right, Bottom" Text="(19) 996693155" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text5" Left="349.65" Top="103.95" Width="368.55" Height="18.9" Border.Lines="Left, Right, Bottom" Text="(19) 99669-3155" VertAlign="Center" Font="Arial, 11pt"/>
       <TextObject Name="Text6" Top="122.85" Width="349.65" Height="28.35" Border.Lines="Left, Right, Top" Text="CPF&#13;&#10;" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
       <TextObject Name="Text7" Top="151.2" Width="349.65" Height="28.35" Border.Lines="Left, Right, Bottom" Text="476.593.238-90" VertAlign="Center" Font="Arial, 11pt"/>
       <TextObject Name="Text8" Left="349.65" Top="122.85" Width="368.55" Height="18.9" Border.Lines="Left, Right" Text="Endereço" VertAlign="Center" Font="Calibri, 11pt, style=Bold"/>
