@@ -50,10 +50,6 @@ namespace Services.reports
                    return ms.ToArray();
                 }
 
-                
-
-          
-
             } catch (Exception ex)
             {
                 throw ex;
