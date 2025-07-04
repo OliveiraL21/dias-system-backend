@@ -20,13 +20,13 @@ namespace Services.reports
             _projetoRepository = projetoRepository;
         }
 
-        public async Task<Stream> ServicosPrestados(Guid projetoId)
+        public async Task<byte[]> ServicosPrestados(Guid projetoId)
         {
             try
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
                 var webReport = new WebReport();
-                webReport.Report.Load(Path.Combine("reports\\relatorio-servicos-prestados.frx"));
+                webReport.Report.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"reports\\relatorio-servicos-prestados.frx"));
                 var dataTable = new DataTable();
                 dataTable.Columns.Add("Id", typeof(Guid));
                 dataTable.Columns.Add("Descricao", typeof(string));
@@ -39,26 +39,16 @@ namespace Services.reports
                 dataTable.Columns.Add("Bairro", typeof(string));
                 dataTable.Columns.Add("Cidade", typeof(string));
 
+                webReport.Report.RegisterData(dataTable, "Projeto");
                 webReport.Report.Prepare();
-                foreach (var tarefa in projeto.Tarefas)
-                {
-                    dataTable.Rows.Add(
-                        tarefa.Id,
-                        tarefa.Descricao,
-                        tarefa.Data,
-                        tarefa.Duracao
-                    );
-                }
-                webReport.Report.RegisterData(projeto.Tarefas, "Tarefas");
 
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    var pdfExport = new PDFSimpleExport();
-                    pdfExport.Export(webReport.Report, ms);
-                    ms.Flush();
-                    return ms;
+                   var pdfExport = new PDFSimpleExport();
+                   pdfExport.Export(webReport.Report, ms);
+                   ms.Flush();
+                   return ms.ToArray();
                 }
-
 
             } catch (Exception ex)
             {

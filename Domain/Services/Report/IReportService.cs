@@ -9,6 +9,6 @@ namespace Domain.Services.Report
 {
     public interface IReportService
     {
-        Task<Stream> ServicosPrestados(Guid projetoId);
+        Task<byte[]> ServicosPrestados(Guid projetoId);
     }
 }
