@@ -1,5 +1,6 @@
 ﻿using Domain.Repositories;
 using Domain.Services.Report;
+using FastReport.Export.PdfSimple;
 using FastReport.Web;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,26 @@ namespace Services.reports
                 dataTable.Columns.Add("Numero", typeof(string));
                 dataTable.Columns.Add("Bairro", typeof(string));
                 dataTable.Columns.Add("Cidade", typeof(string));
+
+                webReport.Report.Prepare();
+                foreach (var tarefa in projeto.Tarefas)
+                {
+                    dataTable.Rows.Add(
+                        tarefa.Id,
+                        tarefa.Descricao,
+                        tarefa.Data,
+                        tarefa.Duracao
+                    );
+                }
+                webReport.Report.RegisterData(projeto.Tarefas, "Tarefas");
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    var pdfExport = new PDFSimpleExport();
+                    pdfExport.Export(webReport.Report, ms);
+                    ms.Flush();
+                    return ms;
+                }
 
 
             } catch (Exception ex)

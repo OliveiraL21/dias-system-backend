@@ -64,8 +64,9 @@ namespace Application
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
+
             //FastReport.Utils.RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
-            RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
+            FastReport.Utils.RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
             //importar o MySqlDataConnection da lib FastReport.Data
 
             services.AddCors(options =>

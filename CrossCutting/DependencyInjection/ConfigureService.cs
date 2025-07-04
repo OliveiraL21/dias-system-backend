@@ -3,6 +3,7 @@ using Domain.Services.Dashboard;
 using Domain.Services.Email;
 using Domain.Services.Login;
 using Domain.Services.Projetos;
+using Domain.Services.Report;
 using Domain.Services.ResetaSenha;
 using Domain.Services.Tarefas;
 using Domain.Services.Usuarios;
@@ -12,6 +13,7 @@ using Services.DashBoard;
 using Services.Email;
 using Services.Login;
 using Services.Projetos;
+using Services.reports;
 using Services.ResetSenha;
 using Services.StatusService;
 using Services.Tarefas;
@@ -33,6 +35,7 @@ namespace CrossCutting.DependencyInjection
             serviceCollection.AddTransient<StatusService, StatusService>();
             serviceCollection.AddTransient<ITarefaService, TarefaService>();
             serviceCollection.AddTransient<IDashboardService, DashboardService>();
+            serviceCollection.AddTransient<IReportService, ReportService>();
         }
 
         public static void ConfigureServicesUserAplication(IServiceCollection serviceCollection)

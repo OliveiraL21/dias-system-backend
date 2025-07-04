@@ -3,6 +3,7 @@ using Data.Implementation;
 using Data.Repository;
 using Domain.Repositories;
 using Domain.Repository;
+using Domain.Services.Report;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
