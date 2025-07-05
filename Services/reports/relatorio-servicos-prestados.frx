@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/03/2025 23:02:56" ReportInfo.CreatorVersion="2025.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/05/2025 10:40:19" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfKDN3XuVpG7sJP/2Byb2bn">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwd901eltv25YhSSaDpgV0/5">
       <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="Descricao" DataType="System.String"/>
@@ -77,7 +77,7 @@
     </PageHeaderBand>
     <DataBand Name="Data1" Top="463.6" Width="718.2" Height="56.7" DataSource="tarefas">
       <TextObject Name="Text33" Top="6" Width="406.35" Height="37.8" Text="[tarefas.Descricao]" Padding="0, 0, 0, 0" VertAlign="Center" Font="Arial, 11pt"/>
-      <TextObject Name="Text34" Left="510.3" Top="6" Width="226.8" Height="47.25" Text="[Hour([tarefas.Duracao])]:[Minute([tarefas.Duracao])][Minute([tarefas.Duracao])]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text34" Left="510.3" Top="6" Width="226.8" Height="47.25" Text="[Hour([tarefas.Duracao])]:[Minute([tarefas.Duracao])]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt"/>
       <TextObject Name="Text35" Left="400.35" Top="6" Width="122.85" Height="28.35" Text="[tarefas.Data]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt"/>
     </DataBand>
     <PageFooterBand Name="PageFooter1" Top="524.3" Width="718.2" Height="132.3">
@@ -85,6 +85,7 @@
       <TextObject Name="Text36" Left="113.4" Top="4" Width="132.3" Height="28.35" Border.Lines="Bottom" Text="Valor Total" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text37" Left="245.7" Top="4" Width="122.85" Height="28.35" Border.Lines="Bottom" Text="Data de Termino" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text38" Top="4" Width="113.4" Height="28.35" Border.Lines="Bottom" Text="Total de Horas" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text39" Left="247.15" Top="37.8" Width="122.85" Height="28.35" Text="[projetos.DataFim]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

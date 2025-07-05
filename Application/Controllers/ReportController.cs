@@ -27,7 +27,7 @@ namespace Application.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-
+                
                 var report = await _service.ServicosPrestados(id);
 
                return File(report, "application/pdf", "relatorios-servicos-prestados.pdf");

@@ -1,15 +1,12 @@
-﻿using Domain.Repositories;
+﻿using Domain.Entidades;
+using Domain.Repositories;
 using Domain.Services.Report;
 using FastReport.Export.PdfSimple;
-using FastReport.Web;
+using Services.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 namespace Services.reports
 {
     public class ReportService : IReportService
@@ -29,49 +26,36 @@ namespace Services.reports
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
                 var tarefas = await _tarefaRepository.GetAllByProjectAsync(projetoId);
 
-                var webReport = new WebReport();
-                webReport.Report.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"reports\\relatorio-servicos-prestados.frx"));
-                var dataTableProjeto = new DataTable();
+                var webReport = HelperFastReport.WebReport("relatorio-servicos-prestados.frx");
 
-                dataTableProjeto.Columns.Add("Descricao", typeof(string));
-                dataTableProjeto.Columns.Add("DataInicio", typeof(DateTime));
- 
-                dataTableProjeto.Rows.Add(projeto.Descricao, projeto.DataInicio);
+                var projetoTable = new DataTable();
+                projetoTable.Columns.Add("Descricao", typeof(string));
+                projetoTable.Columns.Add("DataInicio", typeof(DateTime));
+                projetoTable.Columns.Add("DataFim", typeof(DateTime));
+                projetoTable.Rows.Add(projeto.Descricao, projeto.DataInicio, projeto.DataFim);
 
-                var dataTableCliente = new DataTable();
-                dataTableCliente.Columns.Add("RazaoSocial", typeof(string));
-                dataTableCliente.Columns.Add("Telefone", typeof(string));
-                dataTableCliente.Columns.Add("Cnpj", typeof(string));
-                dataTableCliente.Columns.Add("Logradouro", typeof(string));
-                dataTableCliente.Columns.Add("Numero", typeof(string));
-                dataTableCliente.Columns.Add("Bairro", typeof(string));
-                dataTableCliente.Columns.Add("Cidade", typeof(string));
 
-                dataTableCliente.Rows.Add(projeto.Cliente.RazaoSocial, projeto.Cliente.Telefone,string.IsNullOrEmpty(projeto.Cliente.Cnpj) ? projeto.Cliente.Cpf : projeto.Cliente.Cnpj, projeto.Cliente.Logradouro,
+                var clienteTable = new DataTable();
+                clienteTable.Columns.Add("RazaoSocial", typeof(string));
+                clienteTable.Columns.Add("Telefone", typeof(string));
+                clienteTable.Columns.Add("Cnpj", typeof(string));
+                clienteTable.Columns.Add("Logradouro", typeof(string));
+                clienteTable.Columns.Add("Numero", typeof(string));
+                clienteTable.Columns.Add("Bairro", typeof(string));
+                clienteTable.Columns.Add("Cidade", typeof(string));
+
+                clienteTable.Rows.Add(projeto.Cliente.RazaoSocial, projeto.Cliente.Telefone,string.IsNullOrEmpty(projeto.Cliente.Cnpj) ? projeto.Cliente.Cpf : projeto.Cliente.Cnpj, projeto.Cliente.Logradouro,
                     projeto.Cliente.Numero, projeto.Cliente.Bairro, projeto.Cliente.Cidade);
 
-                var dataTableTarefas = new DataTable();
-                dataTableTarefas.Columns.Add("Descricao", typeof(string));
-                dataTableTarefas.Columns.Add("Data", typeof(DateTime));
-                dataTableTarefas.Columns.Add("Duracao", typeof(DateTime));
+                var tarefasTable = HelperFastReport.GetTable<TarefaEntity>(tarefas, "Tarefas");
 
-                foreach(var tarefa in tarefas)
-                {
-                    dataTableTarefas.Rows.Add(tarefa.Descricao, tarefa.Data, tarefa.Duracao);
-                }
 
-                webReport.Report.RegisterData(dataTableProjeto, "Projetos");
-                webReport.Report.RegisterData(dataTableCliente, "Clientes");
-                webReport.Report.RegisterData(dataTableTarefas, "Tarefas");
-                webReport.Report.Prepare();
+                webReport.Report.RegisterData(projetoTable, "Projetos");
+                webReport.Report.RegisterData(clienteTable, "Clientes");
+                webReport.Report.RegisterData(tarefasTable, "Tarefas");
+                return HelperFastReport.ExportPdf(webReport);
 
-                using (MemoryStream ms = new MemoryStream())
-                {
-                   var pdfExport = new PDFSimpleExport();
-                   pdfExport.Export(webReport.Report, ms);
-                   ms.Flush();
-                   return ms.ToArray();
-                }
+              
 
             } catch (Exception ex)
             {
