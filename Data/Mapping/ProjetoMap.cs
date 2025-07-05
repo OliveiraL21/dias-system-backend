@@ -21,6 +21,9 @@ namespace Data.Mapping
             builder.Property(x => x.Descricao).IsRequired().HasMaxLength(200);
             builder.Property(x => x.DataInicio).IsRequired();
             builder.Property(x => x.DataFim).IsRequired();
+            builder.Property(x => x.TotalHoras);
+            builder.Property(x => x.ValorTotalProjeto);
+            builder.Property(x => x.ValorTotalParcial);
 
             builder.HasOne(x => x.Cliente).WithMany(c => c.Projetos).HasForeignKey(x => x.ClienteId);
             builder.HasOne(x => x.Status).WithMany(s => s.Projetos).HasForeignKey(x => x.StatusId);

@@ -14,6 +14,10 @@ namespace Domain.Entidades
 
         public DateTime DataFim { get; set; }
 
+        public DateTime? TotalHoras { get; set; }
+        public double ValorTotalProjeto { get; set; }
+        public double ValorTotalParcial { get; set; }
+
         public Guid StatusId { get; set; }
 
         public StatusEntity Status { get; set; }
