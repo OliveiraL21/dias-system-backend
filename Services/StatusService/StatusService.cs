@@ -45,7 +45,7 @@ namespace Services.StatusService
 
         public async Task<IEnumerable<StatusDtoListagem>> ListaAsync()
         {
-            return _mapper.Map<IEnumerable<StatusDtoListagem>>(await _repository.GetAllAsync());
+            return _mapper.Map<IEnumerable<StatusDtoListagem>>(await _repository.GetAllAsync()).OrderBy(p => p.Descricao);
         }
 
         public async Task<StatusDtoUpdateResult> UpdateAsync(Guid id, StatusDtoUpdate status)
