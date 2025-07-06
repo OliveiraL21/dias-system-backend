@@ -4,6 +4,7 @@ using Domain.Services.Report;
 using FastReport.Export.PdfSimple;
 using Services.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,33 +20,43 @@ namespace Services.reports
             _tarefaRepository = tarefaRepository;
         }
 
+        private DateTime CalcularTotalDeHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
+        {
+            DateTime total = new DateTime(2025, 01, 01, 0,0,0);
+            foreach(var tarefa in tarefas)
+            {
+                total = total.AddHours(tarefa.Duracao.Hour);
+            }
+            return total;
+        }
+
+        private double CalcularValorTotalDoProjeto(DateTime? totalHoras)
+        {
+            if (totalHoras.HasValue)
+            {
+                var total = 0;
+                total = totalHoras.Value.Hour * 50;
+                return total;
+            }
+            return 0;
+            
+        }
         public async Task<byte[]> ServicosPrestados(Guid projetoId)
         {
             try
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
                 var tarefas = await _tarefaRepository.GetAllByProjectAsync(projetoId);
+                projeto.TotalHoras = CalcularTotalDeHorasDoProjeto(tarefas);
+                projeto.ValorTotalProjeto = CalcularValorTotalDoProjeto(projeto.TotalHoras);
 
                 var webReport = HelperFastReport.WebReport("relatorio-servicos-prestados.frx");
 
-                var projetoTable = new DataTable();
-                projetoTable.Columns.Add("Descricao", typeof(string));
-                projetoTable.Columns.Add("DataInicio", typeof(DateTime));
-                projetoTable.Columns.Add("DataFim", typeof(DateTime));
-                projetoTable.Rows.Add(projeto.Descricao, projeto.DataInicio, projeto.DataFim);
+                List<ProjetoEntity> projetoList = [projeto];
+                var projetoTable = HelperFastReport.GetTable<ProjetoEntity>(projetoList, "Projetos");
 
-
-                var clienteTable = new DataTable();
-                clienteTable.Columns.Add("RazaoSocial", typeof(string));
-                clienteTable.Columns.Add("Telefone", typeof(string));
-                clienteTable.Columns.Add("Cnpj", typeof(string));
-                clienteTable.Columns.Add("Logradouro", typeof(string));
-                clienteTable.Columns.Add("Numero", typeof(string));
-                clienteTable.Columns.Add("Bairro", typeof(string));
-                clienteTable.Columns.Add("Cidade", typeof(string));
-
-                clienteTable.Rows.Add(projeto.Cliente.RazaoSocial, projeto.Cliente.Telefone,string.IsNullOrEmpty(projeto.Cliente.Cnpj) ? projeto.Cliente.Cpf : projeto.Cliente.Cnpj, projeto.Cliente.Logradouro,
-                    projeto.Cliente.Numero, projeto.Cliente.Bairro, projeto.Cliente.Cidade);
+                List<ClienteEntity> ClienteList = [projeto.Cliente];
+                var clienteTable = HelperFastReport.GetTable<ClienteEntity>(ClienteList, "Clientes");
 
                 var tarefasTable = HelperFastReport.GetTable<TarefaEntity>(tarefas, "Tarefas");
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/05/2025 10:40:19" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/05/2025 18:42:35" ReportInfo.CreatorVersion="2025.2.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwd901eltv25YhSSaDpgV0/5">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwd4kFNUkW8RpYL/6lFSga5N">
       <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="Descricao" DataType="System.String"/>
@@ -11,6 +11,9 @@
         <Column Name="ClienteId" DataType="System.Guid"/>
         <Column Name="CreateAt" DataType="System.DateTime"/>
         <Column Name="UpdateAt" DataType="System.DateTime"/>
+        <Column Name="TotalHoras" DataType="System.DateTime"/>
+        <Column Name="ValorTotalParcial" DataType="System.Double"/>
+        <Column Name="ValorTotalProjeto" DataType="System.Double"/>
       </TableDataSource>
       <TableDataSource Name="tarefas" DataType="System.Int32" Enabled="true" TableName="tarefas">
         <Column Name="Id" DataType="System.Guid"/>
@@ -86,6 +89,8 @@
       <TextObject Name="Text37" Left="245.7" Top="4" Width="122.85" Height="28.35" Border.Lines="Bottom" Text="Data de Termino" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text38" Top="4" Width="113.4" Height="28.35" Border.Lines="Bottom" Text="Total de Horas" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text39" Left="247.15" Top="37.8" Width="122.85" Height="28.35" Text="[projetos.DataFim]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text40" Left="114.3" Top="37.8" Width="132.3" Height="28.35" Text="R$ [projetos.ValorTotalProjeto]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text41" Top="37.8" Width="113.4" Height="28.35" Text="[Hour([projetos.TotalHoras])]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>
