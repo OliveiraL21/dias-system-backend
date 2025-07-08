@@ -14,7 +14,7 @@ namespace Domain.Entidades
 
         public DateTime DataFim { get; set; }
 
-        public DateTime? TotalHoras { get; set; }
+        public double? TotalHoras { get; set; }
         public double ValorTotalProjeto { get; set; }
         public double ValorTotalParcial { get; set; }
 
