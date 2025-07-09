@@ -27,12 +27,31 @@ namespace Application.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                
+
                 var report = await _service.ServicosPrestados(id);
 
-               return File(report, "application/pdf", "relatorios-servicos-prestados.pdf");
+                return File(report, "application/pdf", "relatorios-servicos-prestados.pdf");
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("ServicosPrestadosPeriodo/{id}/{dataInicio}/{dataFim}")]
+        public async Task<IActionResult> ExportServicosPrestadosPorPeriodo(Guid id, DateTime dataInicio, DateTime dataFim)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var report = await _service.ServicosPrestadosPorPeriodo(id, dataInicio, dataFim);
+                return File(report, "application/pdf", "relatorios-servicos-prestados-por-periodo.pdf");
+            }
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }

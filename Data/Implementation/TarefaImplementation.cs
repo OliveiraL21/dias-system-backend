@@ -265,6 +265,21 @@ namespace Data.Implementation
             }
         }
 
+        public async Task<IEnumerable<TarefaEntity>> GetAllByProjectWithRangeAsync(Guid projeto, DateTime dataInicio, DateTime dataFim)
+        {
+            try
+            {
+                var result = await _dataSet.AsNoTracking().Include(t => t.Projeto)
+                    .Include(tarefa => tarefa.Status)
+                    .Where(tarefa => tarefa.ProjetoId == projeto && tarefa.Data >= dataInicio && tarefa.Data <= dataFim ).ToListAsync();
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<int> GetTotalTarefasByProjectAsync()
         {
             try

@@ -17,6 +17,7 @@ namespace Domain.Repositories
         Task<IEnumerable<TarefaEntity>> GetAllByProjectAsync(Guid projeto);
         Task<int> GetTotalTarefasByProjectAsync();
         Task<DashboardDtoResult>ListByProjetoDashboardAsync(Guid? projeto);
+        Task<IEnumerable<TarefaEntity>>GetAllByProjectWithRangeAsync(Guid projetoId, DateTime dataInicio, DateTime dataFim);
 
     }
 }

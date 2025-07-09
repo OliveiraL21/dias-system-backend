@@ -16,7 +16,7 @@ namespace Services.Helpers
         public static WebReport WebReport(string nomeDoRelatorioFrx)
         {
             var result = new WebReport();
-            result.Report.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "reports\\relatorio-servicos-prestados.frx"));
+            result.Report.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomeDoRelatorioFrx));
             return result;
         }
 

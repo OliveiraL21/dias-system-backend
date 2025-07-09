@@ -20,7 +20,7 @@ namespace Services.reports
             _tarefaRepository = tarefaRepository;
         }
 
-        private TimeSpan CalcularTotalDeHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
+        private TimeSpan CalcularHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
         {
             TimeSpan totalHora = TimeSpan.Zero;
             foreach(var tarefa in tarefas)
@@ -32,7 +32,7 @@ namespace Services.reports
             return totalHora;
         }
 
-        private double CalcularValorTotalDoProjeto(double totalHoras)
+        private double CalcularValorDoProjeto(double totalHoras)
         {
             if (totalHoras > 0)
             {
@@ -49,13 +49,14 @@ namespace Services.reports
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
                 var tarefas = await _tarefaRepository.GetAllByProjectAsync(projetoId);
-                var timeTotal = CalcularTotalDeHorasDoProjeto(tarefas);
+
+                var timeTotal = CalcularHorasDoProjeto(tarefas);
                 var hour = (int)timeTotal.TotalHours;
                 var minute = timeTotal.Minutes;
                 projeto.TotalHoras = $"{hour:D2}:{minute:D2}";
-                projeto.ValorTotalProjeto = CalcularValorTotalDoProjeto(timeTotal.TotalHours);
+                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours);
 
-                var webReport = HelperFastReport.WebReport("relatorio-servicos-prestados.frx");
+                var webReport = HelperFastReport.WebReport("reports\\relatorio-servicos-prestados.frx");
 
                 List<ProjetoEntity> projetoList = [projeto];
                 var projetoTable = HelperFastReport.GetTable<ProjetoEntity>(projetoList, "Projetos");
@@ -74,6 +75,42 @@ namespace Services.reports
               
 
             } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<byte[]> ServicosPrestadosPorPeriodo(Guid projetoId, DateTime dataInicio, DateTime dataFim)
+        {
+            try
+            {
+                var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
+                var tarefas = await _tarefaRepository.GetAllByProjectWithRangeAsync(projetoId, dataInicio, dataFim);
+
+                var timeTotal = CalcularHorasDoProjeto(tarefas);
+                var hour = (int)timeTotal.TotalHours;
+                var minute = timeTotal.Minutes;
+                projeto.TotalHoras = $"{hour:D2}:{minute:D2}";
+                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours);
+
+                var webReport = HelperFastReport.WebReport("reports\\relatorio-servicos-prestados-periodo.frx");
+
+                List<ProjetoEntity> projetoList = [projeto];
+                var projetoTable = HelperFastReport.GetTable<ProjetoEntity>(projetoList, "Projetos");
+
+                List<ClienteEntity> ClienteList = [projeto.Cliente];
+                var clienteTable = HelperFastReport.GetTable<ClienteEntity>(ClienteList, "Clientes");
+
+                var tarefasTable = HelperFastReport.GetTable<TarefaEntity>(tarefas, "Tarefas");
+
+
+                webReport.Report.RegisterData(projetoTable, "Projetos");
+                webReport.Report.RegisterData(clienteTable, "Clientes");
+                webReport.Report.RegisterData(tarefasTable, "Tarefas");
+                return HelperFastReport.ExportPdf(webReport);
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/08/2025 20:54:31" ReportInfo.CreatorVersion="2025.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/24/2025 08:22:44" ReportInfo.Modified="07/08/2025 22:19:52" ReportInfo.CreatorVersion="2025.2.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwdfjAJ4mQbYr2H8389nrBoV">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfx9LsL9+J+d5uiimAQI6kY">
       <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="Descricao" DataType="System.String"/>
@@ -49,7 +49,7 @@
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="68.15">
-      <TextObject Name="titulo" Left="-1.45" Width="718.2" Height="56.7" Text="Serviços Prestados" HorzAlign="Center" VertAlign="Center" Font="Calibri, 24pt, style=Bold"/>
+      <TextObject Name="titulo" Left="-1.45" Width="718.2" Height="66.15" Text="Serviços Prestados" HorzAlign="Center" VertAlign="Center" Font="Calibri, 24pt, style=Bold"/>
     </ReportTitleBand>
     <PageHeaderBand Name="PageHeader1" Top="72.15" Width="718.2" Height="387.45">
       <TextObject Name="Text2" Top="75.6" Width="349.65" Height="28.35" Border.Lines="Left, Right, Top" Text="Nome" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>

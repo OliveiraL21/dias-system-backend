@@ -10,5 +10,6 @@ namespace Domain.Services.Report
     public interface IReportService
     {
         Task<byte[]> ServicosPrestados(Guid projetoId);
+        Task<byte[]> ServicosPrestadosPorPeriodo(Guid projetoId, DateTime dataInicio, DateTime dataFim);
     }
 }
