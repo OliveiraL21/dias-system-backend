@@ -20,15 +20,16 @@ namespace Services.reports
             _tarefaRepository = tarefaRepository;
         }
 
-        private double CalcularTotalDeHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
+        private TimeSpan CalcularTotalDeHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
         {
             TimeSpan totalHora = TimeSpan.Zero;
             foreach(var tarefa in tarefas)
             {
                 totalHora += tarefa.Duracao.TimeOfDay;
             }
-            
-            return totalHora.TotalHours;
+            var hour = (int)totalHora.TotalHours;
+            var minute = totalHora.Minutes;
+            return totalHora;
         }
 
         private double CalcularValorTotalDoProjeto(double totalHoras)
@@ -48,8 +49,11 @@ namespace Services.reports
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
                 var tarefas = await _tarefaRepository.GetAllByProjectAsync(projetoId);
-                projeto.TotalHoras = CalcularTotalDeHorasDoProjeto(tarefas);
-                projeto.ValorTotalProjeto = CalcularValorTotalDoProjeto(projeto.TotalHoras ?? 0);
+                var timeTotal = CalcularTotalDeHorasDoProjeto(tarefas);
+                var hour = (int)timeTotal.TotalHours;
+                var minute = timeTotal.Minutes;
+                projeto.TotalHoras = $"{hour:D2}:{minute:D2}";
+                projeto.ValorTotalProjeto = CalcularValorTotalDoProjeto(timeTotal.TotalHours);
 
                 var webReport = HelperFastReport.WebReport("relatorio-servicos-prestados.frx");
 
