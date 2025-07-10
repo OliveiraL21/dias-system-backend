@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 namespace Services.reports
 {
@@ -48,7 +49,7 @@ namespace Services.reports
             try
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
-                var tarefas = await _tarefaRepository.GetAllByProjectAsync(projetoId);
+                var tarefas = (await _tarefaRepository.GetAllByProjectAsync(projetoId)).OrderBy(t => t.Data);
 
                 var timeTotal = CalcularHorasDoProjeto(tarefas);
                 var hour = (int)timeTotal.TotalHours;
@@ -85,7 +86,9 @@ namespace Services.reports
             try
             {
                 var projeto = await _projetoRepository.SelectProjectWithRealationShipsAsync(projetoId);
-                var tarefas = await _tarefaRepository.GetAllByProjectWithRangeAsync(projetoId, dataInicio, dataFim);
+                projeto.DataInicio = dataInicio;
+                projeto.DataFim = dataFim;
+                var tarefas = (await _tarefaRepository.GetAllByProjectWithRangeAsync(projetoId, dataInicio, dataFim)).OrderBy(t => t.Data);
 
                 var timeTotal = CalcularHorasDoProjeto(tarefas);
                 var hour = (int)timeTotal.TotalHours;
