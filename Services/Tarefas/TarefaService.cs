@@ -107,7 +107,7 @@ namespace Services.Tarefas
                 var result = new TarefaProjetoDtoListagem()
                 {
                     Total = await _repository.GetTotalTarefasByProjectAsync(),
-                    Data = tarefas,
+                    Data = tarefas.OrderBy(tarefa => tarefa.Data),
                 };
                 return result;
 
