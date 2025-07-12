@@ -15,9 +15,9 @@ namespace Domain.Services.Projetos
         Task<ProjetoDtoCreateResult> InsertAsync(ProjetoDtoCreate projeto);
         Task<ProjetoDtoUpdateResult> UpdateAsync(Guid id, ProjetoDtoUpdate projeto);
         Task<bool> DeleteAsync(Guid id);
-        Task<double> CalcularValorTotalAsync(TimeSpan total_horas);
         Task<IEnumerable<ProjetoDtoSimple>> ListaSimplesAsync();
         Task<IEnumerable<ProjetoDtoListagem>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId);
         Task<IEnumerable<ProjetoDtoListagem>> GetAllAsync();
+        Task<IEnumerable<ProjetoDtoListagem>> GetAllDashboardAsync();
     }
 }

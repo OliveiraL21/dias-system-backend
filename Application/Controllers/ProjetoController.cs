@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Domain.Dtos.projeto;
+using System.Linq;
 
 namespace Application.Controllers
 {
@@ -38,6 +39,33 @@ namespace Application.Controllers
                 return Ok(result);
             }
             catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("/lista_dashboard")]
+        [Authorize(Roles = "admin, regular")]
+        public async Task<IActionResult> GetAllProjectToDashboard()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _service.GetAllDashboardAsync();
+
+                if(result.Count() == 0)
+                {
+                    return NotFound("Nenhum projeto encontrado, cadastre um projeto!");
+                }
+
+                return Ok(result);
+
+            } catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }

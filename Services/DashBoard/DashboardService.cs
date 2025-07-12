@@ -22,7 +22,7 @@ namespace Services.DashBoard
         {
            var result = new DashboardDto();
 
-            result.ProjetosAtivos = _context.Projetos.Count();
+            result.ProjetosAtivos = _context.Projetos.Where(d => d.Status.Descricao == "Em andamento").Count();
 
             return result;
         }

@@ -15,5 +15,6 @@ namespace Domain.Repositories
         Task<ProjetoEntity> SelectProjectWithRealationShipsAsync(Guid id);
         Task<IEnumerable<ProjetoEntity>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId);
         Task<IEnumerable<ProjetoEntity>> GetAll();
+        Task<IEnumerable<ProjetoEntity>> GetAllDashboardProjects();
     }
 }

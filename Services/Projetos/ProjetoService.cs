@@ -24,10 +24,6 @@ namespace Services.Projetos
             _repository = repository;
             _mapper = mapper;
         }
-        public Task<double> CalcularValorTotalAsync(TimeSpan total_horas)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
@@ -44,6 +40,11 @@ namespace Services.Projetos
             return _mapper.Map<IEnumerable<ProjetoDtoListagem>>(await _repository.GetAll());
         }
 
+        public async Task<IEnumerable<ProjetoDtoListagem>> GetAllDashboardAsync()
+        {
+            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>(await _repository.GetAllDashboardProjects());
+        }
+
         public async Task<ProjetoDtoCreateResult> InsertAsync(ProjetoDtoCreate projeto)
         {
             var model = _mapper.Map<ProjetoModel>(projeto);
@@ -53,7 +54,7 @@ namespace Services.Projetos
 
         public async Task<IEnumerable<ProjetoDtoSimple>> ListaSimplesAsync()
         {
-            var result = (await _repository.GetAll()).Where(p => p.Status.Descricao != "Excluído" && p.Status.Descricao != "Bloqueado")
+            var result = (await _repository.GetAll()).Where(p => p.Status.Descricao != "Excluído" && p.Status.Descricao != "Bloqueado" )
             .ToList();
             return _mapper.Map<IEnumerable<ProjetoDtoSimple>>(result);
         }

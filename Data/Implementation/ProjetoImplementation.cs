@@ -20,6 +20,17 @@ namespace Data.Implementation
             _dataSet = context.Set<ProjetoEntity>();
         }
 
+        public async Task<IEnumerable<ProjetoEntity>> GetAllDashboardProjects()
+        {
+            try
+            {
+                return await _dataSet.Include(p => p.Status).ToListAsync();
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<ProjetoEntity> SelectProjectWithRealationShipsAsync(Guid id)
         {
             try
