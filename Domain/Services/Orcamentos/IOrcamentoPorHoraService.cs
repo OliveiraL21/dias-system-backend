@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Dtos.Orcamentos.PorHora;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace Domain.Services.Orcamentos
 {
     public interface IOrcamentoPorHoraService
     {
-        Task<>
+        Task<OrcamentoHoraDto> GetByIdAsync(Guid id);
+        Task<IEnumerable<OrcamentoHoraDto>> GetAllAsync();
+        Task<OrcamentoHoraDtoCreateResult> CreateAsync(OrcamentoHoraDtoCreate orcamento);
+        Task<OrcamentoHoraDtoUpdateResult> UpdateAsync(Guid id, OrcamentoHoraDtoUpdate orcamento);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

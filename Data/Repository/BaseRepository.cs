@@ -122,5 +122,10 @@ namespace Data.Repository
 
             return entity;
         }
+
+        Task<T> IRepository<T>.SelectAllAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
