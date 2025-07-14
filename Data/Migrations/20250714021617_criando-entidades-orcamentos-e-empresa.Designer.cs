@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20250714021617_criando-entidades-orcamentos-e-empresa")]
+    partial class criandoentidadesorcamentoseempresa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,13 +160,12 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("37e46d1e-0189-4a35-834d-f8dce4446b94"),
+                            Id = new Guid("49d21c0e-117b-41bc-b69d-7c21ff59a0f7"),
                             Bairro = "Vila São Carlos",
                             Celular = "(19) 99669-3155",
                             Cep = "13847-111",
                             Cidade = "Mogi Guaçu",
                             Cpf = "476.593.238-90",
-                            CreateAt = new DateTimeOffset(new DateTime(2025, 7, 13, 23, 23, 3, 715, DateTimeKind.Unspecified).AddTicks(9392), new TimeSpan(0, -3, 0, 0, 0)),
                             Email = "ljoliveira99@outlook.com",
                             Estado = "SP",
                             Logradouro = "Av São Carlos",
@@ -389,32 +391,32 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("79baf9d0-491b-4a26-bbec-3e1185658c68"),
+                            Id = new Guid("afaf4f38-fbb0-45e7-8437-9f1604f4f8f8"),
                             Descricao = "Em andamento"
                         },
                         new
                         {
-                            Id = new Guid("59be9270-0bff-4222-8cc2-39a41ef403a7"),
+                            Id = new Guid("9ea902cf-e3a4-4ce7-aaa6-fb076f798a53"),
                             Descricao = "Inativo"
                         },
                         new
                         {
-                            Id = new Guid("36a737e1-fad4-4fb7-b1b7-843d6cf4dbff"),
+                            Id = new Guid("af475b8e-696b-46c8-977e-20ce66366441"),
                             Descricao = "Em pausa"
                         },
                         new
                         {
-                            Id = new Guid("6a78cc77-21ec-4011-a86f-ad1be97f5421"),
+                            Id = new Guid("bda0622a-0788-4a89-97e3-615c4a0868e9"),
                             Descricao = "Excluído"
                         },
                         new
                         {
-                            Id = new Guid("0f5a4277-26ab-446a-a9c7-8557ec13077f"),
+                            Id = new Guid("ebec1aec-c6e6-493f-a6e9-6d69233632dc"),
                             Descricao = "Finalizado"
                         },
                         new
                         {
-                            Id = new Guid("03d92a3d-ecd8-4970-b214-cc74c450ba93"),
+                            Id = new Guid("c303c17f-e3a2-4b4d-9824-07f9941c83b7"),
                             Descricao = "Bloqueado"
                         });
                 });

@@ -17,7 +17,7 @@ namespace Data.Mapping
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.RazaoSocial).IsRequired().HasMaxLength(50);
-            builder.Property(e => e.Cpf).IsRequired().HasMaxLength(11);
+            builder.Property(e => e.Cpf).IsRequired().HasMaxLength(20);
             builder.Property(e => e.Telefone).IsRequired().HasMaxLength(20);
             builder.Property(e => e.Celular).IsRequired().HasMaxLength(20);
             builder.Property(e => e.Email).IsRequired().HasMaxLength(100);

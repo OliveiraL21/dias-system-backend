@@ -23,7 +23,7 @@ namespace Data.Mapping
             builder.Property(x => x.CreateAt).IsRequired();
             builder.Property(x => x.UpdateAt).IsRequired();
 
-            builder.Property(x => x.Numero).IsRequired().ValueGeneratedOnAdd();
+            builder.Property(x => x.Numero).IsRequired();
             builder.HasIndex(x => x.Numero).IsUnique();
 
             builder.Property(x => x.ValorHora)

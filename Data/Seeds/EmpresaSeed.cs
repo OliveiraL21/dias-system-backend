@@ -27,6 +27,8 @@ namespace Data.Seeds
                     Cep = "13847-111",
                     Cidade = "Mogi Guaçu",
                     Estado = "SP",
+                    CreateAt = DateTime.Now,
+                    UpdateAt = null,
                 }
             );
         }
