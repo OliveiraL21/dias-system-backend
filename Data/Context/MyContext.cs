@@ -23,6 +23,10 @@ namespace Data.Context
         public DbSet<StatusEntity> Status { get; set; }
 
         public DbSet<EmpresaEntity> Empresas { get; set; }
+        public DbSet<OrcamentoHoraEntity> OrcamentosHora { get; set; }
+        public DbSet<OrcamentoPorProjetoEntity> OrcamentosPorProjeto { get; set; }
+        public DbSet<ProdutoEntity> Produtos { get; set; }
+        public DbSet<ServicoEntity> Servicos { get; set; }
 
         public MyContext(DbContextOptions<MyContext>options) : base(options) 
         {
@@ -37,6 +41,10 @@ namespace Data.Context
             modelBuilder.Entity<TarefaEntity>(new TarefaMap().Configure); 
             modelBuilder.Entity<StatusEntity>(new StatusMap().Configure);
             modelBuilder.Entity<EmpresaEntity>(new EmpresaMap().Configure);
+            modelBuilder.Entity<OrcamentoHoraEntity>(new OrcamentoHoraMap().Configure);
+            modelBuilder.Entity<OrcamentoPorProjetoEntity>(new OrcamentoPorProjetoMap().Configure);
+            modelBuilder.Entity<ProdutoEntity>(new ProdutoMap().Configure);
+            modelBuilder.Entity<ServicoEntity>(new ServicoMap().Configure);
 
             StatusSeed.Seed(modelBuilder);
             EmpresaSeed.Seed(modelBuilder);

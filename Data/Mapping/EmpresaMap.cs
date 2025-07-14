@@ -28,6 +28,11 @@ namespace Data.Mapping
             builder.Property(e => e.Cidade).IsRequired().HasMaxLength(50);
             builder.Property(e => e.Estado).IsRequired().HasMaxLength(2);
 
+            builder.HasMany(e => e.OrcamentosHora)
+                   .WithOne(o => o.Empresa);
+            builder.HasMany(e => e.OrcamentosPorProjeto)
+                     .WithOne(o => o.Empresa);
+
         }
     }
 }

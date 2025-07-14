@@ -24,5 +24,7 @@ namespace Domain.Entidades
         public string Cidade { get; set; }
 
         public IEnumerable<ProjetoEntity>? Projetos { get; set; }
+        public IEnumerable<OrcamentoHoraEntity>? OrcamentosHora { get; set; }
+        public IEnumerable<OrcamentoPorProjetoEntity>? OrcamentosPorProjeto { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace Domain.Entidades
         public string Cep { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+        public IEnumerable<OrcamentoHoraEntity>? OrcamentosHora { get; set; }
+        public IEnumerable<OrcamentoPorProjetoEntity>? OrcamentosPorProjeto { get; set; }
     }
 }
