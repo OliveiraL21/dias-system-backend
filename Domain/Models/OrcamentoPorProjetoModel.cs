@@ -33,5 +33,22 @@ namespace Domain.Models
 			set { _produtos = value; }
 		}
 
+		private string _numero;
+
+		public string Numero
+		{
+			get { return _numero; }
+			set { _numero = value; }
+		}
+
+		private double _valorTotal;
+
+		public double ValorTotal
+		{
+			get { return _valorTotal; }
+			set { _valorTotal = value; }
+		}
+
+
 	}
 }

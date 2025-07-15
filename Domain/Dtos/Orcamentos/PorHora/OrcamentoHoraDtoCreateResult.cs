@@ -12,9 +12,12 @@ namespace Domain.Dtos.Orcamentos.PorHora
     public class OrcamentoHoraDtoCreateResult
     {
         public Guid Id { get; set; }
+        public string Numero { get; set; }
+        public double ValorTotal { get; set; }
         public int ValorHora { get; set; }
         public IEnumerable<ServicoDto> Servicos { get; set; }
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }
