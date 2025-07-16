@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20250716141431_relacionando-empresas-orcamento-com-status")]
-    partial class relacionandoempresasorcamentocomstatus
+    [Migration("20250716182430_OrcamentoEmpresa")]
+    partial class OrcamentoEmpresa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,9 +145,6 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid>("StatusId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -158,26 +155,23 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
-
                     b.ToTable("Empresa", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ecafde2a-f530-4dd5-b7e9-549e15cb1d03"),
+                            Id = new Guid("b4f3a300-d6d5-46d7-936a-3ec7e9cbff98"),
                             Bairro = "Vila São Carlos",
                             Celular = "(19) 99669-3155",
                             Cep = "13847-111",
                             Cidade = "Mogi Guaçu",
                             Cpf = "476.593.238-90",
-                            CreateAt = new DateTimeOffset(new DateTime(2025, 7, 16, 11, 14, 30, 947, DateTimeKind.Unspecified).AddTicks(8353), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreateAt = new DateTimeOffset(new DateTime(2025, 7, 16, 15, 24, 30, 245, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, -3, 0, 0, 0)),
                             Email = "ljoliveira99@outlook.com",
                             Estado = "SP",
                             Logradouro = "Av São Carlos",
                             Numero = "791",
                             RazaoSocial = "Lucas José Dias de Oliveira",
-                            StatusId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Telefone = "(19) 3861-7897"
                         });
                 });
@@ -408,32 +402,32 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ae7218c8-0a03-410d-ac62-fbe0d5c6ef67"),
+                            Id = new Guid("547b573b-134a-4de8-b8c1-bb6f977eb8b5"),
                             Descricao = "Em andamento"
                         },
                         new
                         {
-                            Id = new Guid("955306cb-f62b-4ebd-b0cb-e79daf3b218f"),
+                            Id = new Guid("3774bfd1-d0cf-4c73-b5c6-d9dc3420e3f8"),
                             Descricao = "Inativo"
                         },
                         new
                         {
-                            Id = new Guid("a662ebe5-5242-4daf-bfc5-2c9df5213636"),
+                            Id = new Guid("a437c39d-bbec-4151-bf5f-cfaf7c166c97"),
                             Descricao = "Em pausa"
                         },
                         new
                         {
-                            Id = new Guid("9a0ca97d-ecd3-4611-87f8-6d12c6c89196"),
+                            Id = new Guid("d33c1293-cfb9-4eb9-bd5a-e801ed28a501"),
                             Descricao = "Excluído"
                         },
                         new
                         {
-                            Id = new Guid("a97c5d45-8aa4-4743-b73d-f44fdea41657"),
+                            Id = new Guid("dd5bfb3c-9fed-4c0a-a4fa-2c28acbb0c30"),
                             Descricao = "Finalizado"
                         },
                         new
                         {
-                            Id = new Guid("9eb80b39-2d2a-487b-8277-ed68aab7795d"),
+                            Id = new Guid("fc196839-35d8-4230-8da8-0f8defeeef01"),
                             Descricao = "Bloqueado"
                         });
                 });
@@ -513,17 +507,6 @@ namespace Data.Migrations
                     b.HasIndex("Username");
 
                     b.ToTable("Usuarios", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entidades.EmpresaEntity", b =>
-                {
-                    b.HasOne("Domain.Entidades.StatusEntity", "Status")
-                        .WithMany("Empresas")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Domain.Entidades.OrcamentoHoraEntity", b =>
@@ -673,8 +656,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entidades.StatusEntity", b =>
                 {
-                    b.Navigation("Empresas");
-
                     b.Navigation("OrcamentosHora");
 
                     b.Navigation("OrcamentosPorProjeto");

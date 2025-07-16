@@ -30,9 +30,10 @@ namespace Data.Mapping
 
             builder.HasMany(e => e.OrcamentosHora)
                    .WithOne(o => o.Empresa);
+
             builder.HasMany(e => e.OrcamentosPorProjeto)
                      .WithOne(o => o.Empresa);
-            builder.HasOne(o => o.Status).WithMany(s => s.Empresas).HasForeignKey(o => o.StatusId);
+           
 
         }
     }

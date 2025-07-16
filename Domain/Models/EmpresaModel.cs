@@ -98,15 +98,6 @@ namespace Domain.Models
 			set { _estado = value; }
 		}
 
-		private Guid _statusId;
-
-		public Guid StatusId
-		{
-			get { return _statusId; }
-			set { _statusId = value; }
-		}
-
-
 		private IEnumerable<OrcamentoPorProjetoEntity>? _orcamentosPorProjeto;
 
 		public IEnumerable<OrcamentoPorProjetoEntity>? OrcamentosPorProjeto

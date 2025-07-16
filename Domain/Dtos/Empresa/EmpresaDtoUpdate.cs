@@ -37,6 +37,5 @@ namespace Domain.Dtos.Empresa
         public string Cidade { get; set; }
         [Required(ErrorMessage = "Estado é um campo obrigatório")]
         public string Estado { get; set; }
-        public Guid StatusId { get; set; }
     }
 }

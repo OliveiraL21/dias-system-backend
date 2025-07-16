@@ -21,7 +21,6 @@ namespace Data.Mapping
 
             builder.HasMany(s => s.Projetos).WithOne(p => p.Status).OnDelete(DeleteBehavior.NoAction);
             builder.HasMany(s => s.Tarefas).WithOne(t => t.Status).OnDelete(DeleteBehavior.NoAction);
-            builder.HasMany(s => s.Empresas).WithOne(e => e.Status).OnDelete(DeleteBehavior.NoAction); ;
             builder.HasMany(s => s.OrcamentosHora).WithOne(oh => oh.Status).OnDelete(DeleteBehavior.NoAction); ;
             builder.HasMany(s => s.OrcamentosPorProjeto).WithOne(op => op.Status).OnDelete(DeleteBehavior.NoAction); ;
         }

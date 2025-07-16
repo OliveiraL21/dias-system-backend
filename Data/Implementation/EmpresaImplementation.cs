@@ -25,10 +25,10 @@ namespace Data.Implementation
             {
                 if (string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cpf))
                 {
-                    return await _dataSet.Include(e => e.Status).ToListAsync();
+                    return await _dataSet.ToListAsync();
                 }
 
-                return await _dataSet.AsNoTracking().Include(x => x.Status).Where(x => x.RazaoSocial.Equals(razaoSocial) || x.Cpf == cpf)
+                return await _dataSet.AsNoTracking().Where(x => x.RazaoSocial.Equals(razaoSocial) || x.Cpf == cpf)
                     .ToListAsync();
             } catch
             {
@@ -40,7 +40,7 @@ namespace Data.Implementation
         {
             try
             {
-                return await _dataSet.Include(e => e.Status).ToListAsync();
+                return await _dataSet.ToListAsync();
             } catch
             {
                 throw;
@@ -51,7 +51,7 @@ namespace Data.Implementation
         {
             try
             {
-                return await _dataSet.Include(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
+                return await _dataSet.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch 
             {
