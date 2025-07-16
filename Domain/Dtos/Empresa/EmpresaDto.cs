@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Dtos.status;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,6 @@ namespace Domain.Dtos.Empresa
         public string Cep { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+        public StatusDto Status { get; set; }
     }
 }
