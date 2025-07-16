@@ -96,6 +96,8 @@ namespace Data.Repository
             }
         }
 
+       
+
 
         public async Task<T> UpdateAsync(Guid id, T entity)
         {
@@ -121,11 +123,6 @@ namespace Data.Repository
             }
 
             return entity;
-        }
-
-        Task<T> IRepository<T>.SelectAllAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

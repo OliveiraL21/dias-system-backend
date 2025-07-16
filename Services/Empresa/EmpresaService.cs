@@ -2,6 +2,7 @@
 using Domain.Dtos.Empresa;
 using Domain.Entidades;
 using Domain.Models;
+using Domain.Repositories;
 using Domain.Repository;
 using Domain.Services.Empresa;
 using System;
@@ -14,9 +15,9 @@ namespace Services.Empresa
 {
     public class EmpresaService : IEmpresaService
     {
-        private readonly IRepository<EmpresaEntity> _repository;
+        private readonly IEmpresaRepository _repository;
         private readonly IMapper _mapper;
-        public EmpresaService(IRepository<EmpresaEntity> repository, IMapper mapper)
+        public EmpresaService(IEmpresaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -33,14 +34,19 @@ namespace Services.Empresa
             return await _repository.DeleteAsync(id);
         }
 
+        public async Task<IEnumerable<EmpresaDto>> FiltrarAsync(string razaoSocial, string cpf)
+        {
+            return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.FiltrarAsync(razaoSocial, cpf));
+        }
+
         public async Task<IEnumerable<EmpresaDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.SelectAllAsync());
+            return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.GetAllWithRelationships());
         }
 
         public async Task<EmpresaDto> GetByIdAsync(Guid id)
         {
-            return _mapper.Map<EmpresaDto>(await _repository.SelectAsync(id));
+            return _mapper.Map<EmpresaDto>(await _repository.GetWithRealationship(id));
         }
 
         public async Task<EmpresaDtoUpdateResult> UpdateAsync(Guid id, EmpresaDtoUpdate empresa)

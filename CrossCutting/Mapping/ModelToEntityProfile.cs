@@ -29,6 +29,19 @@ namespace CrossCutting.Mapping
                 .ReverseMap();
             CreateMap<UserModel, CustomIdentityUser>()
                 .ReverseMap();
+
+            CreateMap<OrcamentoHoraModel, OrcamentoHoraEntity>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoModel, OrcamentoPorProjetoEntity>()
+                .ReverseMap();
+
+            CreateMap<ProdutoModel, ProjetoEntity>()
+                .ReverseMap();
+
+            CreateMap<ServicoModel, ServicoEntity>()
+                .ReverseMap();
+
         }
     }
 }

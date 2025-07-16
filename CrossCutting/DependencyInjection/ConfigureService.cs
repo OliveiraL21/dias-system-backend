@@ -1,20 +1,28 @@
 ﻿using Domain.Services.Clientes;
 using Domain.Services.Dashboard;
 using Domain.Services.Email;
+using Domain.Services.Empresa;
 using Domain.Services.Login;
+using Domain.Services.Orcamentos;
+using Domain.Services.Produto;
 using Domain.Services.Projetos;
 using Domain.Services.Report;
 using Domain.Services.ResetaSenha;
+using Domain.Services.Servico;
 using Domain.Services.Tarefas;
 using Domain.Services.Usuarios;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Clientes;
 using Services.DashBoard;
 using Services.Email;
+using Services.Empresa;
 using Services.Login;
+using Services.Orcamentos;
+using Services.Produto;
 using Services.Projetos;
 using Services.reports;
 using Services.ResetSenha;
+using Services.Servicos;
 using Services.StatusService;
 using Services.Tarefas;
 using Services.Usuarios;
@@ -36,6 +44,11 @@ namespace CrossCutting.DependencyInjection
             serviceCollection.AddTransient<ITarefaService, TarefaService>();
             serviceCollection.AddTransient<IDashboardService, DashboardService>();
             serviceCollection.AddTransient<IReportService, ReportService>();
+            serviceCollection.AddTransient<IEmpresaService, EmpresaService>();
+            serviceCollection.AddTransient<IOrcamentoPorHoraService, OrcamentoHoraService>();
+            serviceCollection.AddTransient<IOrcamentoPorProjetoService, OrcamentoPorProjetoService>();
+            serviceCollection.AddTransient<IProdutoService, ProdutoService>();
+            serviceCollection.AddTransient<IServicoService, ServicoService>();
         }
 
         public static void ConfigureServicesUserAplication(IServiceCollection serviceCollection)

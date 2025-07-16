@@ -3,6 +3,7 @@ using Domain.Dtos.Servico;
 using Domain.Entidades;
 using Domain.Models;
 using Domain.Repositories;
+using Domain.Repository;
 using Domain.Services.Servico;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Services.Servicos
 {
     public class ServicoService : IServicoService
     {
-        private readonly IServicoRepository _repository;
+        private readonly IRepository<ServicoEntity> _repository;
         private readonly IMapper _mapper;
 
-        public ServicoService(IServicoRepository repository, IMapper mapper)
+        public ServicoService(IRepository<ServicoEntity> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -36,12 +37,12 @@ namespace Services.Servicos
 
         public async Task<IEnumerable<ServicoDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ServicoDto>>(await _repository.GetAllWithRelationships());
+            return _mapper.Map<IEnumerable<ServicoDto>>(await _repository.SelectAllAsync());
         }
 
         public async Task<ServicoDto> GetByIdAsync(Guid id)
         {
-            return _mapper.Map<ServicoDto>(await _repository.GetByIdWithRelationships(id));
+            return _mapper.Map<ServicoDto>(await _repository.SelectAsync(id));
         }
 
         public async Task<ServicoDtoUpdateResult> UpdateAsync(Guid id, ServicoDtoUpdate servico)

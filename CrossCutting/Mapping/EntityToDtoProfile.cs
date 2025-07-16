@@ -1,10 +1,16 @@
 ﻿using AutoMapper;
 using Domain.Dtos.cliente;
+using Domain.Dtos.Empresa;
+using Domain.Dtos.Orcamentos.PorHora;
+using Domain.Dtos.Orcamentos.PorProjeto;
+using Domain.Dtos.Produto;
 using Domain.Dtos.projeto;
+using Domain.Dtos.Servico;
 using Domain.Dtos.status;
 using Domain.Dtos.tarefas;
 using Domain.Dtos.User;
 using Domain.Entidades;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,6 +142,81 @@ namespace CrossCutting.Mapping
 
             CreateMap<CustomIdentityUser, UserDtoUpdateResult>()
                .ReverseMap();
+
+            CreateMap<OrcamentoHoraDto, OrcamentoHoraEntity>()
+              .ReverseMap();
+
+            CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoCreateResult>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoUpdate>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoUpdateResult>()
+                   .ReverseMap();
+
+            CreateMap<ServicoEntity, ServicoDto>()
+                .ReverseMap();
+
+            CreateMap<ServicoEntity, ServicoDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<ServicoEntity, ServicoDtoCreateResult>()
+                .ReverseMap();
+
+            CreateMap<ServicoEntity, ServicoDtoUpdate>()
+                .ReverseMap();
+
+            CreateMap<ServicoEntity, ServicoDtoUpdateResult>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoDto, OrcamentoPorProjetoEntity>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDtoCreateResult>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDtoUpdate>()
+                .ReverseMap();
+
+            CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDtoUpdateResult>()
+                .ReverseMap();
+
+            CreateMap<ProdutoEntity, ProdutoDto>()
+                .ReverseMap();
+
+            CreateMap<ProdutoEntity, ProdutoDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<ProdutoEntity, ProdutoDtoCreateResult>()
+                .ReverseMap();
+
+            CreateMap<ProdutoEntity, ProdutoDtoUpdate>()
+                .ReverseMap();
+
+            CreateMap<ProdutoEntity, ProdutoDtoUpdateResult>()
+                .ReverseMap();
+
+            CreateMap<EmpresaEntity, EmpresaDto>()
+                .ReverseMap();
+
+            CreateMap<EmpresaEntity, EmpresaDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<EmpresaEntity, EmpresaDtoCreateResult>()
+                    .ReverseMap();
+
+            CreateMap<EmpresaEntity, EmpresaDtoUpdate>()
+                .ReverseMap();
+
+            CreateMap<EmpresaEntity, EmpresaDtoUpdateResult>()
+                .ReverseMap();
         }
     }
 }

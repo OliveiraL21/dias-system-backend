@@ -15,7 +15,7 @@ namespace Domain.Repository
 
         Task<T> SelectAsync(Guid id);
 
-        Task<T> SelectAllAsync();
+        Task<IEnumerable<T>> SelectAllAsync();
         Task<bool> DeleteAsync(Guid id);
         Task<bool> ExistAsync(Guid id);
 

@@ -14,5 +14,6 @@ namespace Domain.Services.Empresa
         Task<EmpresaDtoCreateResult> CreateAsync(EmpresaDtoCreate empresa);
         Task<EmpresaDtoUpdateResult> UpdateAsync(Guid id, EmpresaDtoUpdate empresa);
         Task<bool> DeleteAsync(Guid id);
+        Task<IEnumerable<EmpresaDto>> FiltrarAsync(string razaoSocial, string cpf);
     }
 }

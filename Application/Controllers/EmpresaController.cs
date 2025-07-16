@@ -44,6 +44,30 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Route("filtrar")]
+        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery] string cpf)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _service.FiltrarAsync(razaoSocial, cpf);
+                if( result == null)
+                {
+                    return NotFound("Nenhum registro encontrado!");
+                }
+
+                return Ok(result);
+            } catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("list")]
         public async Task<IActionResult> List()
         {

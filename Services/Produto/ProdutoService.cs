@@ -3,6 +3,7 @@ using Domain.Dtos.Produto;
 using Domain.Entidades;
 using Domain.Models;
 using Domain.Repositories;
+using Domain.Repository;
 using Domain.Services.Produto;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Services.Produto
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IProdutoRepository _repository;
+        private readonly IRepository<ProdutoEntity> _repository;
         private readonly IMapper _mapper;
 
-        public ProdutoService(IProdutoRepository repository, IMapper mapper)
+        public ProdutoService(IRepository<ProdutoEntity> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -36,7 +37,7 @@ namespace Services.Produto
 
         public async Task<IEnumerable<ProdutoDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ProdutoDto>>(await _repository.GetAllWithRelationships());
+            return _mapper.Map<IEnumerable<ProdutoDto>>(await _repository.SelectAllAsync());
         }
 
         public async Task<ProdutoDto> GetbyIdAsync(Guid id)
