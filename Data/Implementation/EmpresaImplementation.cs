@@ -19,7 +19,7 @@ namespace Data.Implementation
             _dataSet = context.Set<EmpresaEntity>();
         }
 
-        public async Task<IEnumerable<EmpresaEntity>> FiltrarAsync(string razaoSocial, string cpf)
+        public async Task<IEnumerable<EmpresaEntity>> FiltrarAsync(string? razaoSocial, string? cpf)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Data.Implementation
                     return await _dataSet.ToListAsync();
                 }
 
-                return await _dataSet.AsNoTracking().Where(x => x.RazaoSocial.Equals(razaoSocial) || x.Cpf == cpf)
+                return await _dataSet.AsNoTracking().Where(x => EF.Functions.Like(x.RazaoSocial, razaoSocial) || x.Cpf == cpf)
                     .ToListAsync();
             } catch
             {

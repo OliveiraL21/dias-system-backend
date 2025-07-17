@@ -45,7 +45,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("filtrar")]
-        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery] string cpf)
+        public async Task<IActionResult> Filtrar([FromQuery] string? razaoSocial, [FromQuery] string? cpf)
         {
             try
             {

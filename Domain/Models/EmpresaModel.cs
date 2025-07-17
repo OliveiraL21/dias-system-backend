@@ -9,20 +9,20 @@ namespace Domain.Models
 {
     public class EmpresaModel :BaseModel
     {
-		private Guid _id;
-
-		public Guid Id
-		{
-			get { return _id; }
-			set { _id = value; }
-		}
-
 		private string _razaoSocial;
 
 		public string RazaoSocial
 		{
 			get { return _razaoSocial; }
 			set { _razaoSocial = value; }
+		}
+
+		private string _cpf;
+
+		public string Cpf
+		{
+			get { return _cpf; }
+			set { _cpf = value; }
 		}
 
 

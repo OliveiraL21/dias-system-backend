@@ -34,7 +34,7 @@ namespace Services.Empresa
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<EmpresaDto>> FiltrarAsync(string razaoSocial, string cpf)
+        public async Task<IEnumerable<EmpresaDto>> FiltrarAsync(string? razaoSocial, string? cpf)
         {
             return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.FiltrarAsync(razaoSocial, cpf));
         }

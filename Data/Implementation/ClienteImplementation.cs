@@ -21,8 +21,6 @@ namespace Data.Implementation
         {
             try
             {
-                razaoSocial = razaoSocial == "null" ? null : $"%{razaoSocial}%";
-                cnpj = cnpj == "null" ? null : cnpj;
 
                 if (!string.IsNullOrEmpty(cnpj))
                 {

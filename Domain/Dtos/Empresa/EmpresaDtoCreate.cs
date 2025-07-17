@@ -14,6 +14,7 @@ namespace Domain.Dtos.Empresa
         [Required(ErrorMessage = "Cpf é um campo obrigatório")]
         [MaxLength(11, ErrorMessage = "Cpf deve ter no máximo 11 caracteres")]
         public string Cpf { get; set; }
+
         [Required(ErrorMessage = "Telefone é um campo obrigatório")]
         public string Telefone { get; set; }
         [Required(ErrorMessage = "Celular é um campo obrigatório")]
