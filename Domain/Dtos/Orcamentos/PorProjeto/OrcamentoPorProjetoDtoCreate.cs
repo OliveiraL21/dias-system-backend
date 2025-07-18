@@ -1,6 +1,7 @@
 ﻿using Domain.Dtos.cliente;
 using Domain.Dtos.Empresa;
 using Domain.Dtos.Produto;
+using Domain.Dtos.ProdutoOrcamento;
 using Domain.Entidades;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace Domain.Dtos.Orcamentos.PorProjeto
     {
         public Guid EmpresaId { get; set; }
         public Guid ClienteId { get; set; }
-        public IEnumerable<ProdutoDto> Produtos { get; set; }
+        public IEnumerable<ProdutoOrcamentoProjetoDtoCreate> Produtos { get; set; }
     }
 }

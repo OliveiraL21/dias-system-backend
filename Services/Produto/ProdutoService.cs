@@ -15,10 +15,10 @@ namespace Services.Produto
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IRepository<ProdutoEntity> _repository;
+        private readonly IProdutoRepository _repository;
         private readonly IMapper _mapper;
 
-        public ProdutoService(IRepository<ProdutoEntity> repository, IMapper mapper)
+        public ProdutoService(IProdutoRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -33,6 +33,11 @@ namespace Services.Produto
         public async Task<bool> DeleteAsync(Guid id)
         {
             return await _repository.DeleteAsync(id);
+        }
+
+        public async Task<IEnumerable<ProdutoDto>> FiltrarAsync(string? descricao)
+        {
+            return _mapper.Map<IEnumerable<ProdutoDto>>(await _repository.Filtrar(descricao));
         }
 
         public async Task<IEnumerable<ProdutoDto>> GetAllAsync()

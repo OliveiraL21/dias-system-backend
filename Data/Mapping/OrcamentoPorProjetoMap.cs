@@ -38,7 +38,7 @@ namespace Data.Mapping
             builder.HasOne(x => x.Cliente).WithMany(c => c.OrcamentosPorProjeto)
                 .HasForeignKey(c => c.ClienteId);
 
-            builder.HasMany(x => x.Produtos).WithOne(p => p.Orcamento);
+            builder.HasMany(o => o.Produtos).WithOne(po => po.Orcamento);
 
             builder.HasOne(x => x.Status).WithMany(x => x.OrcamentosPorProjeto)
                 .HasForeignKey(x => x.StatusId);

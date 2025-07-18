@@ -25,17 +25,12 @@ namespace Data.Mapping
 
             builder.Property(x => x.Descricao);
 
-            builder.Property(x => x.Quantidade).
-                IsRequired();
-
             builder.Property(x => x.Valor)
                 .IsRequired();
 
-            builder.HasOne(x => x.Orcamento)
-                .WithMany(o => o.Produtos)
-                .HasForeignKey(x => x.OrcamentoId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .IsRequired();
+            builder.HasMany(x => x.ProdutosOrcamentos)
+                .WithOne(o => o.Produto);
+
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Domain.Services.Produto
     {
         Task<ProdutoDto> GetbyIdAsync(Guid id);
         Task<IEnumerable<ProdutoDto>> GetAllAsync();
+        Task<IEnumerable<ProdutoDto>> FiltrarAsync(string descricao);
         Task<ProdutoDtoCreateResult> CreateAsync(ProdutoDtoCreate produto);
         Task<ProdutoDtoUpdateResult>UpdateAsync(Guid id, ProdutoDtoUpdate produto);
         Task<bool> DeleteAsync(Guid id);

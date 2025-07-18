@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,13 @@ namespace Domain.Models
 			set { _descricao = value; }
 		}
 
-		private int _quantidade;
 
-		public int Quantidade
+		private IEnumerable<ProdutoOrcamentoProjetoEntity> _produtosOrcamentos;
+
+		public IEnumerable<ProdutoOrcamentoProjetoEntity> ProdutosOrcamentos
 		{
-			get { return _quantidade; }
-			set { _quantidade = value; }
+			get { return _produtosOrcamentos; }
+			set { _produtosOrcamentos = value; }
 		}
 
 		private double _valor;
@@ -32,13 +34,6 @@ namespace Domain.Models
 			set { _valor = value; }
 		}
 
-		private Guid _orcamentoId;
-
-		public Guid OrcamentoId
-		{
-			get { return _orcamentoId; }
-			set { _orcamentoId = value; }
-		}
 
 
 

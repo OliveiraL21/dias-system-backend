@@ -4,6 +4,7 @@ using Domain.Dtos.Empresa;
 using Domain.Dtos.Orcamentos.PorHora;
 using Domain.Dtos.Orcamentos.PorProjeto;
 using Domain.Dtos.Produto;
+using Domain.Dtos.ProdutoOrcamento;
 using Domain.Dtos.projeto;
 using Domain.Dtos.Servico;
 using Domain.Dtos.status;
@@ -217,6 +218,16 @@ namespace CrossCutting.Mapping
 
             CreateMap<EmpresaEntity, EmpresaDtoUpdateResult>()
                 .ReverseMap();
+
+            CreateMap<ProdutoOrcamentoProjetoEntity, ProdutoOrcamentoProjetoDto>()
+                .ReverseMap();
+
+            CreateMap<ProdutoOrcamentoProjetoEntity, ProdutoOrcamentoProjetoDtoCreate>()
+                .ReverseMap();
+
+            CreateMap<ProdutoOrcamentoProjetoEntity, ProdutoOrcamentoProjetoDtoUpdate>()
+                .ReverseMap();
+
         }
     }
 }

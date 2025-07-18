@@ -1,6 +1,7 @@
 ﻿using Domain.Dtos.cliente;
 using Domain.Dtos.Empresa;
 using Domain.Dtos.Produto;
+using Domain.Dtos.ProdutoOrcamento;
 using Domain.Entidades;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,6 @@ namespace Domain.Dtos.Orcamentos.PorProjeto
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
         public DateTime CreateAt { get; set; }
-        public IEnumerable<ProdutoDto> Produtos { get; set; }
+        public IEnumerable<ProdutoOrcamentoProjetoDto> Produtos { get; set; }
     }
 }

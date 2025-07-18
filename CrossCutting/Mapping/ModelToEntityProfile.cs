@@ -39,10 +39,13 @@ namespace CrossCutting.Mapping
             CreateMap<OrcamentoPorProjetoModel, OrcamentoPorProjetoEntity>()
                 .ReverseMap();
 
-            CreateMap<ProdutoModel, ProjetoEntity>()
+            CreateMap<ProdutoModel, ProdutoEntity>()
                 .ReverseMap();
 
             CreateMap<ServicoModel, ServicoEntity>()
+                .ReverseMap();
+
+            CreateMap<ProdutoOrcamentoProjetoModel, ProdutoOrcamentoProjetoEntity>()
                 .ReverseMap();
 
         }

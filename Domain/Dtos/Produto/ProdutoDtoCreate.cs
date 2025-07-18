@@ -11,8 +11,7 @@ namespace Domain.Dtos.Produto
     {
         [Required(ErrorMessage = "O campo Descrição é obrigatório.")]
         public string Descricao { get; set; }
-        [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
-        public int Quantidade { get; set; }
+
         [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public double Valor { get; set; }
     }

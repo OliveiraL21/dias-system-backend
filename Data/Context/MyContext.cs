@@ -27,6 +27,7 @@ namespace Data.Context
         public DbSet<OrcamentoPorProjetoEntity> OrcamentosPorProjeto { get; set; }
         public DbSet<ProdutoEntity> Produtos { get; set; }
         public DbSet<ServicoEntity> Servicos { get; set; }
+        public DbSet<ProdutoOrcamentoProjetoEntity> ProdutosOrcamentos { get; set; }
 
         public MyContext(DbContextOptions<MyContext>options) : base(options) 
         {
@@ -45,6 +46,7 @@ namespace Data.Context
             modelBuilder.Entity<OrcamentoPorProjetoEntity>(new OrcamentoPorProjetoMap().Configure);
             modelBuilder.Entity<ProdutoEntity>(new ProdutoMap().Configure);
             modelBuilder.Entity<ServicoEntity>(new ServicoMap().Configure);
+            modelBuilder.Entity<ProdutoOrcamentoProjetoEntity>(new ProdutoOrcamentoProjetoMap().Configure);
 
             StatusSeed.Seed(modelBuilder);
             EmpresaSeed.Seed(modelBuilder);

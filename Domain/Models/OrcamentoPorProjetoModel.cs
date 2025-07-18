@@ -25,9 +25,9 @@ namespace Domain.Models
 			set { _clienteId = value; }
 		}
 
-		private IEnumerable<ProdutoEntity> _produtos;
+		private IEnumerable<ProdutoOrcamentoProjetoEntity> _produtos;
 
-		public IEnumerable<ProdutoEntity> Produtos
+		public IEnumerable<ProdutoOrcamentoProjetoEntity> Produtos
 		{
 			get { return _produtos; }
 			set { _produtos = value; }
