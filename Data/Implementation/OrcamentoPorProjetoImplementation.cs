@@ -14,9 +14,35 @@ namespace Data.Implementation
     public class OrcamentoPorProjetoImplementation : BaseRepository<OrcamentoPorProjetoEntity>, IOrcamentoPorProjetoRepository
     {
         private readonly  DbSet<OrcamentoPorProjetoEntity> _dataSet;
+        private readonly DbSet<ProdutoOrcamentoProjetoEntity> _produtoSet;
+        private readonly MyContext _context;
         public OrcamentoPorProjetoImplementation(MyContext context) : base(context)
         {
             _dataSet = context.Set<OrcamentoPorProjetoEntity>();
+            _produtoSet = context.Set<ProdutoOrcamentoProjetoEntity>();
+            _context = context;
+        }
+
+        public async Task<bool> CreateProdutoOrcamento(ProdutoOrcamentoProjetoEntity orcamento)
+        {
+            try
+            {
+                if(orcamento.Id == Guid.Empty)
+                {
+                    orcamento.Id = Guid.NewGuid();
+                }
+
+                orcamento.CreateAt = DateTimeOffset.Now;
+                orcamento.UpdateAt = null;
+
+                _produtoSet.Add(orcamento);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<IEnumerable<OrcamentoPorProjetoEntity>> GetAllWithRelationships()

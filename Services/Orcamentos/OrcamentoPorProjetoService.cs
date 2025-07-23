@@ -17,6 +17,7 @@ namespace Services.Orcamentos
     {
         private readonly IOrcamentoPorProjetoRepository _repository;
         private readonly IMapper _mapper;
+        
         public OrcamentoPorProjetoService(IOrcamentoPorProjetoRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -74,10 +75,31 @@ namespace Services.Orcamentos
             return _mapper.Map<OrcamentoPorProjetoDto>(await _repository.GetByIdWithRelationships(id));
         }
 
+        private async Task CreateProdutoOrcamento(OrcamentoPorProjetoEntity orcamento)
+        {
+            if(orcamento.Produtos != null)
+            {
+                var produtos = orcamento.Produtos.Where(x => x.Id == null).ToList();
+                foreach(var produto in produtos)
+                {
+                    await _repository.CreateProdutoOrcamento(produto);
+                }
+            }
+        }
+
         public async Task<OrcamentoPorProjetoDtoUpdateResult> UpdateAsync(Guid id, OrcamentoPorProjetoDtoUpdate orcamento)
         {
             var model = _mapper.Map<OrcamentoPorProjetoModel>(orcamento);
             var entity = _mapper.Map<OrcamentoPorProjetoEntity>(model);
+
+            //verificar se tem produto para ser criado.
+            if(orcamento.Produtos.Where(x => x.Id == Guid.Empty || x.Id == null).ToList().Count >= 1)
+            {
+               await CreateProdutoOrcamento(entity);
+            }
+            //recalcular o valor total do orçamento.
+            orcamento.ValorTotal = CalcularValorTotalDoOrcamento(entity);
+            //atualizar o orçamento
             return _mapper.Map<OrcamentoPorProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
     }

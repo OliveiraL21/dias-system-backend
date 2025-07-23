@@ -8,7 +8,7 @@ namespace Domain.Dtos.ProdutoOrcamento
 {
     public class ProdutoOrcamentoProjetoDtoUpdate
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public int Quantidade { get; set; }
         public double ValorTotalVenda { get; set; }
         public Guid OrcamentoId { get; set; }

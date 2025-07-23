@@ -12,7 +12,7 @@ namespace Domain.Dtos.ProdutoOrcamento
     {
         public Guid Id { get; set; }
         public OrcamentoPorProjetoDto Orcamento { get; set; }
-        public ProdutoDto Produto { get; set; }
+        public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
         public double ValorTotalVenda { get; set; }
     }
