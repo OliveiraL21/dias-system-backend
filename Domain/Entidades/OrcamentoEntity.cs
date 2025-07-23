@@ -12,8 +12,6 @@ namespace Domain.Entidades
     {
         public int Numero { get; set; }
         public double ValorTotal { get; set; }
-        public StatusEntity Status { get; set; }
-        public Guid StatusId { get; set; }
 
     }
 }

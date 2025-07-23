@@ -55,7 +55,7 @@ namespace Data.Repository
                     entity.Id = Guid.NewGuid();
                 }
 
-                entity.CreateAt = DateTime.UtcNow;
+                entity.CreateAt = DateTimeOffset.Now;
                 _dbSet.Add(entity);
                 await _context.SaveChangesAsync();
             }
@@ -68,11 +68,12 @@ namespace Data.Repository
 
         }
 
-        public Task<T> SelectAsync(Guid id)
+        public async Task<T> SelectAsync(Guid id)
         {
             try
             {
-                var result = _dbSet.SingleOrDefaultAsync(x => x.Id.Equals(id));
+                var result = await _dbSet.SingleOrDefaultAsync(x => x.Id.Equals(id));
+                result.CreateAt = result.CreateAt.Value.AddHours(-3);
                 if (result == null)
                     return null;
 

@@ -12,6 +12,7 @@ namespace Domain.Repositories
     {
         Task<IEnumerable<OrcamentoPorProjetoEntity>> GetAllWithRelationships();
         Task<OrcamentoPorProjetoEntity> GetByIdWithRelationships(Guid id);
+        Task<int> GetLastOrcamentoNumber();
 
     }
 }

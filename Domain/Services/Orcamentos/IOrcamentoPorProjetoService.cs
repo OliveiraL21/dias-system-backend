@@ -14,6 +14,7 @@ namespace Domain.Services.Orcamentos
         Task<OrcamentoPorProjetoDtoCreateResult> CreateAsync(OrcamentoPorProjetoDtoCreate orcamento);
         Task<OrcamentoPorProjetoDtoUpdateResult> UpdateAsync(Guid id, OrcamentoPorProjetoDtoUpdate orcamento);
         Task<bool> DeleteAsync(Guid id);
+      
 
     }
 }

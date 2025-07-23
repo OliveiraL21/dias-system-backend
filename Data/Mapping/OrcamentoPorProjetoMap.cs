@@ -25,7 +25,7 @@ namespace Data.Mapping
             builder.HasIndex(x => x.Numero).IsUnique();
 
             builder.Property(x => x.CreateAt).IsRequired();
-            builder.Property(x => x.UpdateAt).IsRequired();
+            builder.Property(x => x.UpdateAt);
             builder.Property(x => x.ValorTotal)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
@@ -39,9 +39,6 @@ namespace Data.Mapping
                 .HasForeignKey(c => c.ClienteId);
 
             builder.HasMany(o => o.Produtos).WithOne(po => po.Orcamento);
-
-            builder.HasOne(x => x.Status).WithMany(x => x.OrcamentosPorProjeto)
-                .HasForeignKey(x => x.StatusId);
 
         }
     }

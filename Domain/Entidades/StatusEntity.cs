@@ -10,7 +10,5 @@ namespace Domain.Entidades
         public List<ProjetoEntity> Projetos { get; set; }
 
         public List<TarefaEntity> Tarefas { get; set; }
-        public List<OrcamentoPorProjetoEntity> OrcamentosPorProjeto { get; set; }
-        public List<OrcamentoHoraEntity> OrcamentosHora { get; set; }
     }
 }

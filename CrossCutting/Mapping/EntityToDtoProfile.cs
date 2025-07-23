@@ -174,7 +174,11 @@ namespace CrossCutting.Mapping
             CreateMap<ServicoEntity, ServicoDtoUpdateResult>()
                 .ReverseMap();
 
-            CreateMap<OrcamentoPorProjetoDto, OrcamentoPorProjetoEntity>()
+            CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDto>()
+                .ForMember(dest => dest.CreateAt, 
+                    opt => opt.MapFrom(src => 
+                    src.CreateAt.HasValue ? src.CreateAt.Value.AddHours(-3) : default(DateTimeOffset)
+                    ))
                 .ReverseMap();
 
             CreateMap<OrcamentoPorProjetoEntity, OrcamentoPorProjetoDtoCreate>()

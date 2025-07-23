@@ -23,10 +23,29 @@ namespace Services.Orcamentos
             _mapper = mapper;
         }
 
+        private async Task<int> gerarNumeroDoOrcamento()
+        {
+            return await _repository.GetLastOrcamentoNumber();
+        }
+
+        private double CalcularValorTotalDoOrcamento(OrcamentoPorProjetoEntity orcamento)
+        {
+            double total = 0;
+            foreach(var produto in orcamento.Produtos)
+            {
+                total += produto.ValorTotalVenda;
+            }
+
+            return total;
+        }
+
         public async Task<OrcamentoPorProjetoDtoCreateResult> CreateAsync(OrcamentoPorProjetoDtoCreate orcamento)
         {
             var model = _mapper.Map<OrcamentoPorProjetoModel>(orcamento);
             var entity = _mapper.Map<OrcamentoPorProjetoEntity>(model);
+            entity.Numero = await gerarNumeroDoOrcamento();
+            entity.ValorTotal = CalcularValorTotalDoOrcamento(entity);
+
             return _mapper.Map<OrcamentoPorProjetoDtoCreateResult>(await _repository.InsertAsync(entity));
         }
 
@@ -37,7 +56,17 @@ namespace Services.Orcamentos
 
         public async Task<IEnumerable<OrcamentoPorProjetoDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<OrcamentoPorProjetoDto>>(await _repository.GetAllWithRelationships());
+            try
+            {
+                return _mapper.Map<IEnumerable<OrcamentoPorProjetoDto>>(await _repository.GetAllWithRelationships());
+            }
+            catch (AutoMapperMappingException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException);
+                throw;
+            }
+           
         }
 
         public async Task<OrcamentoPorProjetoDto> GetByIdAsync(Guid id)

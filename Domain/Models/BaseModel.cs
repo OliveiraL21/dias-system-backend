@@ -21,7 +21,7 @@ namespace Domain.Models
 		public DateTimeOffset CreateAt
 		{
 			get { return _createAt; }
-			set { _createAt = value == null ? DateTimeOffset.UtcNow : value; }
+			set { _createAt = value == null ? DateTimeOffset.Now : value; }
 		}
 
 		private DateTimeOffset _updateAt;

@@ -18,7 +18,7 @@ namespace Domain.Dtos.Orcamentos.PorProjeto
         public double ValorTotal { get; set; }
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTimeOffset CreateAt { get; set; }
         public IEnumerable<ProdutoOrcamentoProjetoDto> Produtos { get; set; }
     }
 }

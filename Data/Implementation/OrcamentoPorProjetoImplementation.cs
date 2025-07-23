@@ -24,6 +24,7 @@ namespace Data.Implementation
             try
             {
                 var result = await _dataSet.Include(x => x.Empresa).Include(x => x.Cliente).ToListAsync();
+               
                 return result;
             }
             catch (Exception ex)
@@ -36,7 +37,7 @@ namespace Data.Implementation
         {
             try
             {
-                var result = await _dataSet.Include(x => x.Empresa).Include(x => x.Cliente).FirstOrDefaultAsync(x => x.Id == id);
+                var result = await _dataSet.Include(x => x.Empresa).Include(x => x.Cliente).Include(x => x.Produtos).FirstOrDefaultAsync(x => x.Id == id);
                 return result;
             }
             catch (Exception ex)
@@ -44,6 +45,23 @@ namespace Data.Implementation
                 throw;
             }
             ;
+        }
+
+        public async Task<int> GetLastOrcamentoNumber()
+        {
+            try
+            {
+                var lastOrcamento = await _dataSet.OrderBy(x => x.Numero).LastOrDefaultAsync();
+                if(lastOrcamento == null)
+                {
+                    return 1000;
+                }
+
+                return lastOrcamento.Numero + 1;
+            } catch
+            {
+                throw;
+            }
         }
     }
 }

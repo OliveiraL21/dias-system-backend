@@ -39,9 +39,6 @@ namespace Data.Mapping
 
             builder.HasMany(x => x.Servicos).WithOne(s => s.Orcamento);
 
-            builder.HasOne(x => x.Status).WithMany(s => s.OrcamentosHora)
-                .HasForeignKey(x => x.StatusId);
-
 
         }
     }
