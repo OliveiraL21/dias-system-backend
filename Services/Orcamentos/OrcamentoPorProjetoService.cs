@@ -79,7 +79,7 @@ namespace Services.Orcamentos
         {
             if(orcamento.Produtos != null)
             {
-                var produtos = orcamento.Produtos.Where(x => x.Id == null).ToList();
+                var produtos = orcamento.Produtos.Where(x => x.Id == null || x.Id == Guid.Empty).ToList();
                 foreach(var produto in produtos)
                 {
                     await _repository.CreateProdutoOrcamento(produto);
@@ -93,12 +93,12 @@ namespace Services.Orcamentos
             var entity = _mapper.Map<OrcamentoPorProjetoEntity>(model);
 
             //verificar se tem produto para ser criado.
-            if(orcamento.Produtos.Where(x => x.Id == Guid.Empty || x.Id == null).ToList().Count >= 1)
+            if (orcamento.Produtos.Where(x => x.Id == Guid.Empty || x.Id == null).ToList().Count >= 1)
             {
-               await CreateProdutoOrcamento(entity);
+                await CreateProdutoOrcamento(entity);
             }
             //recalcular o valor total do orçamento.
-            orcamento.ValorTotal = CalcularValorTotalDoOrcamento(entity);
+            entity.ValorTotal = CalcularValorTotalDoOrcamento(entity);
             //atualizar o orçamento
             return _mapper.Map<OrcamentoPorProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
