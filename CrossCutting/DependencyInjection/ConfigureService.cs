@@ -5,6 +5,7 @@ using Domain.Services.Empresa;
 using Domain.Services.Login;
 using Domain.Services.Orcamentos;
 using Domain.Services.Produto;
+using Domain.Services.ProdutoOrcamento;
 using Domain.Services.Projetos;
 using Domain.Services.Report;
 using Domain.Services.ResetaSenha;
@@ -19,6 +20,7 @@ using Services.Empresa;
 using Services.Login;
 using Services.Orcamentos;
 using Services.Produto;
+using Services.ProdutoOrcamento;
 using Services.Projetos;
 using Services.reports;
 using Services.ResetSenha;
@@ -49,6 +51,7 @@ namespace CrossCutting.DependencyInjection
             serviceCollection.AddTransient<IOrcamentoPorProjetoService, OrcamentoPorProjetoService>();
             serviceCollection.AddTransient<IProdutoService, ProdutoService>();
             serviceCollection.AddTransient<IServicoService, ServicoService>();
+            serviceCollection.AddTransient<IProdutoOrcamentoPorProjetoService, ProdutoOrcamentoPorProjetoService>();
         }
 
         public static void ConfigureServicesUserAplication(IServiceCollection serviceCollection)
