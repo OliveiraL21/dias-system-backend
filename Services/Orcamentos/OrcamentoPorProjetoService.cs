@@ -54,11 +54,11 @@ namespace Services.Orcamentos
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<OrcamentoPorProjetoDto>> GetAllAsync()
+        public async Task<IEnumerable<OrcamentoPorProjetoDtoList>> GetAllAsync()
         {
             try
             {
-                return _mapper.Map<IEnumerable<OrcamentoPorProjetoDto>>(await _repository.GetAllWithRelationships());
+                return _mapper.Map<IEnumerable<OrcamentoPorProjetoDtoList>>(await _repository.GetAllWithRelationships());
             }
             catch (AutoMapperMappingException e)
             {

@@ -10,7 +10,7 @@ namespace Domain.Services.Orcamentos
     public interface IOrcamentoPorProjetoService
     {
         Task<OrcamentoPorProjetoDto> GetByIdAsync(Guid id);
-        Task<IEnumerable<OrcamentoPorProjetoDto>> GetAllAsync();
+        Task<IEnumerable<OrcamentoPorProjetoDtoList>> GetAllAsync();
         Task<OrcamentoPorProjetoDtoCreateResult> CreateAsync(OrcamentoPorProjetoDtoCreate orcamento);
         Task<OrcamentoPorProjetoDtoUpdateResult> UpdateAsync(Guid id, OrcamentoPorProjetoDtoUpdate orcamento);
         Task<bool> DeleteAsync(Guid id);

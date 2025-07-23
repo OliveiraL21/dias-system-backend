@@ -166,6 +166,9 @@ namespace CrossCutting.Mapping
             CreateMap<OrcamentoPorProjetoModel, OrcamentoPorProjetoDtoUpdateResult>()
                 .ReverseMap();
 
+            CreateMap<OrcamentoPorProjetoModel, OrcamentoPorProjetoDtoList>()
+                .ReverseMap();
+
             CreateMap<ProdutoModel, ProdutoDto>()
                 .ReverseMap();
 
