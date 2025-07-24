@@ -19,6 +19,33 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Route("filtrar")]
+        public async Task<IActionResult> Filtrar([FromQuery] int? numero, Guid cliente)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _service.FiltrarAsync(numero, cliente);
+
+                if (result == null)
+                {
+                    return NotFound("Nenhum orçameto encontrado!");
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("details/{id}")]
         public async Task<IActionResult> Details(Guid id)
         {

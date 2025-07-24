@@ -45,6 +45,22 @@ namespace Data.Implementation
             }
         }
 
+        public async Task<IEnumerable<OrcamentoPorProjetoEntity>> Filtrar(int? numero, Guid cliente)
+        {
+            try
+            {
+                if((numero == null || numero == 0) && (cliente == null || cliente == Guid.Empty))
+                {
+                    return await GetAllWithRelationships();
+                }
+                var result = await _dataSet.Include(x => x.Cliente).Include(x => x.Empresa).Where(x => x.Numero == numero || x.ClienteId == cliente).ToListAsync();
+                return result;
+            } catch
+            {
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<OrcamentoPorProjetoEntity>> GetAllWithRelationships()
         {
             try

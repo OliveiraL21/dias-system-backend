@@ -102,5 +102,10 @@ namespace Services.Orcamentos
             //atualizar o orçamento
             return _mapper.Map<OrcamentoPorProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
+
+        public async Task<IEnumerable<OrcamentoPorProjetoDtoList>> FiltrarAsync(int? numero, Guid cliente)
+        {
+            return _mapper.Map<IEnumerable<OrcamentoPorProjetoDtoList>>(await _repository.Filtrar(numero, cliente));
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Domain.Services.Orcamentos
     {
         Task<OrcamentoPorProjetoDto> GetByIdAsync(Guid id);
         Task<IEnumerable<OrcamentoPorProjetoDtoList>> GetAllAsync();
+        Task<IEnumerable<OrcamentoPorProjetoDtoList>> FiltrarAsync(int? numero, Guid cliente);
         Task<OrcamentoPorProjetoDtoCreateResult> CreateAsync(OrcamentoPorProjetoDtoCreate orcamento);
         Task<OrcamentoPorProjetoDtoUpdateResult> UpdateAsync(Guid id, OrcamentoPorProjetoDtoUpdate orcamento);
         Task<bool> DeleteAsync(Guid id);

@@ -14,6 +14,7 @@ namespace Domain.Repositories
         Task<OrcamentoPorProjetoEntity> GetByIdWithRelationships(Guid id);
         Task<int> GetLastOrcamentoNumber();
         Task<bool> CreateProdutoOrcamento(ProdutoOrcamentoProjetoEntity orcamento);
+        Task<IEnumerable<OrcamentoPorProjetoEntity>> Filtrar(int? numero, Guid cliente);
 
     }
 }
