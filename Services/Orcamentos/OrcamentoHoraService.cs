@@ -22,10 +22,31 @@ namespace Services.Orcamentos
             _mapper = mapper;
         }
 
+        private double CalcularValorTotalHora(OrcamentoHoraEntity orcamento)
+        {
+            if (orcamento is not null)
+            {
+                double total = 0;
+                foreach(var servico in orcamento.Servicos)
+                {
+                    total += (Convert.ToDouble(servico.QuantidadeHora) * orcamento.ValorHora);
+                }
+                return total;
+            }
+            return 0;
+        }
+
         public async Task<OrcamentoHoraDtoCreateResult> CreateAsync(OrcamentoHoraDtoCreate orcamento)
         {
             var model = _mapper.Map<OrcamentoHoraModel>(orcamento);
             var entity = _mapper.Map<OrcamentoHoraEntity>(model);
+            foreach(var servico in entity.Servicos)
+            {
+                servico.Id = Guid.NewGuid();
+                servico.CreateAt = DateTimeOffset.Now;
+            }
+            entity.ValorTotal = CalcularValorTotalHora(entity);
+            entity.Numero = await _repository.GenerateOrcamentoNumber();
             return _mapper.Map<OrcamentoHoraDtoCreateResult>(await _repository.InsertAsync(entity));
         }
 

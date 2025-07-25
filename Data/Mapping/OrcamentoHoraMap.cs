@@ -21,7 +21,7 @@ namespace Data.Mapping
                 .IsRequired();
 
             builder.Property(x => x.CreateAt).IsRequired();
-            builder.Property(x => x.UpdateAt).IsRequired();
+            builder.Property(x => x.UpdateAt);
 
             builder.Property(x => x.Numero).IsRequired();
             builder.HasIndex(x => x.Numero).IsUnique();

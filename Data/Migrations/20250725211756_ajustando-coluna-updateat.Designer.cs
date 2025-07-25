@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20250725211756_ajustando-coluna-updateat")]
+    partial class ajustandocolunaupdateat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,13 +160,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01d747fb-49ff-49e9-8868-ae2bc48b067f"),
+                            Id = new Guid("1080d497-e214-4639-abbc-14fe29e1c401"),
                             Bairro = "Vila São Carlos",
                             Celular = "(19) 99669-3155",
                             Cep = "13847-111",
                             Cidade = "Mogi Guaçu",
                             Cpf = "476.593.238-90",
-                            CreateAt = new DateTimeOffset(new DateTime(2025, 7, 25, 18, 49, 31, 858, DateTimeKind.Unspecified).AddTicks(4381), new TimeSpan(0, -3, 0, 0, 0)),
+                            CreateAt = new DateTimeOffset(new DateTime(2025, 7, 25, 18, 17, 55, 363, DateTimeKind.Unspecified).AddTicks(6901), new TimeSpan(0, -3, 0, 0, 0)),
                             Email = "ljoliveira99@outlook.com",
                             Estado = "SP",
                             Logradouro = "Av São Carlos",
@@ -379,6 +382,7 @@ namespace Data.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdateAt")
+                        .IsRequired()
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
@@ -411,32 +415,32 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("073a5977-0954-4c16-a740-ef5b07f9570e"),
+                            Id = new Guid("46fdbe37-826a-4b98-9461-05fc85a86da9"),
                             Descricao = "Em andamento"
                         },
                         new
                         {
-                            Id = new Guid("da70c55b-de99-4352-af4a-9d52f92cd2e2"),
+                            Id = new Guid("a7040177-864f-4964-9787-072e2da0fa31"),
                             Descricao = "Inativo"
                         },
                         new
                         {
-                            Id = new Guid("f26b8b29-e6f2-477e-ba05-10d368d8b221"),
+                            Id = new Guid("8bd5ec26-5b81-48e8-8e0b-338c6c10bc53"),
                             Descricao = "Em pausa"
                         },
                         new
                         {
-                            Id = new Guid("fa5f6b28-934f-4bfa-a662-27af0b3cc723"),
+                            Id = new Guid("6f06a8a5-2cd8-4a95-83a2-1dd219196a07"),
                             Descricao = "Excluído"
                         },
                         new
                         {
-                            Id = new Guid("e26ebaf4-8707-4311-9a89-7f908cd3f32d"),
+                            Id = new Guid("3fc508c6-b956-480d-a2fd-57395df40b6d"),
                             Descricao = "Finalizado"
                         },
                         new
                         {
-                            Id = new Guid("1b5bfe51-6ca1-4fb8-8279-67132385bac8"),
+                            Id = new Guid("541a94d8-020e-4446-bf81-a10043c3ff61"),
                             Descricao = "Bloqueado"
                         });
                 });

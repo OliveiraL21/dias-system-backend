@@ -20,6 +20,24 @@ namespace Data.Implementation
             _dataSet = context.Set<OrcamentoHoraEntity>();
         }
 
+        public async Task<int> GenerateOrcamentoNumber()
+        {
+            try
+            {
+                var result = await _dataSet.OrderBy(x => x.Numero).LastOrDefaultAsync();
+                if(result is not null)
+                {
+                    return result.Numero + 1;
+                }
+
+                return 1000;
+
+            } catch
+            {
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<OrcamentoHoraEntity>> GetAllWithRelationships()
         {
             try

@@ -19,6 +19,6 @@ namespace Domain.Dtos.Orcamentos.PorHora
         public IEnumerable<ServicoDto> Servicos { get; set; }
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTimeOffset CreateAt { get; set; }
     }
 }
