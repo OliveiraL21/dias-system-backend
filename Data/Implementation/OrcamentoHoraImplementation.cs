@@ -60,6 +60,7 @@ namespace Data.Implementation
                 var result = await _dataSet
                     .Include(x => x.Empresa)
                     .Include(x => x.Cliente)
+                    .Include(x => x.Servicos)
                     .FirstOrDefaultAsync(x => x.Id == id);
 
                 return result;
