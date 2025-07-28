@@ -9,10 +9,11 @@ namespace Domain.Dtos.Servico
 {
     public class ServicoDtoUpdate
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [Required(ErrorMessage = "Descrição é um campo obrigatório")]
         public string Descricao { get; set; }
         [Required(ErrorMessage = "Quantidade é um campo obrigatório")]
         public string QuantidadeHora { get; set; }
+        public Guid? OrcamentoId { get; set; }
     }
 }

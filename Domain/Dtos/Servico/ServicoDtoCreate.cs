@@ -14,5 +14,6 @@ namespace Domain.Dtos.Servico
         public string Descricao { get; set; }
         [Required(ErrorMessage = "Quantidade é um campo obrigatório")]
         public string QuantidadeHora { get; set; }
+        public Guid? OrcamentoId { get; set; }
     }
 }

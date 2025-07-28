@@ -19,7 +19,7 @@ namespace Domain.Dtos.Orcamentos.PorHora
         [Required(ErrorMessage = "O campo Valor da hora é obrigatório.")]
         public int ValorHora { get; set; }
         [Required(ErrorMessage = "O campo Serviços é obrigatório.")]
-        public IEnumerable<ServicoDto> Servicos { get; set; }
+        public IEnumerable<ServicoDtoUpdate> Servicos { get; set; }
         [Required(ErrorMessage = "O campo Empresa é obrigatório.")]
         public Guid EmpresaId { get; set; }
         [Required(ErrorMessage = "O campo Cliente é obrigatório.")]

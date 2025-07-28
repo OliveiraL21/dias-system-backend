@@ -17,6 +17,23 @@ namespace Domain.Models
 			set { _valorHora = value; }
 		}
 
+		private int _numero;
+
+		public int Numero
+		{
+			get { return _numero; }
+			set { _numero = value; }
+		}
+
+		private double _valorTotal;
+
+		public double ValorTotal
+		{
+			get { return _valorTotal; }
+			set { _valorTotal = value; }
+		}
+
+
 		private IEnumerable<ServicoEntity> _servicos;
 
 		public IEnumerable<ServicoEntity> Servicos

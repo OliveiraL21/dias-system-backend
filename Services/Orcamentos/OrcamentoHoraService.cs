@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Domain.Dtos.Orcamentos.PorHora;
+using Domain.Dtos.Servico;
 using Domain.Entidades;
 using Domain.Models;
 using Domain.Repositories;
 using Domain.Services.Orcamentos;
+using Domain.Services.Servico;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,13 @@ namespace Services.Orcamentos
     public class OrcamentoHoraService : IOrcamentoPorHoraService
     {
         private readonly IOrcamentoHoraRepository _repository;
+        private readonly IServicoService _servicoService;
         private readonly IMapper _mapper;
-        public OrcamentoHoraService(IOrcamentoHoraRepository repository, IMapper mapper)
+        public OrcamentoHoraService(IOrcamentoHoraRepository repository, IMapper mapper, IServicoService servicoService)
         {
             _repository = repository;
             _mapper = mapper;
+            _servicoService = servicoService;
         }
 
         private double CalcularValorTotalHora(OrcamentoHoraEntity orcamento)
@@ -35,6 +39,8 @@ namespace Services.Orcamentos
             }
             return 0;
         }
+
+    
 
         public async Task<OrcamentoHoraDtoCreateResult> CreateAsync(OrcamentoHoraDtoCreate orcamento)
         {
@@ -67,8 +73,21 @@ namespace Services.Orcamentos
 
         public async Task<OrcamentoHoraDtoUpdateResult> UpdateAsync(Guid id, OrcamentoHoraDtoUpdate orcamento)
         {
+            orcamento.Id = id;
             var model = _mapper.Map<OrcamentoHoraModel>(orcamento);
             var entity = _mapper.Map<OrcamentoHoraEntity>(model);
+            entity.ValorTotal = CalcularValorTotalHora(entity);
+            foreach(var servico in orcamento.Servicos)
+            {
+                if(servico.Id == Guid.Empty || servico.Id == null)
+                {
+                    var servicoModel = _mapper.Map<ServicoModel>(servico);
+                    var servicoEntity = _mapper.Map<ServicoEntity>(servicoModel);
+                    var servicoCreate = _mapper.Map<ServicoDtoCreate>(servicoEntity);
+                    servicoCreate.OrcamentoId = id;
+                    var result = await _servicoService.CreateAsync(servicoCreate);
+                }
+            }
             return _mapper.Map<OrcamentoHoraDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
     }
