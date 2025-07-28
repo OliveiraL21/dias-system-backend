@@ -84,6 +84,8 @@ namespace Data.Implementation
                     .Include(x => x.Servicos)
                     .FirstOrDefaultAsync(x => x.Id == id);
 
+                result.CreateAt = result.CreateAt.Value.AddMinutes(-3);
+
                 return result;
             }
             catch (Exception ex)
