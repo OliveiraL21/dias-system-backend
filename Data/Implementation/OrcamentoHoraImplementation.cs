@@ -20,6 +20,27 @@ namespace Data.Implementation
             _dataSet = context.Set<OrcamentoHoraEntity>();
         }
 
+        public async Task<IEnumerable<OrcamentoEntity>> Filtrar(int? numero, Guid? clienteId)
+        {
+            try
+            {
+                var query = _dataSet.Include(x => x.Servicos)
+                    .Include(x => x.Cliente)
+                    .Include(x => x.Empresa)
+                    .AsQueryable();
+
+                if((numero is null || numero == 0) && (clienteId == Guid.Empty || clienteId is null))
+                {
+                    return await query.ToListAsync();
+                }
+
+                return await query.Where(x => x.Numero == numero || x.ClienteId == clienteId).ToListAsync();
+            } catch
+            {
+                throw;
+            }
+        }
+
         public async Task<int> GenerateOrcamentoNumber()
         {
             try

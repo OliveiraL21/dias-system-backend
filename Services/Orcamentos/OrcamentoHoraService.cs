@@ -90,5 +90,10 @@ namespace Services.Orcamentos
             }
             return _mapper.Map<OrcamentoHoraDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
         }
+
+        public async Task<IEnumerable<OrcamentoHoraDto>> FiltrarAsync(int? numero, Guid? clienteId)
+        {
+            return _mapper.Map<IEnumerable<OrcamentoHoraDto>>(await _repository.Filtrar(numero, clienteId));
+        }
     }
 }

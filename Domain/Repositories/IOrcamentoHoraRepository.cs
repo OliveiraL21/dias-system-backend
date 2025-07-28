@@ -12,6 +12,7 @@ namespace Domain.Repositories
     {
         Task<IEnumerable<OrcamentoHoraEntity>> GetAllWithRelationships();
         Task<OrcamentoHoraEntity> GetByIdWithRelationships(Guid id);
+        Task<IEnumerable<OrcamentoEntity>> Filtrar(int? numero, Guid? clienteId);
         Task<int> GenerateOrcamentoNumber();
     }
 }

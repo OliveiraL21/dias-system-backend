@@ -72,6 +72,31 @@ namespace Application.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Filtrar")]
+        public async Task<IActionResult>Filtrar([FromQuery] int? numero, [FromQuery] Guid? clienteId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _service.FiltrarAsync(numero, clienteId);
+
+                if(result == null)
+                {
+                    return NotFound(result);
+                }
+
+                return Ok(result);
+            } catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> Create(OrcamentoHoraDtoCreate orcamento)
