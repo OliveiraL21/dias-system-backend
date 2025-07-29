@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="07/29/2025 12:31:50" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="07/29/2025 12:53:33" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfCwGwmvS+kEKi/iCTQmaGQ">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfaYF4y8wzgoOP3SpUVgAN1">
       <TableDataSource Name="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
@@ -80,7 +80,7 @@
       <TextObject Name="Text10" Left="56.7" Top="75.6" Width="614.25" Height="18.9" Border.Color="Gainsboro" Text="[clientes.Email]" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text11" Top="113.4" Width="670.95" Height="66.15" Border.Color="Gainsboro" Text="Eximi-o. Senhor(a), [clientes.RazaoSocial].&#13;&#10;Conforme solicitado, submetemos a vossa apreciação e conferência os preços e condições de&#13; fornecimento do(s) item(s) abaixo descriminados:&#13;" VertAlign="Center" Font="Arial, 10pt"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="300.19" Width="718.2" Height="264.6">
+    <DataBand Name="Data1" Top="300.19" Width="718.2" Height="264.6" DataSource="produtoorcamentoprojeto">
       <TableObject Name="Table1" Left="4.45" Top="9.45" Width="708.75" Height="94.5" Border.Lines="All" Border.Color="Gainsboro">
         <TableColumn Name="Column1" Width="252"/>
         <TableColumn Name="Column2" Width="242.55"/>
@@ -91,7 +91,7 @@
           <TableCell Name="Cell3" Border.Lines="All" Border.Color="LightGray" Fill.Color="LightGray" Text="Valor" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
         </TableRow>
         <TableRow Name="Row2">
-          <TableCell Name="Cell6" Border.Lines="All" Border.Color="LightGray" Text="[produto.Descricao]" Font="Arial, 10pt"/>
+          <TableCell Name="Cell6" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt"/>
           <TableCell Name="Cell7" Border.Lines="All" Border.Color="LightGray" Text="[produtoorcamentoprojeto.Quantidade]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
           <TableCell Name="Cell8" Border.Lines="All" Border.Color="LightGray" Text="[FormatCurrency([produtoorcamentoprojeto.ValorTotalVenda])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
         </TableRow>
@@ -106,9 +106,9 @@
           <TableCell Name="Cell18" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt"/>
         </TableRow>
         <TableRow Name="Row5">
-          <TableCell Name="Cell21" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt"/>
-          <TableCell Name="Cell22" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt"/>
-          <TableCell Name="Cell23" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt"/>
+          <TableCell Name="Cell21" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt" RowSpan="2"/>
+          <TableCell Name="Cell22" Border.Lines="All" Border.Color="LightGray" Font="Arial, 10pt" RowSpan="2"/>
+          <TableCell Name="Cell23" Border.Lines="All" Border.Color="LightGray" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
         </TableRow>
       </TableObject>
     </DataBand>
