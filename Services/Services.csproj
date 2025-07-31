@@ -39,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="reports\OrcamentoPorProjeto.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="reports\relatorio-servicos-prestados-periodo.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -15,10 +15,14 @@ namespace Services.reports
     {
         private readonly IProjetoRepository _projetoRepository;
         private readonly ITarefaRepository _tarefaRepository;
-        public ReportService(IProjetoRepository projetoRepository, ITarefaRepository tarefaRepository)
+        private readonly IOrcamentoHoraRepository _orcamentoHoraRepository;
+        private readonly IOrcamentoPorProjetoRepository _orcamentoPorProjetoRepository;
+        public ReportService(IProjetoRepository projetoRepository, ITarefaRepository tarefaRepository, IOrcamentoHoraRepository orcamentoHoraRepository, IOrcamentoPorProjetoRepository orcamentoPorProjetoRepository)
         {
             _projetoRepository = projetoRepository;
             _tarefaRepository = tarefaRepository;
+            _orcamentoHoraRepository = orcamentoHoraRepository;
+            _orcamentoPorProjetoRepository = orcamentoPorProjetoRepository;
         }
 
         private TimeSpan CalcularHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
@@ -44,6 +48,24 @@ namespace Services.reports
             return 0;
             
         }
+
+        public async Task<byte[]>OrcamentoPorProjeto(Guid orcamentoId)
+        {
+            try
+            {
+                var orcamento = await _orcamentoPorProjetoRepository.GetByIdWithRelationships(orcamentoId);
+
+                var webReport = HelperFastReport.WebReport("reports\\OrcamentoPorProjeto.frx");
+                List<OrcamentoPorProjetoEntity> orcamentos = [orcamento];
+                var orcamentoTable = HelperFastReport.GetTable("");
+
+
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<byte[]> ServicosPrestados(Guid projetoId)
         {
             try
