@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="07/31/2025 12:58:49" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="07/31/2025 19:17:27" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwetJPUbfeyIr7kzT6wAIGLt">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfx9WNDh90istbw5aD48bIY">
       <TableDataSource Name="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
@@ -60,6 +60,7 @@
         <Column Name="ProdutoId" DataType="System.Guid"/>
         <Column Name="CreateAt" DataType="System.DateTime"/>
         <Column Name="UpdateAt" DataType="System.DateTime"/>
+        <Column Name="Descricao" DataType="System.String"/>
       </TableDataSource>
       <TableDataSource Name="projetos" DataType="System.Int32" Enabled="true" TableName="projetos">
         <Column Name="Id" DataType="System.Guid"/>
@@ -97,9 +98,9 @@
       <TextObject Name="Text55" Left="359" Top="-2" Width="113.4" Height="28.35" Border.Lines="All" Fill.Color="LightGray" Text="Quantidade" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt, style=Bold"/>
       <TextObject Name="Text56" Left="472.5" Top="-2.35" Width="245.7" Height="28.35" Border.Lines="All" Fill.Color="LightGray" Text="Valor" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt, style=Bold"/>
       <DataBand Name="Data1" Top="397.45" Width="718.2" Height="37.8" DataSource="produtoorcamentoprojeto">
-        <TextObject Name="Text35" Width="359.1" Height="37.8" Border.Lines="All" Text="[[produto.Descricao]]" VertAlign="Center" Font="Arial, 10pt"/>
         <TextObject Name="Text52" Left="359.1" Width="113.4" Height="37.8" Border.Lines="All" Text="[produtoorcamentoprojeto.Quantidade]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
         <TextObject Name="Text53" Left="472.5" Width="245.7" Height="37.8" Border.Lines="All" Text="[produtoorcamentoprojeto.ValorTotalVenda]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text59" Width="359.1" Height="37.8" Border.Lines="All" Text="[produtoorcamentoprojeto.Descricao]" VertAlign="Center" Font="Arial, 10pt"/>
       </DataBand>
       <GroupFooterBand Name="GroupFooter1" Top="439.25" Width="718.2" Height="38.25">
         <TextObject Name="Text57" Width="472.5" Height="37.8" Border.Lines="Left, Top, Bottom" Fill.Color="LightGray" Text="Total: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
