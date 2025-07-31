@@ -18,6 +18,7 @@ namespace Data.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id);
 
+            builder.Property(x => x.Descricao).IsRequired();
             builder.Property(x => x.Quantidade).IsRequired();
             builder.Property(x => x.ValorTotalVenda);
 

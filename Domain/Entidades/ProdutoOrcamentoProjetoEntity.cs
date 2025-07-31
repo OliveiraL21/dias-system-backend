@@ -8,6 +8,7 @@ namespace Domain.Entidades
 {
     public class ProdutoOrcamentoProjetoEntity : BaseEntity
     {
+        public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public double ValorTotalVenda { get; set; }
         public OrcamentoPorProjetoEntity Orcamento { get; set; }

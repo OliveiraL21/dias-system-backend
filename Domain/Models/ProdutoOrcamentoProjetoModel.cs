@@ -8,6 +8,15 @@ namespace Domain.Models
 {
     public class ProdutoOrcamentoProjetoModel : BaseModel
     {
+
+		private string _descricao;
+
+		public string Descricao
+		{
+			get { return _descricao; }
+			set { _descricao = value; }
+		}
+
 		private int _quantidade;
 
 		public int Quantidade

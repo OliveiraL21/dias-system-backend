@@ -14,6 +14,7 @@ namespace Domain.Dtos.ProdutoOrcamento
         public OrcamentoPorProjetoDto Orcamento { get; set; }
         public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
+        public string Descricao { get; set; }
         public double ValorTotalVenda { get; set; }
     }
 }
