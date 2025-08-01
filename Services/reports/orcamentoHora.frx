@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/01/2025 08:46:37" ReportInfo.Modified="08/01/2025 10:35:13" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/01/2025 08:46:37" ReportInfo.Modified="08/01/2025 13:03:05" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwcnxJR6HdWlkLuxz4rGtUwA">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfdh/wJcqd0g7GFroulbd1W">
       <TableDataSource Name="clientes1" Alias="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
@@ -57,7 +57,7 @@
     </MySqlDataConnection>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
-    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="434.7">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="406.35">
       <TextObject Name="Text3" Left="2" Top="160.65" Width="66.15" Height="18.9" VisibleExpression="[Page] == 1" Border.Color="Gainsboro" Text="Cliente:" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
       <TextObject Name="Text4" Left="59.15" Top="160.65" Width="614.25" Height="18.9" VisibleExpression="[Page] == 1" Border.Color="Gainsboro" Text="[clientes.RazaoSocial]" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text5" Top="179.55" Width="75.6" Height="18.9" VisibleExpression="[Page] == 1" Border.Color="Gainsboro" Text="Telefone:" VertAlign="Center" Font="Calibri, 12pt, style=Bold"/>
@@ -71,21 +71,24 @@
       <TextObject Name="Text2" Left="463.05" Top="73.7" Width="255.15" Height="18.9" Border.Color="Gainsboro" Text="Emissão: [Format(&quot;{0:dd/MM/yyyy}&quot;,[orcamentohora.CreateAt])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text1" Left="463.05" Top="20.45" Width="255.15" Height="56.7" Border.Color="Gainsboro" Text="Orçamento - [orcamentohora.Numero]" HorzAlign="Center" VertAlign="Center" Font="Arial, 16pt, style=Bold"/>
     </PageHeaderBand>
-    <GroupHeaderBand Name="GroupHeader1" Top="438.7" Width="718.2" Height="37.8" Condition="[servico.Descricao]">
+    <ColumnHeaderBand Name="ColumnHeader1" Top="410.35" Width="718.2" Height="37.8">
       <TextObject Name="Text16" Left="0.1" Width="463.05" Height="37.8" Border.Lines="Left, Top, Bottom" Fill.Color="LightGray" Text="Serviço" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text17" Left="461.05" Width="113.4" Height="37.8" Border.Lines="All" Fill.Color="LightGray" Text="Quantidade" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text18" Left="566.45" Width="151.2" Height="37.8" Border.Lines="All" Fill.Color="LightGray" Text="Valor Hora" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <DataBand Name="Data1" Top="480.5" Width="718.2" Height="37.8" DataSource="servico1">
-        <TextObject Name="Text15" Width="463.05" Height="37.8" Border.Lines="Left, Top, Bottom" Text="[servico.Descricao]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-        <TextObject Name="Text19" Left="461.05" Width="103.95" Height="37.8" Border.Lines="Left, Top, Bottom" Text="[servico.QuantidadeHora]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-        <TextObject Name="Text20" Left="566.45" Width="151.2" Height="37.8" Border.Lines="All" Text="[orcamentohora.ValorHora]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="522.3" Width="718.2" Height="37.8">
-        <TextObject Name="Text57" Width="576.45" Height="37.8" Border.Lines="Left, Top, Bottom" Fill.Color="LightGray" Text="Total: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-        <TextObject Name="Text58" Left="566.45" Width="151.2" Height="37.8" Border.Lines="All" Fill.Color="LightGray" Text="[FormatCurrency([orcamentohora.ValorTotal])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      </GroupFooterBand>
-    </GroupHeaderBand>
-    <PageFooterBand Name="PageFooter1" Top="564.1" Width="718.2" Height="72.6" Border.Lines="Top">
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="452.15" Width="718.2" Height="37.8" DataSource="servico1">
+      <TextObject Name="Text15" Width="463.05" Height="37.8" Border.Lines="Left, Top, Bottom" Text="[servico.Descricao]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text19" Left="461.05" Width="103.95" Height="37.8" Border.Lines="Left, Top, Bottom" Text="[servico.QuantidadeHora]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text20" Left="566.45" Width="151.2" Height="37.8" Border.Lines="All" Text="[orcamentohora.ValorHora]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="493.95" Width="718.2" Height="160.65">
+      <TextObject Name="Text57" Width="576.45" Height="37.8" Border.Lines="Left, Top, Bottom" Fill.Color="LightGray" Text="Total: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text58" Left="566.45" Width="151.2" Height="37.8" Border.Lines="Right, Top, Bottom" Fill.Color="LightGray" Text="[FormatCurrency([orcamentohora.ValorTotal])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text64" Top="75.6" Width="189" Height="18.9" Text="Condições de Pagamento:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text65" Left="170.1" Top="75.6" Width="519.75" Height="37.8" Text="Pagamentos á vista (dinheiro, débito ou pix) ganha 10% de desconto.&#13;&#10;Pagamentos no cartão de crédito em até 12 vezes + juros da maquininha." VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text66" Left="103.95" Top="122.85" Width="66.15" Height="18.9" Text="Entrega:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </ColumnFooterBand>
+    <PageFooterBand Name="PageFooter1" Top="658.6" Width="718.2" Height="72.6" Border.Lines="Top">
       <TextObject Name="Text12" Width="255.15" Height="18.9" Text="[empresa.RazaoSocial]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text13" Top="15.9" Width="557.55" Height="56.7" Text="Endereço: [empresa.Logradouro], [empresa.Numero], [empresa.Cidade]  -  [empresa.Cep]&#13;&#10;Telefone: [empresa.Celular]&#13;&#10;E-mail: [empresa.Email]" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text14" Left="624.15" Width="141.75" Height="18.9" Text="Página:  [Page#] de [TotalPages#]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
