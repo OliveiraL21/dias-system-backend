@@ -1,4 +1,6 @@
-﻿using Domain.Entidades;
+﻿using AutoMapper;
+using Domain.Dtos.Orcamentos.PorProjeto;
+using Domain.Entidades;
 using Domain.Repositories;
 using Domain.Services.Report;
 using FastReport.Export.PdfSimple;
@@ -17,12 +19,18 @@ namespace Services.reports
         private readonly ITarefaRepository _tarefaRepository;
         private readonly IOrcamentoHoraRepository _orcamentoHoraRepository;
         private readonly IOrcamentoPorProjetoRepository _orcamentoPorProjetoRepository;
-        public ReportService(IProjetoRepository projetoRepository, ITarefaRepository tarefaRepository, IOrcamentoHoraRepository orcamentoHoraRepository, IOrcamentoPorProjetoRepository orcamentoPorProjetoRepository)
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IEmpresaRepository _empresaRepository;
+        private readonly IMapper _mapper;
+        public ReportService(IProjetoRepository projetoRepository, IMapper mapper, IEmpresaRepository empresaRepository, ITarefaRepository tarefaRepository, IClienteRepository clienteRepository, IOrcamentoHoraRepository orcamentoHoraRepository, IOrcamentoPorProjetoRepository orcamentoPorProjetoRepository)
         {
             _projetoRepository = projetoRepository;
             _tarefaRepository = tarefaRepository;
             _orcamentoHoraRepository = orcamentoHoraRepository;
             _orcamentoPorProjetoRepository = orcamentoPorProjetoRepository;
+            _clienteRepository = clienteRepository;
+            _empresaRepository = empresaRepository;
+            _mapper = mapper;
         }
 
         private TimeSpan CalcularHorasDoProjeto(IEnumerable<TarefaEntity> tarefas)
@@ -54,10 +62,31 @@ namespace Services.reports
             try
             {
                 var orcamento = await _orcamentoPorProjetoRepository.GetByIdWithRelationships(orcamentoId);
+                var cliente = await _clienteRepository.SelectAsync(orcamento.ClienteId);
+                var empresa = await _empresaRepository.SelectAsync(orcamento.EmpresaId);
+                var orcamentoDto = _mapper.Map<OrcamentoPorProjetoDtoReport>(orcamento);
+                orcamentoDto.CreateAt = orcamento.CreateAt.Value.ToString("dd/MM/yyyy");
+
+
+                List<OrcamentoPorProjetoDtoReport> orcamentos = [orcamentoDto];
+                List<ClienteEntity> clientes = [cliente];
+                List<EmpresaEntity> empresas = [empresa];
+
 
                 var webReport = HelperFastReport.WebReport("reports\\OrcamentoPorProjeto.frx");
-                List<OrcamentoPorProjetoEntity> orcamentos = [orcamento];
-                var orcamentoTable = HelperFastReport.GetTable("");
+
+               
+                var orcamentoTable = HelperFastReport.GetTable(orcamentos,"OrcamentoPorProjeto");
+                var clienteTable = HelperFastReport.GetTable(clientes, "Clientes");
+                var empresaTable = HelperFastReport.GetTable(empresas, "Empresa");
+                var produtosOrcamentoTable = HelperFastReport.GetTable(orcamento.Produtos, "ProdutosOrcamentoPorProjeto");
+
+                webReport.Report.RegisterData(orcamentoTable, "OrcamentoPorProjeto");
+                webReport.Report.RegisterData(clienteTable, "Clientes");
+                webReport.Report.RegisterData(empresaTable, "Empresa");
+                webReport.Report.RegisterData(produtosOrcamentoTable, "ProdutoOrcamentoProjeto");
+                return HelperFastReport.ExportPdf(webReport);
+
 
 
             } catch (Exception ex)
