@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="07/31/2025 22:45:52" ReportInfo.CreatorVersion="2025.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="08/01/2025 08:49:56" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfCRAsH4FKPgaGETdmplbMc">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfR//wxyPR8KtRs53RX4FIV">
       <TableDataSource Name="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
@@ -108,7 +108,7 @@
     </GroupHeaderBand>
     <PageFooterBand Name="PageFooter1" Top="477.5" Width="718.2" Height="132.3" Border.Lines="Top">
       <TextObject Name="Text12" Top="16.45" Width="255.15" Height="18.9" Text="[empresa.RazaoSocial]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text13" Top="32.35" Width="557.55" Height="56.7" Text="Endereço: [empresa.Logradouro], [empresa.Numero], [empresa.Cep] - [empresa.Cidade]&#13;&#10;Telefone: [empresa.Celular]&#13;&#10;E-mail: [empresa.Email]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Top="32.35" Width="557.55" Height="56.7" Text="Endereço: [empresa.Logradouro], [empresa.Numero], [empresa.Cidade]  -  [empresa.Cep]&#13;&#10;Telefone: [empresa.Celular]&#13;&#10;E-mail: [empresa.Email]" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text14" Left="624.15" Top="16.45" Width="141.75" Height="18.9" Text="Página:  [Page#] de [TotalPages#]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
     </PageFooterBand>
   </ReportPage>
@@ -118,7 +118,7 @@
       <TextObject Name="Text43" Left="463.05" Top="73.7" Width="255.15" Height="18.9" Border.Color="Gainsboro" Text="Emissão: [Format(&quot;{0:dd/MM/yyyy}&quot;,[orcamentoporprojeto.CreateAt])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text44" Left="463.05" Top="20.45" Width="255.15" Height="56.7" Border.Color="Gainsboro" Text="Orçamento - [orcamentoporprojeto.Numero]" HorzAlign="Center" VertAlign="Center" Font="Arial, 16pt, style=Bold"/>
       <TextObject Name="Text48" Top="132.3" Width="340.2" Height="56.7" Text="Aprovação do Orçamento&#13;" VertAlign="Center" Font="Arial, 18pt, style=Bold"/>
-      <TextObject Name="Text49" Top="179.55" Width="708.75" Height="85.05" Text="E por estar de boa fé e de pleno acordo, [clientes.RazaoSocial]  na qualidade de CLIENTE,&#13;&#10;assina o presente orçamento comercial, Orçamento [projetos.Descricao], que passará a ser válido&#13;&#10;após a data da assinatura." VertAlign="Center" Font="Arial, 11pt"/>
+      <TextObject Name="Text49" Top="179.55" Width="708.75" Height="85.05" Text="E por estar de boa fé e de pleno acordo, [clientes.RazaoSocial]  na qualidade de CLIENTE,&#13;&#10;assina o presente orçamento comercial que passará a ser válido&#13;&#10;após a data da assinatura." VertAlign="Center" Font="Arial, 11pt"/>
       <TextObject Name="Text50" Top="349.65" Width="302.4" Height="18.9" Border.Lines="Bottom" VertAlign="Center" Font="Arial, 11pt"/>
       <TextObject Name="Text51" Top="368.55" Width="302.4" Height="18.9" Text="[clientes.RazaoSocial]" VertAlign="Center" Font="Arial, 8pt"/>
     </PageHeaderBand>
