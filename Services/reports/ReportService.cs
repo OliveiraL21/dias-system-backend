@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Dtos.Orcamentos.PorHora;
 using Domain.Dtos.Orcamentos.PorProjeto;
 using Domain.Entidades;
 using Domain.Repositories;
@@ -94,6 +95,40 @@ namespace Services.reports
                 throw;
             }
         }
+
+        public async Task<byte[]> OrcamentoHora(Guid orcamentoId) 
+        {
+            try
+            {
+                var orcamento = await _orcamentoHoraRepository.GetByIdWithRelationships(orcamentoId);
+                var empresa = await _empresaRepository.GetWithRealationship(orcamento.EmpresaId);
+                var cliente = await _clienteRepository.SelectAsync(orcamento.ClienteId);
+                var orcamentoDto = _mapper.Map<OrcamentoHoraDtoReport>(orcamento);
+                orcamentoDto.CreateAt = orcamento.CreateAt.Value.ToString("dd/MM/yyyy");
+
+                var webReport = HelperFastReport.WebReport("reports\\orcamentoHora.frx");
+
+                List<OrcamentoHoraDtoReport> orcamentos = [orcamentoDto];
+                List<ClienteEntity> clientes = [cliente];
+                List<EmpresaEntity> empresas = [empresa];
+
+                var orcamentoTable = HelperFastReport.GetTable(orcamentos, "OrcamentoHora");
+                var clienteTable = HelperFastReport.GetTable(clientes, "Clientes");
+                var empresaTable = HelperFastReport.GetTable(empresas, "Empresa");
+                var servicosTable = HelperFastReport.GetTable(orcamento.Servicos, "Servico");
+
+                webReport.Report.RegisterData(orcamentoTable, "OrcamentoHora");
+                webReport.Report.RegisterData(clienteTable, "Cliente");
+                webReport.Report.RegisterData(empresaTable, "Empresa");
+                webReport.Report.RegisterData(servicosTable, "Servico");
+                return HelperFastReport.ExportPdf(webReport);
+
+            } catch
+            {
+                throw;
+            }
+        }
+
 
         public async Task<byte[]> ServicosPrestados(Guid projetoId)
         {

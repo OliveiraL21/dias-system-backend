@@ -1,0 +1,23 @@
+﻿using Domain.Dtos.cliente;
+using Domain.Dtos.Empresa;
+using Domain.Dtos.Servico;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domain.Dtos.Orcamentos.PorHora
+{
+    public class OrcamentoHoraDtoReport
+    {
+        public Guid Id { get; set; }
+        public string Numero { get; set; }
+        public double ValorTotal { get; set; }
+        public int ValorHora { get; set; }
+        public IEnumerable<ServicoDto> Servicos { get; set; }
+        public EmpresaDto Empresa { get; set; }
+        public ClienteDto Cliente { get; set; }
+        public string CreateAt { get; set; }
+    }
+}

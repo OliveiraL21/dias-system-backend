@@ -159,6 +159,9 @@ namespace CrossCutting.Mapping
             CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoUpdateResult>()
                    .ReverseMap();
 
+            CreateMap<OrcamentoHoraEntity, OrcamentoHoraDtoReport>()
+                .ReverseMap();
+
             CreateMap<ServicoEntity, ServicoDto>()
                 .ReverseMap();
 

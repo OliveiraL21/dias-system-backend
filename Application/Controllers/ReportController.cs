@@ -18,6 +18,26 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Route("orcamentoHora/{id}")]
+        public async Task<IActionResult>ExportOrcamentoHora(Guid id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var report = await _service.OrcamentoHora(id);
+
+                return File(report, "application/pdf");
+            } catch(Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("orcamentoPorProjeto/{id}")]
         public async Task<IActionResult> ExportOrcamentoPorProjeto(Guid id)
         {
