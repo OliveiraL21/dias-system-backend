@@ -33,6 +33,15 @@ namespace Domain.Models
 			set { _produtos = value; }
 		}
 
+		private string? _tempoDeEntrega;
+
+		public string? TempoDeEntrega
+		{
+			get { return _tempoDeEntrega; }
+			set { _tempoDeEntrega = value; }
+		}
+
+
 		private string _numero;
 
 		public string Numero

@@ -33,6 +33,14 @@ namespace Domain.Models
 			set { _valorTotal = value; }
 		}
 
+		private string? _tempoDeEntrega;
+
+		public string? TempoDeEntrega
+		{
+			get { return _tempoDeEntrega; }
+			set { _tempoDeEntrega = value; }
+		}
+
 
 		private IEnumerable<ServicoEntity> _servicos;
 

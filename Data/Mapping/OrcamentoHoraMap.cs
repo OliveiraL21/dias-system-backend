@@ -30,6 +30,9 @@ namespace Data.Mapping
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
+            builder.Property(x => x.TempoDeEntrega);
+
+
             builder.HasOne(x => x.Empresa).WithMany(o => o.OrcamentosHora).HasForeignKey(x => x.EmpresaId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();

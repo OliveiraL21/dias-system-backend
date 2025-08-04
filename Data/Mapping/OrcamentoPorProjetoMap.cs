@@ -29,6 +29,8 @@ namespace Data.Mapping
             builder.Property(x => x.ValorTotal)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+
+            builder.Property(x => x.TempoDeEntrega);
            
             builder.HasOne(x => x.Empresa).WithMany(e => e.OrcamentosPorProjeto)
                 .HasForeignKey(x => x.EmpresaId)

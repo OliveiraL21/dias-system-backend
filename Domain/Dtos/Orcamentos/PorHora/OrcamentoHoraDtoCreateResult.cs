@@ -14,6 +14,7 @@ namespace Domain.Dtos.Orcamentos.PorHora
         public Guid Id { get; set; }
         public string Numero { get; set; }
         public double ValorTotal { get; set; }
+        public string? TempoDeEntrega { get; set; }
         public int ValorHora { get; set; }
         public IEnumerable<ServicoDto> Servicos { get; set; }
         public EmpresaDto Empresa { get; set; }

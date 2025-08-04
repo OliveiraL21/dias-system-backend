@@ -15,6 +15,7 @@ namespace Domain.Dtos.Orcamentos.PorProjeto
         public Guid EmpresaId { get; set; }
         public Guid ClienteId { get; set; }
         public string CreateAt { get; set; }
+        public string? TempoDeEntrega { get; set; }
         public IEnumerable<ProdutoOrcamentoProjetoDto> Produtos { get; set; }
     }
 }

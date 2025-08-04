@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/01/2025 08:46:37" ReportInfo.Modified="08/01/2025 13:03:05" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/01/2025 08:46:37" ReportInfo.Modified="08/04/2025 12:19:57" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwfdh/wJcqd0g7GFroulbd1W">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwd2Q/ONYl5t1UFj5VMyQGP+">
       <TableDataSource Name="clientes1" Alias="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
@@ -45,6 +45,7 @@
         <Column Name="Numero" DataType="System.Int32"/>
         <Column Name="ValorTotal" DataType="System.Double"/>
         <Column Name="StatusId" DataType="System.Guid"/>
+        <Column Name="TempoDeEntrega" DataType="System.String"/>
       </TableDataSource>
       <TableDataSource Name="servico1" Alias="servico" DataType="System.Int32" Enabled="true" TableName="servico">
         <Column Name="Id" DataType="System.Guid"/>
@@ -85,8 +86,9 @@
       <TextObject Name="Text57" Width="576.45" Height="37.8" Border.Lines="Left, Top, Bottom" Fill.Color="LightGray" Text="Total: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text58" Left="566.45" Width="151.2" Height="37.8" Border.Lines="Right, Top, Bottom" Fill.Color="LightGray" Text="[FormatCurrency([orcamentohora.ValorTotal])]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text64" Top="75.6" Width="189" Height="18.9" Text="Condições de Pagamento:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text65" Left="170.1" Top="75.6" Width="519.75" Height="37.8" Text="Pagamentos á vista (dinheiro, débito ou pix) ganha 10% de desconto.&#13;&#10;Pagamentos no cartão de crédito em até 12 vezes + juros da maquininha." VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text65" Left="179.55" Top="75.6" Width="519.75" Height="37.8" Text="Pagamentos á vista (dinheiro, débito ou pix) ganha 10% de desconto.&#13;&#10;Pagamentos no cartão de crédito em até 12 vezes + juros da maquininha." VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text66" Left="103.95" Top="122.85" Width="66.15" Height="18.9" Text="Entrega:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text68" Left="170.1" Top="122.85" Width="226.8" Height="18.9" Text="[orcamentohora.TempoDeEntrega]" VertAlign="Center" Font="Arial, 10pt"/>
     </ColumnFooterBand>
     <PageFooterBand Name="PageFooter1" Top="658.6" Width="718.2" Height="72.6" Border.Lines="Top">
       <TextObject Name="Text12" Width="255.15" Height="18.9" Text="[empresa.RazaoSocial]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>

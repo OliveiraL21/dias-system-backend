@@ -19,5 +19,6 @@ namespace Domain.Dtos.Orcamentos.PorHora
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
         public DateTimeOffset CreateAt { get; set; }
+        public string? TempoDeEntrega { get; set; }
     }
 }

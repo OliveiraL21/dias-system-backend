@@ -16,6 +16,7 @@ namespace Domain.Dtos.Orcamentos.PorProjeto
         public Guid Id { get; set; }
         public int Numero { get; set; }
         public double ValorTotal { get; set; }
+        public string? TempoDeEntrega { get; set; }
         public EmpresaDto Empresa { get; set; }
         public ClienteDto Cliente { get; set; }
         public DateTimeOffset CreateAt { get; set; }

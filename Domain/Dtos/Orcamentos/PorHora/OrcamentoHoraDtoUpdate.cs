@@ -26,5 +26,6 @@ namespace Domain.Dtos.Orcamentos.PorHora
         public Guid ClienteId { get; set; }
         [Required(ErrorMessage = "O campo data do orçamento é obrigatório.")]
         public DateTimeOffset CreateAt { get; set; }
+        public string? TempoDeEntrega { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Domain.Entidades
     {
         public int Numero { get; set; }
         public double ValorTotal { get; set; }
+        public string? TempoDeEntrega { get; set; }
 
     }
 }
