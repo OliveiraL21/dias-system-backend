@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Domain.Dtos.Orcamentos.PorHora;
 using Domain.Dtos.Orcamentos.PorProjeto;
+using Domain.Dtos.ProdutoOrcamento;
 using Domain.Entidades;
 using Domain.Models;
 using Domain.Repositories;
 using Domain.Services.Orcamentos;
+using Domain.Services.ProdutoOrcamento;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +19,12 @@ namespace Services.Orcamentos
     {
         private readonly IOrcamentoPorProjetoRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IProdutoOrcamentoPorProjetoService _produtoService;
         
-        public OrcamentoPorProjetoService(IOrcamentoPorProjetoRepository repository, IMapper mapper)
+        public OrcamentoPorProjetoService(IOrcamentoPorProjetoRepository repository, IMapper mapper, IProdutoOrcamentoPorProjetoService produtoService)
         {
             _repository = repository;
+            _produtoService = produtoService;
             _mapper = mapper;
         }
 
@@ -96,6 +100,22 @@ namespace Services.Orcamentos
             if (orcamento.Produtos.Where(x => x.Id == Guid.Empty || x.Id == null).ToList().Count >= 1)
             {
                 await CreateProdutoOrcamento(entity);
+            }
+
+            foreach(var produto in orcamento.Produtos)
+            {
+                if(produto.Id == null || produto.Id == Guid.Empty)
+                {
+                    var produtoModel = _mapper.Map<ProdutoOrcamentoProjetoModel>(produto);
+                    var produtoEntity = _mapper.Map<ProdutoOrcamentoProjetoEntity>(produtoModel);
+                    var produtoCreateDto = _mapper.Map<ProdutoOrcamentoProjetoDtoCreate>(produtoEntity);
+                    var produtoCreated = await _produtoService.Create(produtoCreateDto);
+                }
+                else
+                {
+                    var produtoResult = await _produtoService.Update(produto.Id ?? Guid.Empty, produto);
+                }
+                   
             }
             //recalcular o valor total do orçamento.
             entity.ValorTotal = CalcularValorTotalDoOrcamento(entity);

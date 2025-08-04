@@ -79,12 +79,13 @@ namespace Services.Orcamentos
             entity.ValorTotal = CalcularValorTotalHora(entity);
             foreach(var servico in orcamento.Servicos)
             {
+                servico.OrcamentoId = id;
                 if(servico.Id == Guid.Empty || servico.Id == null)
                 {
                     var servicoModel = _mapper.Map<ServicoModel>(servico);
                     var servicoEntity = _mapper.Map<ServicoEntity>(servicoModel);
                     var servicoCreate = _mapper.Map<ServicoDtoCreate>(servicoEntity);
-                    servicoCreate.OrcamentoId = id;
+
                     var result = await _servicoService.CreateAsync(servicoCreate);
                 } else
                 {
