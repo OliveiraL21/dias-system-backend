@@ -86,6 +86,9 @@ namespace Services.Orcamentos
                     var servicoCreate = _mapper.Map<ServicoDtoCreate>(servicoEntity);
                     servicoCreate.OrcamentoId = id;
                     var result = await _servicoService.CreateAsync(servicoCreate);
+                } else
+                {
+                    var servicoResult = await _servicoService.UpdateAsync(servico.Id ?? Guid.Empty, servico);
                 }
             }
             return _mapper.Map<OrcamentoHoraDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
