@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="08/04/2025 12:18:38" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/29/2025 08:45:27" ReportInfo.Modified="08/05/2025 10:41:28" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwf+cSRbENj/r8hZ00bkpcKq">
+    <MySqlDataConnection Name="Connection" ConnectionString="rijcmlqxxAcVrXR9xR+MZm7pYHKmfpN1StCmCwGn2iEZbfAXZ1wqZxH0JINF5pzSjHgisY3l4+n7z1F9Jx01jjlXSj5M/h4eWsq8Xp5z8xvBsbSSwcWYYdZpSzKoLn8IssRi7TH">
       <TableDataSource Name="clientes" DataType="System.Int32" Enabled="true" TableName="clientes">
         <Column Name="Id" DataType="System.Guid"/>
         <Column Name="RazaoSocial" DataType="System.String"/>
