@@ -31,10 +31,10 @@ namespace Data.Implementation
 
                 if((numero is null || numero == 0) && (clienteId == Guid.Empty || clienteId is null))
                 {
-                    return await query.ToListAsync();
+                    return (await query.ToListAsync()).OrderBy(x => x.Numero);
                 }
 
-                return await query.Where(x => x.Numero == numero || x.ClienteId == clienteId).ToListAsync();
+                return (await query.Where(x => x.Numero == numero || x.ClienteId == clienteId).ToListAsync()).OrderBy(x => x.Numero);
             } catch
             {
                 throw;
@@ -63,9 +63,9 @@ namespace Data.Implementation
         {
             try
             {
-               var result = await _dataSet.Include(x => x.Empresa)
+               var result = (await _dataSet.Include(x => x.Empresa)
                     .Include(x => x.Cliente)
-                    .ToListAsync();
+                    .ToListAsync()).OrderBy(x => x.Numero);
                 return result;
             }
             catch (Exception ex)
