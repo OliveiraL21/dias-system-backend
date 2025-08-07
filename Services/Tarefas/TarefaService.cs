@@ -43,7 +43,7 @@ namespace Services.Tarefas
         
         public async Task<IEnumerable<TarefaDto>> FiltrarAsync(string? descricao, string? dataInicio, string? dataFim, Guid? projetoId)
         {
-            return _mapper.Map<IEnumerable<TarefaDto>>(await _repository.FiltrarAsync(descricao, dataInicio, dataFim, projetoId));
+            return _mapper.Map<IEnumerable<TarefaDto>>((await _repository.FiltrarAsync(descricao, dataInicio, dataFim, projetoId)).OrderBy(x => x.Descricao));
         }
 
         public async Task<TarefaDtoCreateResult> InsertAsync(TarefaDtoCreate tarefa)
@@ -59,7 +59,7 @@ namespace Services.Tarefas
 
         public async Task<IEnumerable<TarefaDto>> ListaAsync()
         {
-            return _mapper.Map<IEnumerable<TarefaDto>>(await _repository.GetAllAsync());
+            return _mapper.Map<IEnumerable<TarefaDto>>((await _repository.GetAllAsync()).OrderBy(x => x.Descricao));
         }
 
         public async Task<TarefaDto> SelectAsync(Guid id)

@@ -37,12 +37,12 @@ namespace Services.Produto
 
         public async Task<IEnumerable<ProdutoDto>> FiltrarAsync(string? descricao)
         {
-            return _mapper.Map<IEnumerable<ProdutoDto>>(await _repository.Filtrar(descricao));
+            return _mapper.Map<IEnumerable<ProdutoDto>>((await _repository.Filtrar(descricao)).OrderBy(x => x.Descricao));
         }
 
         public async Task<IEnumerable<ProdutoDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ProdutoDto>>(await _repository.SelectAllAsync());
+            return _mapper.Map<IEnumerable<ProdutoDto>>((await _repository.SelectAllAsync()).OrderBy(x => x.Descricao));
         }
 
         public async Task<ProdutoDto> GetbyIdAsync(Guid id)

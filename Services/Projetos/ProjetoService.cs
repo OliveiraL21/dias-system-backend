@@ -32,17 +32,17 @@ namespace Services.Projetos
 
         public async Task<IEnumerable<ProjetoDtoListagem>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId)
         {
-            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>(await _repository.FiltrarAsync(projeto, clienteId, statusId));
+            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>((await _repository.FiltrarAsync(projeto, clienteId, statusId)).OrderBy(x => x.Descricao));
         }
 
         public async Task<IEnumerable<ProjetoDtoListagem>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>(await _repository.GetAll());
+            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>((await _repository.GetAll()).OrderBy(x => x.Descricao));
         }
 
         public async Task<IEnumerable<ProjetoDtoListagem>> GetAllDashboardAsync()
         {
-            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>(await _repository.GetAllDashboardProjects());
+            return _mapper.Map<IEnumerable<ProjetoDtoListagem>>((await _repository.GetAllDashboardProjects()).OrderBy(x => x.Descricao));
         }
 
         public async Task<ProjetoDtoCreateResult> InsertAsync(ProjetoDtoCreate projeto)
@@ -54,9 +54,9 @@ namespace Services.Projetos
 
         public async Task<IEnumerable<ProjetoDtoSimple>> ListaSimplesAsync()
         {
-            var result = (await _repository.GetAll()).Where(p => p.Status.Descricao != "Excluído" && p.Status.Descricao != "Bloqueado" )
+            var result = (await _repository.GetAll()).Where(p => p.Status.Descricao != "Excluído" && p.Status.Descricao != "Bloqueado" && p.Descricao != "Inatívo")
             .ToList();
-            return _mapper.Map<IEnumerable<ProjetoDtoSimple>>(result);
+            return _mapper.Map<IEnumerable<ProjetoDtoSimple>>(result.OrderBy(x => x.Descricao));
         }
 
         public async Task<ProjetoDto> SelectAsync(Guid id)

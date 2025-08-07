@@ -36,12 +36,12 @@ namespace Services.Empresa
 
         public async Task<IEnumerable<EmpresaDto>> FiltrarAsync(string? razaoSocial, string? cpf)
         {
-            return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.FiltrarAsync(razaoSocial, cpf));
+            return _mapper.Map<IEnumerable<EmpresaDto>>((await _repository.FiltrarAsync(razaoSocial, cpf)).OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<IEnumerable<EmpresaDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<EmpresaDto>>(await _repository.GetAllWithRelationships());
+            return _mapper.Map<IEnumerable<EmpresaDto>>((await _repository.GetAllWithRelationships()).OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<EmpresaDto> GetByIdAsync(Guid id)

@@ -36,7 +36,7 @@ namespace Services.Clientes
 
         public async Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj)
         {
-            return _mapper.Map<IEnumerable<ClienteDto>>(await _repository.filtrarClientes(razaoSocial, cnpj));
+            return _mapper.Map<IEnumerable<ClienteDto>>((await _repository.filtrarClientes(razaoSocial, cnpj)).OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<ClienteDtoCreateResult> InsertAsync(ClienteDtoCreate cliente)
@@ -53,14 +53,14 @@ namespace Services.Clientes
 
         public async Task<IEnumerable<ClienteDto>> ListarAsync()
         {
-            return _mapper.Map<IEnumerable<ClienteDto>>(await _repository.GetAll());
+            return _mapper.Map<IEnumerable<ClienteDto>>((await _repository.GetAll()).OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<IEnumerable<ClienteDtoSimple>> ListaSimplesAsync()
         {
             var result = await _repository.GetAll();
 
-            return _mapper.Map<IEnumerable<ClienteDtoSimple>>(result);
+            return _mapper.Map<IEnumerable<ClienteDtoSimple>>(result.OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<ClienteDto> GetAsync(Guid id)
