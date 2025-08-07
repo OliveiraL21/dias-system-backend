@@ -37,7 +37,7 @@ namespace Services.Servicos
 
         public async Task<IEnumerable<ServicoDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ServicoDto>>(await _repository.SelectAllAsync());
+            return _mapper.Map<IEnumerable<ServicoDto>>((await _repository.SelectAllAsync()).OrderBy(x => x.Descricao));
         }
 
         public async Task<ServicoDto> GetByIdAsync(Guid id)

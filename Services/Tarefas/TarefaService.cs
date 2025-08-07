@@ -70,6 +70,7 @@ namespace Services.Tarefas
         public async Task<TarefaDtoUpdateResult> UpdateAsync(Guid id, TarefaDtoUpdate tarefa)
         {
             tarefa.Id = tarefa.Id == Guid.Empty ? id : tarefa.Id;
+            tarefa.StatusId = tarefa.Status.Id;
             var model = _mapper.Map<TarefaModel>(tarefa);
             var entity = _mapper.Map<TarefaEntity>(model);
             return _mapper.Map<TarefaDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
