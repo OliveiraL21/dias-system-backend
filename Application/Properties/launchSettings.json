@@ -1,3 +1,4 @@
+
 {
   "profiles": {
     "IIS Express": {
@@ -12,12 +13,12 @@
     "Application": {
       "commandName": "Project",
       "launchBrowser": true,
+      "dotnetRunMessages": true,
       "launchUrl": "swagger",
+      "applicationUrl": "https://0.0.0.0:5001;http://0.0.0.0:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": "true",
-      "applicationUrl": "https://localhost:6001;http://localhost:6000"
+      }
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
