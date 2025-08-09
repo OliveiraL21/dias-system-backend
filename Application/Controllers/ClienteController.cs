@@ -22,7 +22,7 @@ namespace Application.Controllers
         [HttpGet]
         [Route("/filtrar")]
         [Authorize(Roles = "admin, regular")]
-        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery] string cnpj)
+        public async Task<IActionResult> Filtrar([FromQuery] string razaoSocial, [FromQuery] string cnpj, [FromQuery] string cpf)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _clienteService.FiltrarAsync(razaoSocial, cnpj);
+                var result = await _clienteService.FiltrarAsync(razaoSocial, cnpj, cpf);
 
                 if (result == null)
                 {

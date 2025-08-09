@@ -34,9 +34,9 @@ namespace Services.Clientes
             return false;
         }
 
-        public async Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj)
+        public async Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj, string cpf)
         {
-            return _mapper.Map<IEnumerable<ClienteDto>>((await _repository.filtrarClientes(razaoSocial, cnpj)).OrderBy(x => x.RazaoSocial));
+            return _mapper.Map<IEnumerable<ClienteDto>>((await _repository.filtrarClientes(razaoSocial, cnpj, cpf)).OrderBy(x => x.RazaoSocial));
         }
 
         public async Task<ClienteDtoCreateResult> InsertAsync(ClienteDtoCreate cliente)

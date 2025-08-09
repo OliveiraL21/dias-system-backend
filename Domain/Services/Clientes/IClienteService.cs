@@ -15,7 +15,7 @@ namespace Domain.Services.Clientes
         Task<bool> DeleteAsync(Guid id);
         Task<ClienteDtoUpdateResult> UpdateAsync(Guid id, ClienteDtoUpdate cliente);
         Task<ClienteDto> GetAsync(Guid id);
-        Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj);
+        Task<IEnumerable<ClienteDto>> FiltrarAsync(string razaoSocial, string cnpj, string cpf);
         Task<IEnumerable<ClienteDto>> ListarAsync();
         Task<IEnumerable<ClienteDtoSimple>> ListaSimplesAsync();
     }

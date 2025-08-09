@@ -12,6 +12,6 @@ namespace Domain.Repositories
     public interface IClienteRepository : IRepository<ClienteEntity>
     {
         Task<IEnumerable<ClienteEntity>> GetAll();
-        Task<IEnumerable<ClienteEntity>> filtrarClientes(string? razaoSocial, string? cnpj);
+        Task<IEnumerable<ClienteEntity>> filtrarClientes(string? razaoSocial, string? cnpj, string? cpf);
     }
 }

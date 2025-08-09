@@ -17,7 +17,7 @@ namespace Data.Implementation
             _dataSet = context.Set<ClienteEntity>();
         }
 
-        public async Task<IEnumerable<ClienteEntity>> filtrarClientes(string razaoSocial, string cnpj)
+        public async Task<IEnumerable<ClienteEntity>> filtrarClientes(string razaoSocial, string cnpj, string cpf)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace Data.Implementation
 
                 var result = _dataSet.Include(c => c.Projetos).AsQueryable();
 
-                if (string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cnpj))
+                if (string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cnpj) && string.IsNullOrEmpty(cpf))
                 {
                     return await result.ToListAsync();
                 }
 
-                result = result.Where(x => EF.Functions.Like(x.RazaoSocial, razaoSocial) || x.Cnpj == cnpj);
+                result = result.Where(x => EF.Functions.Like(x.RazaoSocial, $"%{razaoSocial}%") || (x.Cnpj == cnpj && x.Cnpj != null || x.Cpf == cpf && x.Cpf != null));
 
                 return await result.ToListAsync();
             }
