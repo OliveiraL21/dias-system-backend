@@ -118,7 +118,7 @@ namespace Services.reports
                 var servicosTable = HelperFastReport.GetTable(orcamento.Servicos, "Servico");
 
                 webReport.Report.RegisterData(orcamentoTable, "OrcamentoHora");
-                webReport.Report.RegisterData(clienteTable, "Cliente");
+                webReport.Report.RegisterData(clienteTable, "Clientes");
                 webReport.Report.RegisterData(empresaTable, "Empresa");
                 webReport.Report.RegisterData(servicosTable, "Servico");
                 return HelperFastReport.ExportPdf(webReport);
