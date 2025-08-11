@@ -48,8 +48,7 @@ namespace Data.Context
             modelBuilder.Entity<ServicoEntity>(new ServicoMap().Configure);
             modelBuilder.Entity<ProdutoOrcamentoProjetoEntity>(new ProdutoOrcamentoProjetoMap().Configure);
 
-            StatusSeed.Seed(modelBuilder);
-            EmpresaSeed.Seed(modelBuilder);
+     
 
 
         }

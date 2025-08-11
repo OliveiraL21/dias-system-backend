@@ -3,6 +3,7 @@ using CrossCutting.DependencyInjection;
 using CrossCutting.Mapping;
 using Data.Context;
 using Data.Repository;
+using Data.Seeds;
 using Domain.Repository;
 using Domain.Services.Clientes;
 using Domain.Services.Dashboard;
@@ -46,7 +47,6 @@ namespace Application
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -179,6 +179,17 @@ namespace Application
             {
                 endpoints.MapControllers();
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<MyContext>();
+
+                // Aplica migrations
+                context.Database.Migrate();
+
+                // Roda seed condicional
+                DbInitializer.Seed(context);
+            }
         }
     }
 }
