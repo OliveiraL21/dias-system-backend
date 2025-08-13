@@ -71,6 +71,7 @@ namespace Services.Tarefas
         {
             tarefa.Id = tarefa.Id == Guid.Empty ? id : tarefa.Id;
             tarefa.StatusId = tarefa.Status.Id;
+            tarefa.ProjetoId = tarefa.ProjetoId != Guid.Empty ? tarefa.ProjetoId : tarefa.Projeto.Id;
             var model = _mapper.Map<TarefaModel>(tarefa);
             var entity = _mapper.Map<TarefaEntity>(model);
             return _mapper.Map<TarefaDtoUpdateResult>(await _repository.UpdateAsync(id, entity));
