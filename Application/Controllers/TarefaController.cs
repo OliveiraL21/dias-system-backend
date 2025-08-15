@@ -25,7 +25,7 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("filtrar")]
-        public async Task<IActionResult> Filtrar([FromQuery] string? descricao, [FromQuery] string? dataInicio, [FromQuery] string? dataFim, [FromQuery] Guid? projetoId)
+        public async Task<IActionResult> Filtrar([FromQuery] string? descricao, [FromQuery] string? dataInicio, [FromQuery] string? dataFim, [FromQuery] Guid? projetoId, [FromQuery] Guid? statusId)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Application.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _tarefaService.FiltrarAsync(descricao, dataInicio, dataFim, projetoId);
+                var result = await _tarefaService.FiltrarAsync(descricao, dataInicio, dataFim, projetoId, statusId);
 
                 if (result == null)
                 {

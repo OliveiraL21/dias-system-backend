@@ -45,7 +45,7 @@ namespace Data.Implementation
             }
         }
 
-        public async Task<IEnumerable<TarefaEntity>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId)
+        public async Task<IEnumerable<TarefaEntity>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId, Guid? statusId)
         {
             try
             {
@@ -65,8 +65,8 @@ namespace Data.Implementation
                             (!string.IsNullOrWhiteSpace(dataInicio) && !string.IsNullOrWhiteSpace(dataFim) &&
                             x.Data >= Convert.ToDateTime(dataInicio).Date &&
                             x.Data < Convert.ToDateTime(dataFim).Date.AddDays(1)) ||
-                            (x.ProjetoId == projetoId)
- );
+                            (x.ProjetoId == projetoId) ||
+                            (x.StatusId == statusId));
 
                 return await result.ToListAsync();
 

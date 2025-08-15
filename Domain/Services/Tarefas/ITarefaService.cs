@@ -16,7 +16,7 @@ namespace Domain.Services.Tarefas
         Task<TarefaDto> SelectAsync(Guid id);
         Task<TarefaDtoUpdateResult> UpdateAsync(Guid id, TarefaDtoUpdate tarefa);
         Task<bool> DeleteAsync(Guid id);
-        Task<IEnumerable<TarefaDto>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId);
+        Task<IEnumerable<TarefaDto>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId, Guid? statusId);
         Task<string> calcularHorasTotaisAsync(DateTime data);
         Task<IEnumerable<TarefaDto>> ListaAsync();
         Task<DashboardDtoResult> ListaByProjetoDashboardAsync(Guid projeto);

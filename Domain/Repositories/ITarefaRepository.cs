@@ -12,7 +12,7 @@ namespace Domain.Repositories
     public interface ITarefaRepository : IRepository<TarefaEntity>
     {
         Task<string> calcularHorasTotaisAsync(DateTime data);
-        Task<IEnumerable<TarefaEntity>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId);
+        Task<IEnumerable<TarefaEntity>> FiltrarAsync(string descricao, string dataInicio, string dataFim, Guid? projetoId, Guid? statusId);
         Task<IEnumerable<TarefaEntity>> GetAllAsync();
         Task<IEnumerable<TarefaEntity>> GetAllByProjectAsync(Guid projeto);
         Task<int> GetTotalTarefasByProjectAsync();
