@@ -24,7 +24,7 @@ namespace Data.Repository
 
         public Task<bool> ExistAsync(Guid id)
         {
-            return _dbSet.AnyAsync(i => i.Id == id);
+            return _dbSet.IgnoreQueryFilters().AnyAsync(i => i.Id == id);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -72,7 +72,7 @@ namespace Data.Repository
         {
             try
             {
-                var result = await _dbSet.SingleOrDefaultAsync(x => x.Id.Equals(id));
+                var result = await _dbSet.IgnoreQueryFilters().SingleOrDefaultAsync(x => x.Id.Equals(id));
                 result.CreateAt = result.CreateAt.Value.AddHours(-3);
                 if (result == null)
                     return null;
@@ -104,7 +104,7 @@ namespace Data.Repository
         {
             try
             {
-                var entityOriginal = await _dbSet.SingleOrDefaultAsync(i => i.Id == id);
+                var entityOriginal = await _dbSet.IgnoreQueryFilters().SingleOrDefaultAsync(i => i.Id == id);
 
                 if (entityOriginal == null)
                 {

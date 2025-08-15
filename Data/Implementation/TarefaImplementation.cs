@@ -53,7 +53,7 @@ namespace Data.Implementation
                 dataFim = dataFim == "null" ? null : dataFim;
                 descricao = descricao == "null" ? null : descricao;
 
-                var result = _dataSet.AsNoTracking().Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
+                var result = _dataSet.AsNoTracking().IgnoreQueryFilters().Include(s => s.Status).Include(p => p.Projeto).AsQueryable();
 
                 if (string.IsNullOrEmpty(descricao) && string.IsNullOrEmpty(dataInicio) && string.IsNullOrEmpty(dataFim) && !projetoId.HasValue)
                 {

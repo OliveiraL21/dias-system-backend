@@ -48,10 +48,10 @@ namespace Data.Context
             modelBuilder.Entity<ServicoEntity>(new ServicoMap().Configure);
             modelBuilder.Entity<ProdutoOrcamentoProjetoEntity>(new ProdutoOrcamentoProjetoMap().Configure);
 
-            modelBuilder.Entity<ProjetoEntity>().HasQueryFilter(x => x.Status.Descricao != "Bloquado" && 
+            modelBuilder.Entity<ProjetoEntity>().HasQueryFilter(x => x.Status.Descricao != "Bloqueado" && 
             x.Status.Descricao != "Inativo" && x.Status.Descricao != "Excluído");
 
-            modelBuilder.Entity<TarefaEntity>().HasQueryFilter(x => x.Status.Descricao != "Bloquado" &&
+            modelBuilder.Entity<TarefaEntity>().HasQueryFilter(x => x.Status.Descricao != "Bloqueado" &&
             x.Status.Descricao != "Inativo" && x.Status.Descricao != "Excluído");
      
 
