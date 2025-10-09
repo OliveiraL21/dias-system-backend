@@ -18,7 +18,7 @@ namespace Application.Controllers
             _clienteService = clienteService;
         }
 
-
+         
         [HttpGet]
         [Route("/filtrar")]
         [Authorize(Roles = "admin, regular")]
