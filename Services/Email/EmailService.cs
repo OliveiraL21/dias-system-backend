@@ -17,7 +17,7 @@ namespace Services.Email
         private string host = "smtp.gmail.com";
         private int port = 465;
         private string From = "gerenciadortarefas.dias@gmail.com";
-        private string Password = "nkdpgxsiqiyxdzwo";
+        private string Password = "tedtnheknlxnshsw";
 
 
         public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
