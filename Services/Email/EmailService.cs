@@ -20,9 +20,9 @@ namespace Services.Email
         private string Password = "tedtnheknlxnshsw";
 
 
-        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
+        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string baseUrl, string email = "")
         {
-            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, email);
+            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, baseUrl, email);
 
             var mensagemEmail = criarCorpoEmail(mensagem);
 

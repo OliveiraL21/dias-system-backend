@@ -7,7 +7,10 @@ using Domain.Services.Email;
 using Domain.Services.ResetaSenha;
 using Domain.Services.Usuarios;
 using FluentResults;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
@@ -28,14 +31,18 @@ namespace Services.Usuarios
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly IResetaSenha _resetSenhaService;
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _config;
 
 
-        public UsuarioService(IMapper mapper, UserManager<CustomIdentityUser> userManager, IEmailService emailService, IResetaSenha resetSenhaService)
+        public UsuarioService(IMapper mapper, UserManager<CustomIdentityUser> userManager, IEmailService emailService, IResetaSenha resetSenhaService, IWebHostEnvironment env, IConfiguration config)
         {
             _mapper = mapper;
             _userManager = userManager;
             _emailService = emailService;
             _resetSenhaService = resetSenhaService;
+            _env = env;
+            _config = config;
         }
 
         public async Task<Result> ativaUsuario(AtivaRequest request)
@@ -90,7 +97,16 @@ namespace Services.Usuarios
                 return Result.Fail("O nome de usuário já esta em uso por outro usuário do sistema");
             }
 
-            Task<IdentityResult> result = _userManager.CreateAsync(user, usuario.Password);
+            string baseUrl = "";
+            if (_env.IsDevelopment())
+            {
+                baseUrl = "https://localhost:4433";
+            } else
+            {
+                baseUrl = _config["ClientUrls:WebClientUrl"];
+            }
+
+                Task<IdentityResult> result = _userManager.CreateAsync(user, usuario.Password);
 
 
             if (result.Result.Succeeded)
@@ -108,7 +124,7 @@ namespace Services.Usuarios
 
                 //ENVIAR EMAIL
 
-                _emailService.EnviarEmail(destinatario, "Código de ativação", user.Id, user.NormalizedUserName, encodeCode, "Ativar Conta");
+                _emailService.EnviarEmail(destinatario, "Código de ativação", user.Id, user.NormalizedUserName, encodeCode, "Ativar Conta", baseUrl, usuario.Email);
                 return Result.Ok().WithSuccess(code);
             }
             return Result.Fail($"Erro ao tentar cadastrar o usuário");
