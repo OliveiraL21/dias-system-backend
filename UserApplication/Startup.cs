@@ -47,6 +47,9 @@ namespace UserApplication
 
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+            var serverConfigure = Configuration.GetSection("ServerConfiguration");
+            services.Configure<ServerConfiguration>(serverConfigure);
+
             services.AddControllers();
             services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8,0,38)),
                 mySqlOptionsAction: sqlOptions =>

@@ -2,6 +2,7 @@
 using Domain.Services.Email;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
 using System;
@@ -18,7 +19,12 @@ namespace Services.Email
         private int port = 465;
         private string From = "gerenciadortarefas.dias@gmail.com";
         private string Password = "nkdpgxsiqiyxdzwo";
+        private readonly ServerConfiguration _serverConfig;
 
+        public EmailService(IOptions<ServerConfiguration> options)
+        {
+            _serverConfig = options.Value;
+        }
 
         public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
         {
