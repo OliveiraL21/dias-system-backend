@@ -1,32 +1,16 @@
 using CrossCutting.DependencyInjection;
-using Data.Context;
+using CrossCutting.EnviromentConfiguration;
 using Domain.Entidades;
-using Domain.Services.Email;
-using Domain.Services.Login;
-using Domain.Services.ResetaSenha;
-using Domain.Services.Usuarios;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Services.Email;
-using Services.Login;
-using Services.ResetSenha;
-using Services.Usuarios;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserApplication.Context;
 
 namespace UserApplication
@@ -46,9 +30,7 @@ namespace UserApplication
         {
 
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-            var serverConfigure = Configuration.GetSection("ServerConfiguration");
-            services.Configure<ServerConfiguration>(serverConfigure);
+            EnviromentConfigurations.ConfigureDevelopmentEnvironment(services, Configuration);
 
             services.AddControllers();
             services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8,0,38)),

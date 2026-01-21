@@ -21,6 +21,7 @@ namespace Services.Email
         private string Password = "nkdpgxsiqiyxdzwo";
         private readonly ServerConfiguration _serverConfig;
 
+
         public EmailService(IOptions<ServerConfiguration> options)
         {
             _serverConfig = options.Value;
@@ -28,7 +29,9 @@ namespace Services.Email
 
         public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
         {
-            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, email);
+            string link = $"{_serverConfig.ServerUrl}/ativa?usuarioId={usuarioId}&codigoAtivacao={codigoAtivacao}";
+            string linkResetSenha = $"{_serverConfig.ServerUrl}/redefinirSenha/{usuarioId}/{email}/{codigoAtivacao}";
+            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, link, linkResetSenha, email);
 
             var mensagemEmail = criarCorpoEmail(mensagem);
 
