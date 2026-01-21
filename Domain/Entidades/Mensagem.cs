@@ -22,7 +22,7 @@ namespace Domain.Entidades
 
         public string PageTitle { get; set; }
         public string LinkAtivacao { get; set; }
-        public string LinkAtivacao { get; set; }
+        public string LinkAtivacaoResetSenha { get; set; }
 
         public Mensagem(IEnumerable<Destinatario> destinatarios, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
         {
