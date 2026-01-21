@@ -18,7 +18,7 @@ namespace Services.Email
         private string host = "smtp.gmail.com";
         private int port = 465;
         private string From = "gerenciadortarefas.dias@gmail.com";
-        private string Password = "nkdpgxsiqiyxdzwo";
+        private string Password = "lpbgxwaxpfvnwgwp";
         private readonly ServerConfiguration _serverConfig;
 
 
@@ -31,7 +31,7 @@ namespace Services.Email
         {
             string link = $"{_serverConfig.ServerUrl}/ativa?usuarioId={usuarioId}&codigoAtivacao={codigoAtivacao}";
             string linkResetSenha = $"{_serverConfig.ServerUrl}/redefinirSenha/{usuarioId}/{email}/{codigoAtivacao}";
-            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, link, linkResetSenha, email);
+            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId, username, codigoAtivacao, pageTitle, link, linkResetSenha, email);
 
             var mensagemEmail = criarCorpoEmail(mensagem);
 
@@ -44,12 +44,12 @@ namespace Services.Email
             {
                 try
                 {
-                    client.Connect(host, port , true);
-                   
+                    client.Connect(host, port, true);
+
                     client.Authenticate(From, Password);
                     client.Send(mensagemEmail);
                 }
-                catch 
+                catch
                 {
                     throw;
                 }

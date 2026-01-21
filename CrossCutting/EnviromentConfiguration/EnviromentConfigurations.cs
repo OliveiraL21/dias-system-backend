@@ -19,7 +19,7 @@ namespace CrossCutting.EnviromentConfiguration
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    serverConfig.ServerUrl = "http://localhost:50001";
+                    serverConfig.ServerUrl = "http://localhost:6001";
                 }
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
