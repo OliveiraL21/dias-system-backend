@@ -16,7 +16,7 @@ using UserApplication.Context;
 namespace UserApplication
 {
     public class Startup
-    {   
+    {
 
         public Startup(IConfiguration configuration)
         {
@@ -33,7 +33,7 @@ namespace UserApplication
             EnviromentConfigurations.ConfigureDevelopmentEnvironment(services, Configuration);
 
             services.AddControllers();
-            services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8,0,38)),
+            services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8, 0, 38)),
                 mySqlOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure(
@@ -42,7 +42,7 @@ namespace UserApplication
                         errorNumbersToAdd: null);
                 }
                 ));
-           
+
             services.AddIdentity<CustomIdentityUser, IdentityRole<Guid>>(opt =>
             {
                 opt.SignIn.RequireConfirmedEmail = true;
@@ -63,7 +63,7 @@ namespace UserApplication
                                       policy.AllowAnyOrigin();
                                       policy.AllowAnyHeader();
                                       policy.AllowAnyMethod();
-                                      
+
                                   });
             });
 
@@ -108,7 +108,7 @@ namespace UserApplication
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserApplication v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "UserApplication v1"));
             }
 
             app.UseCors(MyAllowSpecificOrigins);

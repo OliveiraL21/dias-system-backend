@@ -159,7 +159,7 @@ namespace Application
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/application/swagger/v1/swagger.json", "Application v1"));
             }
 
             app.UseHttpsRedirection();
