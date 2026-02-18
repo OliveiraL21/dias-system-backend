@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UserApplication.Context;
 
 namespace UserApplication
@@ -108,7 +109,15 @@ namespace UserApplication
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "UserApplication v1"));
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "UserApplication v1"));
+                }
+                else
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserApplication v1"));
+                }
+               
             }
 
             app.UseCors(MyAllowSpecificOrigins);
