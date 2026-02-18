@@ -33,6 +33,7 @@ using Services.Tarefas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -159,7 +160,14 @@ namespace Application
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/application/swagger/v1/swagger.json", "Application v1"));
+                } else
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
+                }
+                
             }
 
             app.UseHttpsRedirection();

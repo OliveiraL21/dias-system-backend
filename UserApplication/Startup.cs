@@ -1,38 +1,23 @@
 using CrossCutting.DependencyInjection;
-using Data.Context;
+using CrossCutting.EnviromentConfiguration;
 using Domain.Entidades;
-using Domain.Services.Email;
-using Domain.Services.Login;
-using Domain.Services.ResetaSenha;
-using Domain.Services.Usuarios;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Services.Email;
-using Services.Login;
-using Services.ResetSenha;
-using Services.Usuarios;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using UserApplication.Context;
 
 namespace UserApplication
 {
     public class Startup
-    {   
+    {
 
         public Startup(IConfiguration configuration)
         {
@@ -46,9 +31,10 @@ namespace UserApplication
         {
 
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            EnviromentConfigurations.ConfigureDevelopmentEnvironment(services, Configuration);
 
             services.AddControllers();
-            services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8,0,38)),
+            services.AddTransient<UserDbContext>().AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("UserConnection"), new MySqlServerVersion(new Version(8, 0, 38)),
                 mySqlOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure(
@@ -57,7 +43,7 @@ namespace UserApplication
                         errorNumbersToAdd: null);
                 }
                 ));
-           
+
             services.AddIdentity<CustomIdentityUser, IdentityRole<Guid>>(opt =>
             {
                 opt.SignIn.RequireConfirmedEmail = true;
@@ -78,7 +64,7 @@ namespace UserApplication
                                       policy.AllowAnyOrigin();
                                       policy.AllowAnyHeader();
                                       policy.AllowAnyMethod();
-                                      
+
                                   });
             });
 
@@ -123,7 +109,15 @@ namespace UserApplication
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserApplication v1"));
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "UserApplication v1"));
+                }
+                else
+                {
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserApplication v1"));
+                }
+               
             }
 
             app.UseCors(MyAllowSpecificOrigins);

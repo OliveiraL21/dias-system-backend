@@ -2,6 +2,7 @@
 using Domain.Services.Email;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
 using System;
@@ -17,12 +18,20 @@ namespace Services.Email
         private string host = "smtp.gmail.com";
         private int port = 465;
         private string From = "gerenciadortarefas.dias@gmail.com";
-        private string Password = "tedtnheknlxnshsw";
+        private string Password = "lpbgxwaxpfvnwgwp";
+        private readonly ServerConfiguration _serverConfig;
 
 
-        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string baseUrl, string email = "")
+        public EmailService(IOptions<ServerConfiguration> options)
         {
-            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId,username, codigoAtivacao, pageTitle, baseUrl, email);
+            _serverConfig = options.Value;
+        }
+
+        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
+        {
+            string link = $"{_serverConfig.ServerUrl}/ativa?usuarioId={usuarioId}&codigoAtivacao={codigoAtivacao}";
+            string linkResetSenha = $"{_serverConfig.ServerUrl}/redefinirSenha/{usuarioId}/{email}/{codigoAtivacao}";
+            Mensagem mensagem = new Mensagem(destinatario, assunto, usuarioId, username, codigoAtivacao, pageTitle, link, linkResetSenha, email);
 
             var mensagemEmail = criarCorpoEmail(mensagem);
 
@@ -35,12 +44,12 @@ namespace Services.Email
             {
                 try
                 {
-                    client.Connect(host, port , true);
-                   
+                    client.Connect(host, port, true);
+
                     client.Authenticate(From, Password);
                     client.Send(mensagemEmail);
                 }
-                catch 
+                catch
                 {
                     throw;
                 }
