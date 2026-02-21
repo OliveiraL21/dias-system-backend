@@ -27,7 +27,7 @@ namespace Services.Email
             _serverConfig = options.Value;
         }
 
-        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string email = "")
+        public void EnviarEmail(List<Destinatario> destinatario, string assunto, Guid usuarioId, string username, string codigoAtivacao, string pageTitle, string baseUrl, string email = "")
         {
             string link = $"{_serverConfig.ServerUrl}/ativa?usuarioId={usuarioId}&codigoAtivacao={codigoAtivacao}";
             string linkResetSenha = $"{_serverConfig.ServerUrl}/redefinirSenha/{usuarioId}/{email}/{codigoAtivacao}";
@@ -77,5 +77,7 @@ namespace Services.Email
 
             return mensagemEmail;
         }
+
+        
     }
 }
