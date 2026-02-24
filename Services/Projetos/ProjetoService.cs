@@ -25,6 +25,11 @@ namespace Services.Projetos
             _mapper = mapper;
         }
 
+        public Task<string> CalculateTotalProjectHours(Guid id)
+        {
+           return _repository.CalculateTotalProjectHours(id);
+        }
+
         public async Task<bool> DeleteAsync(Guid id)
         {
             return await _repository.DeleteAsync(id);

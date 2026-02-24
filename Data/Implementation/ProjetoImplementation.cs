@@ -20,6 +20,29 @@ namespace Data.Implementation
             _dataSet = context.Set<ProjetoEntity>();
         }
 
+        public async Task<string> CalculateTotalProjectHours(Guid id)
+        {
+            try
+            {
+                var projeto = await _dataSet.AsNoTracking()
+                    .IgnoreQueryFilters()
+                    .Include(p => p.Tarefas)
+                    .SingleOrDefaultAsync(x => x.Id == id);
+
+                TimeSpan totalHora = TimeSpan.Zero;
+                foreach (var tarefa in projeto.Tarefas)
+                {
+                    totalHora += tarefa.Duracao.TimeOfDay;
+                }
+                var hour = (int)totalHora.TotalHours;
+                var minute = totalHora.Minutes;
+                return $"{hour}:{minute}";
+            } catch
+            {
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<ProjetoEntity>> GetAllDashboardProjects()
         {
             try

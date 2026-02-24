@@ -16,5 +16,6 @@ namespace Domain.Repositories
         Task<IEnumerable<ProjetoEntity>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId);
         Task<IEnumerable<ProjetoEntity>> GetAll();
         Task<IEnumerable<ProjetoEntity>> GetAllDashboardProjects();
+        Task<string> CalculateTotalProjectHours(Guid id);
     }
 }

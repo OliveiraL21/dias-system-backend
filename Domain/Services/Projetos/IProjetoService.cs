@@ -19,5 +19,6 @@ namespace Domain.Services.Projetos
         Task<IEnumerable<ProjetoDtoListagem>> FiltrarAsync(Guid? projeto, Guid? clienteId, Guid? statusId);
         Task<IEnumerable<ProjetoDtoListagem>> GetAllAsync();
         Task<IEnumerable<ProjetoDtoListagem>> GetAllDashboardAsync();
+        Task<string> CalculateTotalProjectHours(Guid id);
     }
 }

@@ -58,14 +58,15 @@ namespace Application.Controllers
 
                 var result = await _service.GetAllDashboardAsync();
 
-                if(result.Count() == 0)
+                if (result.Count() == 0)
                 {
                     return NotFound("Nenhum projeto encontrado, cadastre um projeto!");
                 }
 
                 return Ok(result);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
@@ -228,6 +229,34 @@ namespace Application.Controllers
                 }
 
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("calculateTotalHourProject/{id}")]
+        [Authorize(Roles = "admin, regular")]
+        public async Task<IActionResult> CalculateTotalHourProject(Guid id)
+        {
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return NotFound();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                var result = await _service.CalculateTotalProjectHours(id);
+                if (result == null)
+                {
+                    return BadRequest(result);
+                }
+                return Ok(new { total = result });
             }
             catch (Exception ex)
             {
