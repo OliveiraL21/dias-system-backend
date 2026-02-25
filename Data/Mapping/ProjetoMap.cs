@@ -24,6 +24,7 @@ namespace Data.Mapping
             builder.Property(x => x.TotalHoras);
             builder.Property(x => x.ValorTotalProjeto);
             builder.Property(x => x.ValorTotalParcial);
+            builder.Property(x => x.ValorHora).IsRequired();
 
             builder.HasOne(x => x.Cliente).WithMany(c => c.Projetos).HasForeignKey(x => x.ClienteId);
             builder.HasOne(x => x.Status).WithMany(s => s.Projetos).HasForeignKey(x => x.StatusId);

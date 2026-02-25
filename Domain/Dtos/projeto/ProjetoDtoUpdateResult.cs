@@ -18,6 +18,8 @@ namespace Domain.Dtos.projeto
 
         public string DataFim { get; set; }
 
+        public double ValorHora { get; set; }
+
         public StatusDto Status { get; set; }
 
         public ClienteDto Cliente { get; set; }

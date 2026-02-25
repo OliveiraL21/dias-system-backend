@@ -33,6 +33,15 @@ namespace Domain.Models
 			set { _dataFim = value; }
 		}
 
+		private double _valorHora;
+
+		public double ValorHora
+		{
+			get { return _valorHora; }
+			set { _valorHora = value; }
+		}
+
+
 		private Guid _statusId;
 
 		public Guid StatusId
