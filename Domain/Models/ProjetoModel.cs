@@ -25,9 +25,9 @@ namespace Domain.Models
 			set { _dataInicio = value; }
 		}
 
-		private DateTime _dataFim;
+		private DateTime? _dataFim;
 
-		public DateTime DataFim
+		public DateTime? DataFim
 		{
 			get { return _dataFim; }
 			set { _dataFim = value; }

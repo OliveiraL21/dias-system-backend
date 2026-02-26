@@ -72,6 +72,10 @@ namespace Services.Projetos
         public async Task<ProjetoDtoUpdateResult> UpdateAsync(Guid id, ProjetoDtoUpdate projeto)
         {
             projeto.Id = id;
+            if(projeto.Status.Descricao == "Finalizado")
+            {
+                projeto.DataFim = DateTimeOffset.Now.ToString("yyyy-MM-dd");
+            }
             var model = _mapper.Map<ProjetoModel>(projeto);
             var entity = _mapper.Map<ProjetoEntity>(model);
             return _mapper.Map<ProjetoDtoUpdateResult>(await _repository.UpdateAsync(id, entity));

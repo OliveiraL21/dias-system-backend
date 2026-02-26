@@ -20,7 +20,7 @@ namespace Data.Mapping
 
             builder.Property(x => x.Descricao).IsRequired().HasMaxLength(200);
             builder.Property(x => x.DataInicio).IsRequired();
-            builder.Property(x => x.DataFim).IsRequired();
+            builder.Property(x => x.DataFim);
             builder.Property(x => x.TotalHoras);
             builder.Property(x => x.ValorTotalProjeto);
             builder.Property(x => x.ValorTotalParcial);

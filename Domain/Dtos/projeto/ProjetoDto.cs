@@ -14,7 +14,7 @@ namespace Domain.Dtos.projeto
         public Guid Id { get; set; }
         public string Descricao { get; set; }
         public string DataInicio { get; set; }
-        public string DataFim { get; set; }
+        public string? DataFim { get; set; }
         public double ValorHora { get; set; }
         public StatusDto Status { get; set; }
         public ClienteDto Cliente { get; set; }

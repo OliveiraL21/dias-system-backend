@@ -16,7 +16,7 @@ namespace Domain.Dtos.projeto
 
         public string DataInicio { get; set; }
 
-        public string DataFim { get; set; }
+        public string? DataFim { get; set; }
 
         public double ValorHora { get; set; }
 

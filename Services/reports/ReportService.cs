@@ -46,12 +46,12 @@ namespace Services.reports
             return totalHora;
         }
 
-        private double CalcularValorDoProjeto(double totalHoras)
+        private double CalcularValorDoProjeto(double totalHoras, double valorHora)
         {
             if (totalHoras > 0)
             {
                 double total = 0;
-                total = totalHoras * 50;
+                total = totalHoras * valorHora;
                 return total;
             }
             return 0;
@@ -141,7 +141,7 @@ namespace Services.reports
                 var hour = (int)timeTotal.TotalHours;
                 var minute = timeTotal.Minutes;
                 projeto.TotalHoras = $"{hour:D2}:{minute:D2}";
-                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours);
+                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours, projeto.ValorHora);
 
                 var webReport = HelperFastReport.WebReport("reports\\relatorio-servicos-prestados.frx");
 
@@ -180,7 +180,7 @@ namespace Services.reports
                 var hour = (int)timeTotal.TotalHours;
                 var minute = timeTotal.Minutes;
                 projeto.TotalHoras = $"{hour:D2}:{minute:D2}";
-                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours);
+                projeto.ValorTotalProjeto = CalcularValorDoProjeto(timeTotal.TotalHours, projeto.ValorHora);
 
                 var webReport = HelperFastReport.WebReport("reports\\relatorio-servicos-prestados-periodo.frx");
 
